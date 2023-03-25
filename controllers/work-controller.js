@@ -7,7 +7,7 @@ const MOMENT = require('moment')
 exports.getAllWorkByProjectId = async (req,res) => {
     try {
         let id = req.params.id  
-        console.log(id);
+        // console.log(id);
         let datas = []
         let works = await WORK.find({
             projectId:id
@@ -15,8 +15,9 @@ exports.getAllWorkByProjectId = async (req,res) => {
         for ( i of works) {
             let team = await TEAM.findById(i.teamId)
             console.log(i);
-            console.log(team);
+            console.log("team", team);
             let data = {
+                _id: i._id,
                 name: i.name,
                 status: i.status,
                 startTime: i.startTime,

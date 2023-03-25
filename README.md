@@ -259,29 +259,16 @@
     ```json
     [
         {
+            "_id": "641eb30abb721b7cdd8cbf30",
             "team": "Team 2",
             "leaderName": "Nguyễn Đức Phuong",
             "works": "Demo work"
         },
         {
+            "_id": "641eb315bb721b7cdd8cbf32",
             "team": "Team 1",
             "leaderName": "Nguyễn Đức Phuong",
             "works": "Test change name 1"
-        },
-        {
-            "team": "Team 1",
-            "leaderName": "Nguyễn Đức Phuong",
-            "works": "Work 2"
-        },
-        {
-            "team": "Team 1",
-            "leaderName": "Nguyễn Đức Phuong",
-            "works": "Work 2"
-        },
-        {
-            "team": "Team 1",
-            "leaderName": "Nguyễn Đức Phuong",
-            "works": "Work 2"
         }
     ]
     ```
@@ -574,8 +561,9 @@
     ```json
     [
         {
-            "name": "Test change name 1",
-            "status": true,
+            "_id": "641eca7e1719488051e48de7",
+            "name": "Work 2",
+            "status": false,
             "startTime": "2001-03-22T17:00:00.000Z",
             "endTime": "2002-03-22T17:00:00.000Z",
             "teamId": "641eb315bb721b7cdd8cbf32",
@@ -584,6 +572,7 @@
             "teamName": "Team 1"
         },
         {
+            "_id": "641ecaaaa4524814a198f0c3",
             "name": "Work 2",
             "status": false,
             "startTime": "2001-03-22T17:00:00.000Z",
