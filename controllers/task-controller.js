@@ -34,6 +34,7 @@ exports.getAllTaskByIdProject = async (req, res) => {
                     "startHour": j.startHour,
                     "endHour": j.endHour,
                     "imageLink": j.imageLink,
+                    "workId":work.id,
                     "workName": work.name,
                     "members": members,
                     "status": j.status,
