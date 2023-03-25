@@ -259,50 +259,83 @@
     ```json
     [
         {
-            "_id": "641eb30abb721b7cdd8cbf30",
-            "name": "Team 2",
-            "createId": "641eb246bb721b7cdd8cbf1f",
-            "leaderId": "641eb25bbb721b7cdd8cbf2b",
-            "members": [
-                "641eb24fbb721b7cdd8cbf25",
-                "641eb25bbb721b7cdd8cbf2b"
-            ],
-            "status": true,
-            "__v": 0
+            "team": "Team 2",
+            "leaderName": "Nguyễn Đức Phuong",
+            "works": "Demo work"
         },
         {
-            "_id": "641eb315bb721b7cdd8cbf32",
-            "name": "Team 1",
-            "createId": "641eb246bb721b7cdd8cbf1f",
-            "leaderId": "641eb25bbb721b7cdd8cbf2b",
-            "members": [
-                "641eb24fbb721b7cdd8cbf25",
-                "641eb25bbb721b7cdd8cbf2b"
-            ],
-            "status": true,
-            "__v": 0
+            "team": "Team 1",
+            "leaderName": "Nguyễn Đức Phuong",
+            "works": "Test change name 1"
         },
         {
-            "_id": "641eb335bb721b7cdd8cbf34",
-            "name": "Project Owner",
-            "leaderId": "641eb246bb721b7cdd8cbf1f",
-            "members": [
-                "641eb246bb721b7cdd8cbf1f"
-            ],
-            "__v": 0
+            "team": "Team 1",
+            "leaderName": "Nguyễn Đức Phuong",
+            "works": "Work 2"
+        },
+        {
+            "team": "Team 1",
+            "leaderName": "Nguyễn Đức Phuong",
+            "works": "Work 2"
+        },
+        {
+            "team": "Team 1",
+            "leaderName": "Nguyễn Đức Phuong",
+            "works": "Work 2"
         }
     ]
     ```
 - getAllMemberOfIdProject:
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/teams/members/641ba3f0efd24fc581820aba
+    - Api: **GET**:    https://ptask.cyclic.app/api/v1/teams/members-project/641ba3f0efd24fc581820aba
     - Reponse
     ```json
     [
-        "641ba31887b485c176a160ba",
-        "641ba30d87b485c176a160b4",
-        "641ba31887b485c176a160ba",
-        "641ba30d87b485c176a160b4",
-        "641ba2cf87b485c176a160ae"
+        {
+            "teamName": "Team 2",
+            "name": "Nguyễn Đức Hung",
+            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+            "task": [
+                "task 1",
+                "task 2"
+            ]
+        },
+        {
+            "teamName": "Team 2",
+            "name": "Nguyễn Đức Phuong",
+            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+            "task": []
+        }
+    ]
+    ```
+- getAllMemberOfTeam:
+    - Api: **GET**:    https://ptask.cyclic.app/api/v1/teams/members-team/641ba3f0efd24fc581820aba
+    - Reponse
+    ```json
+    [
+        {
+            "_id": "641eb24fbb721b7cdd8cbf25",
+            "fullName": "Nguyễn Đức Hung",
+            "birthday": "2000-02-28T17:00:00.000Z",
+            "address": "12 Nguyễn Văn Bảo, Gò vấp, TP HCM",
+            "phoneNumber": 912345888,
+            "gender": false,
+            "status": true,
+            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+            "accountId": "641eb24fbb721b7cdd8cbf23",
+            "__v": 0
+        },
+        {
+            "_id": "641eb25bbb721b7cdd8cbf2b",
+            "fullName": "Nguyễn Đức Phuong",
+            "birthday": "2000-02-28T17:00:00.000Z",
+            "address": "12 Nguyễn Văn Bảo, Gò vấp, TP HCM",
+            "phoneNumber": 912341888,
+            "gender": false,
+            "status": true,
+            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+            "accountId": "641eb25bbb721b7cdd8cbf29",
+            "__v": 0
+        }
     ]
     ```
 - getAllTeamOfUser:
@@ -541,25 +574,24 @@
     ```json
     [
         {
-            "_id": "6407447d95b5b542e6bc7e0d",
-            "name": "name 2",
-            "status": false,
-            "projectId": "63f4836e4986d4991247715a",
-            "__v": 0
+            "name": "Test change name 1",
+            "status": true,
+            "startTime": "2001-03-22T17:00:00.000Z",
+            "endTime": "2002-03-22T17:00:00.000Z",
+            "teamId": "641eb315bb721b7cdd8cbf32",
+            "createId": "641eb25bbb721b7cdd8cbf2b",
+            "projectId": "641eb335bb721b7cdd8cbf36",
+            "teamName": "Team 1"
         },
         {
-            "_id": "6407448095b5b542e6bc7e0f",
-            "name": "name 2",
+            "name": "Work 2",
             "status": false,
-            "projectId": "63f4836e4986d4991247715a",
-            "__v": 0
-        },
-        {
-            "_id": "6407448195b5b542e6bc7e11",
-            "name": "name 2",
-            "status": false,
-            "projectId": "63f4836e4986d4991247715a",
-            "__v": 0
+            "startTime": "2001-03-22T17:00:00.000Z",
+            "endTime": "2002-03-22T17:00:00.000Z",
+            "teamId": "641eb315bb721b7cdd8cbf32",
+            "createId": "641eb25bbb721b7cdd8cbf2b",
+            "projectId": "641eb335bb721b7cdd8cbf36",
+            "teamName": "Team 1"
         }
     ]
     ```
@@ -713,62 +745,14 @@
     ```json
     [
         {
-            "_id": "641eb81187c02b20789b3637",
-            "name": "task test update",
+            "_id": "641f0759e0289a292bde5e1c",
+            "name": "task 1",
             "startDay": "2001-03-22T17:00:00.000Z",
+            "endDay": "2010-03-22T17:00:00.000Z",
             "startHour": "9:00",
+            "endHour": "16:00",
             "imageLink": "ABC",
-            "workName": "Test change name 1",
-            "members": [
-                {
-                    "name": "Nguyễn Đức Hung",
-                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
-                }
-            ],
-            "status": 3,
-            "linkSupports": [],
-            "__v": 0
-        },
-        {
-            "_id": "641eb81387c02b20789b3639",
-            "name": "task 2",
-            "startDay": "2001-03-22T17:00:00.000Z",
-            "startHour": "9:00",
-            "imageLink": "ABC",
-            "workName": "Test change name 1",
-            "members": [
-                {
-                    "name": "Nguyễn Đức Hung",
-                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
-                }
-            ],
-            "status": 3,
-            "linkSupports": [],
-            "__v": 0
-        },
-        {
-            "_id": "641eb81687c02b20789b363b",
-            "name": "task 3",
-            "startDay": "2001-03-22T17:00:00.000Z",
-            "startHour": "9:00",
-            "imageLink": "ABC",
-            "workName": "Test change name 1",
-            "members": [
-                {
-                    "name": "Nguyễn Đức Hung",
-                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
-                }
-            ],
-            "status": 3,
-            "linkSupports": [],
-            "__v": 0
-        },
-        {
-            "_id": "641eb81c87c02b20789b363d",
-            "name": "task 2",
-            "startDay": "2001-03-22T17:00:00.000Z",
-            "startHour": "9:00",
-            "imageLink": "ABC",
+            "workId": "641eb80287c02b20789b3635",
             "workName": "Work 2",
             "members": [
                 {
@@ -781,11 +765,14 @@
             "__v": 0
         },
         {
-            "_id": "641eb81f87c02b20789b363f",
-            "name": "task 1",
+            "_id": "641f075fe0289a292bde5e1e",
+            "name": "task 2",
             "startDay": "2001-03-22T17:00:00.000Z",
+            "endDay": "2010-03-22T17:00:00.000Z",
             "startHour": "9:00",
+            "endHour": "16:00",
             "imageLink": "ABC",
+            "workId": "641eb80287c02b20789b3635",
             "workName": "Work 2",
             "members": [
                 {
