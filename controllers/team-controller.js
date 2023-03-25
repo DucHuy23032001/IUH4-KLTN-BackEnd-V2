@@ -19,6 +19,7 @@ exports.getAllTeamByIdProject = async (req, res) => {
             })
             for(j of works){
                 let data = {
+                    _id: team.id,
                     team: team.name,
                     leaderName: user.fullName,
                     works:j.name
