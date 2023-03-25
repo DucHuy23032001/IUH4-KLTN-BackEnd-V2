@@ -1,5 +1,6 @@
 const TASK = require('../models/task')
 const WORK = require('../models/work')
+const USER  = require('../models/user')
 const MOMENT = require('moment')
 
 //done
@@ -15,7 +16,31 @@ exports.getAllTaskByIdProject = async (req, res) => {
                 workId: i._id
             })
             for (j of tasks) {
-                data.push(j)
+                let work = await WORK.findById(j.workId)
+                let members = []
+                for( f of j.members) {
+                    let user = await USER.findById(f)
+                    let info = {
+                        "name": user.fullName,
+                        "avatar": user.avatar
+                    }
+                    members.push(info)
+                }
+                let item = {
+                    "_id": j._id,
+                    "name": j.name,
+                    "startDay": j.startDay,
+                    "endDay": j.endDay,
+                    "startHour": j.startHour,
+                    "endHour": j.endHour,
+                    "imageLink": j.imageLink,
+                    "workName": work.name,
+                    "members": members,
+                    "status": j.status,
+                    "linkSupports": [],
+                    "__v": 0
+                }
+                data.push(item)
             }
             // console.log(tasks);
         }

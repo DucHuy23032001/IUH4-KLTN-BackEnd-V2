@@ -713,32 +713,85 @@
     ```json
     [
         {
-            "_id": "641d8afa0c7438d1c496a16b",
-            "name": "task 1",
+            "_id": "641eb81187c02b20789b3637",
+            "name": "task test update",
             "startDay": "2001-03-22T17:00:00.000Z",
-            "endDay": "2010-03-22T17:00:00.000Z",
             "startHour": "9:00",
-            "endHour": "16:00",
             "imageLink": "ABC",
-            "workId": "641d8aa80c7438d1c496a167",
+            "workName": "Test change name 1",
             "members": [
-                "641ba30d87b485c176a160b4"
+                {
+                    "name": "Nguyễn Đức Hung",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
+                }
             ],
             "status": 3,
             "linkSupports": [],
             "__v": 0
         },
         {
-            "_id": "641d8afd0c7438d1c496a16d",
+            "_id": "641eb81387c02b20789b3639",
             "name": "task 2",
             "startDay": "2001-03-22T17:00:00.000Z",
-            "endDay": "2010-03-22T17:00:00.000Z",
             "startHour": "9:00",
-            "endHour": "16:00",
             "imageLink": "ABC",
-            "workId": "641d8aa80c7438d1c496a167",
+            "workName": "Test change name 1",
             "members": [
-                "641ba30d87b485c176a160b4"
+                {
+                    "name": "Nguyễn Đức Hung",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
+                }
+            ],
+            "status": 3,
+            "linkSupports": [],
+            "__v": 0
+        },
+        {
+            "_id": "641eb81687c02b20789b363b",
+            "name": "task 3",
+            "startDay": "2001-03-22T17:00:00.000Z",
+            "startHour": "9:00",
+            "imageLink": "ABC",
+            "workName": "Test change name 1",
+            "members": [
+                {
+                    "name": "Nguyễn Đức Hung",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
+                }
+            ],
+            "status": 3,
+            "linkSupports": [],
+            "__v": 0
+        },
+        {
+            "_id": "641eb81c87c02b20789b363d",
+            "name": "task 2",
+            "startDay": "2001-03-22T17:00:00.000Z",
+            "startHour": "9:00",
+            "imageLink": "ABC",
+            "workName": "Work 2",
+            "members": [
+                {
+                    "name": "Nguyễn Đức Hung",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
+                }
+            ],
+            "status": 3,
+            "linkSupports": [],
+            "__v": 0
+        },
+        {
+            "_id": "641eb81f87c02b20789b363f",
+            "name": "task 1",
+            "startDay": "2001-03-22T17:00:00.000Z",
+            "startHour": "9:00",
+            "imageLink": "ABC",
+            "workName": "Work 2",
+            "members": [
+                {
+                    "name": "Nguyễn Đức Hung",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
+                }
             ],
             "status": 3,
             "linkSupports": [],
