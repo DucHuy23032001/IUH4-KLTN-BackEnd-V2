@@ -54,6 +54,7 @@ exports.getAllMemberByIdProject = async (req, res) => {
                     taskJ.push(k.name)
                 }
                 let item = {
+                    _id: j,
                     teamName:team.name,
                     name: user.fullName,
                     avatar: user.avatar,
