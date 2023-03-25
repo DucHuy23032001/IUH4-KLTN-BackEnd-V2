@@ -254,7 +254,7 @@
     ```
 ## Team
 - getAllTeamOfIdProject:
-    - Api: **GET**:    hhttp://localhost:3000/api/v1/teams/teams/641eb335bb721b7cdd8cbf36
+    - Api: **GET**:    hhttps://ptask.cyclic.app/api/v1/teams/teams/641eb335bb721b7cdd8cbf36
     - Reponse
     ```json
     [
@@ -294,7 +294,7 @@
     ]
     ```
 - getAllMemberOfIdProject:
-    - Api: **GET**:    http://localhost:3000/api/v1/teams/members/641ba3f0efd24fc581820aba
+    - Api: **GET**:    https://ptask.cyclic.app/api/v1/teams/members/641ba3f0efd24fc581820aba
     - Reponse
     ```json
     [
@@ -564,7 +564,7 @@
     ]
     ```
 - getWorkByName:
-    - Api: **GET**:    http://localhost:3000/api/v1/works/name/Work 2
+    - Api: **GET**:    https://ptask.cyclic.app/api/v1/works/name/Work 2
     - Reponse
     ```json
     [
@@ -582,7 +582,7 @@
     ]
     ```
 - getWorkById:
-    - Api: **GET**:    http://localhost:3000/api/v1/works/641eb80287c02b20789b3635
+    - Api: **GET**:    https://ptask.cyclic.app/api/v1/works/641eb80287c02b20789b3635
     - Reponse
     ```json
     [
@@ -600,7 +600,7 @@
     ]
     ```
 - createWork
-    - Api: **POST**:    http://localhost:3000/api/v1/works/
+    - Api: **POST**:    https://ptask.cyclic.app/api/v1/works/
     - Request
     ```json
     {
@@ -627,7 +627,7 @@
     }
     ```
 - changeNameWork
-    - Api: **PATCH**:    http://localhost:3000/api/v1/works/change-name/641eb353bb721b7cdd8cbf38
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/works/change-name/641eb353bb721b7cdd8cbf38
     - Request
     ```json
     {
@@ -650,7 +650,7 @@
     }
     ```
 - changeStatusWork
-    - Api: **PATCH**:    http://localhost:3000/api/v1/works/change-status/641eb353bb721b7cdd8cbf38
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/works/change-status/641eb353bb721b7cdd8cbf38
     - Request
     ```json
     {
@@ -708,7 +708,7 @@
     }
     ```
 - getAllTaskInProject (by Id project)
-    - Api: **GET**:    http://localhost:3000/api/v1/tasks/get-task-in-project/641ba3f0efd24fc581820aba
+    - Api: **GET**:    https://ptask.cyclic.app/api/v1/tasks/get-task-in-project/641ba3f0efd24fc581820aba
     - Reponse
     ```json
     [
@@ -851,7 +851,7 @@
     ]
     ```
 - updateTask
-    - Api: **PATCH**:    http://localhost:3000/api/v1/tasks/update/63f48c272df79e949fe9243b
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/tasks/update/63f48c272df79e949fe9243b
     - Request
     ```json
     {
