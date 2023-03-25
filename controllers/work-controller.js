@@ -1,15 +1,35 @@
 const WORK = require('../models/work')
 const TASK = require('../models/task')
+const TEAM = require('../models/team')
 const MOMENT = require('moment')
 
 //done
 exports.getAllWorkByProjectId = async (req,res) => {
     try {
         let id = req.params.id  
+        console.log(id);
+        let datas = []
         let works = await WORK.find({
             projectId:id
         })
-        return res.status(200).json(works)
+        for ( i of works) {
+            let team = await TEAM.findById(i.teamId)
+            console.log(i);
+            console.log(team);
+            let data = {
+                name: i.name,
+                status: i.status,
+                startTime: i.startTime,
+                endTime: i.endTime,
+                teamId: i.teamId,
+                createId: i.createId,
+                projectId: i.projectId,
+                teamName: team.name
+            }
+            console.log(data);
+            datas.push(data)
+        }
+        return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json(error)
     }
@@ -47,7 +67,7 @@ exports.createWork = async (req,res) => {
         let {name, projectId, startTime, endTime, createId, teamId} = req.body
         let start = MOMENT(startTime,"MM-DD-YYYY")      
         let end = MOMENT(endTime,"MM-DD-YYYY")   
-        let project = await WORK.create({
+        let work = await WORK.create({
             teamId:teamId,
             status:false,
             createId:createId,
@@ -56,7 +76,7 @@ exports.createWork = async (req,res) => {
             startTime:start,
             endTime:end
         })
-        return res.status(200).json(project)
+        return res.status(200).json(work)
     } catch (error) {
         return res.status(500).json(error)
     }

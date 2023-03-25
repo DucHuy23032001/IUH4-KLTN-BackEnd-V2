@@ -3,7 +3,9 @@ const teamController = require('../controllers/team-controller')
 
 ROUTER.get('/:id',teamController.getAllTeamOfUser)
 ROUTER.get('/teams/:id',teamController.getAllTeamByIdProject)
-ROUTER.get('/members/:id',teamController.getAllMemberByIdProject)
+ROUTER.get('/members-project/:id',teamController.getAllMemberByIdProject)
+ROUTER.get('/members-team/:id',teamController.getAllMemberOfTeam)
+
 
 ROUTER.post('/create',teamController.createTeam)
 

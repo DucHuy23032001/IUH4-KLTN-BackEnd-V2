@@ -1,17 +1,30 @@
 const TEAM = require('../models/team')
 const PROJECT = require('../models/project')
+const USER = require('../models/user')
+const TASK = require('../models/task')
+const WORK = require('../models/work')
 
 //done
 exports.getAllTeamByIdProject = async (req, res) => {
     try {
         let teams = []
-
         let id = req.params.id
         let project = await PROJECT.findById(id)
         let teamProject = project.teamIds
         for (i of teamProject) {
             let team = await TEAM.findById(i)
-            teams.push(team)
+            let user = await USER.findById(team.leaderId)
+            let works = await WORK.find({
+                teamId:team.id
+            })
+            for(j of works){
+                let data = {
+                    team: team.name,
+                    leaderName: user.fullName,
+                    works:j.name
+                }
+                teams.push(data)
+            }
         }
         return res.status(200).json(teams)
     } catch (error) {
@@ -27,13 +40,45 @@ exports.getAllMemberByIdProject = async (req, res) => {
         let project = await PROJECT.findById(id)
         let teamProject = project.teamIds
         for (i of teamProject) {
-            console.log(i);
-            let team = await TEAM.findById(i)
+            var team = await TEAM.findById(i)
             for(j of team.members) {
-                members.push(j)
+                let taskJ = []
+                let user = await USER.findById(j)
+                let taskJoin = await TASK.find({
+                    members: {
+                        $in: j
+                    }
+                })
+                for (k of taskJoin){
+                    taskJ.push(k.name)
+                }
+                let item = {
+                    teamName:team.name,
+                    name: user.fullName,
+                    avatar: user.avatar,
+                    task:taskJ
+                }
+                members.push(item)
             }
         }
         return res.status(200).json(members)
+    } catch (error) {
+        return res.status(500).json({ msg: error })
+    }
+}
+
+//done
+exports.getAllMemberOfTeam = async (req, res) => {
+    try {
+        let id = req.params.id
+        console.log(id);
+        let datas = []
+        let team = await TEAM.findById(id)
+        for ( i of team.members) {
+            let user = await USER.findById(i)
+            datas.push(user)
+        }
+        return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json({ msg: error })
     }
