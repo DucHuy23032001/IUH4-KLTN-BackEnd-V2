@@ -1,7 +1,22 @@
 const USER = require('../models/user')
 const ACCOUNT = require('../models/account')
 const MOMENT = require('moment')
-const AWS_SERVICE = require('../services/aws-service')
+const crypto = require('crypto')
+
+const { v4: UUIDV4 } = require('uuid')
+const AWS = require("aws-sdk");
+
+const bucketName = process.env.BUCKET_NAME
+const bucketRegion = process.env.BUCKET_REGION
+const accessKey = process.env.ACCESS_KEY
+const secketAccessKey = process.env.SECKET_ACCESS_KEY
+
+AWS.config.update({
+  accessKeyId: accessKey,
+  secretAccessKey: secketAccessKey,
+  region: bucketRegion,
+});
+const s3 = new AWS.S3();
 
 // done
 exports.getAllUser = async (req, res) => {
@@ -95,14 +110,30 @@ exports.getUserByPhone = async (req, res) => {
 exports.createUser = async (req, res, accountId) => {
     try {
         let { fullName, birthday, address, phoneNumber, gender } = req.body
+        const _fileLinkClient = req.files.avatar;
+        const _fileContent = Buffer.from(_fileLinkClient.data, "binary");
+        const _param = {
+          Bucket: bucketName,
+          Key: _fileLinkClient.name,
+          Body: _fileContent,
+        }
+        const _paramFileLocation = await s3
+          .upload(_param, (err, data) => {
+            if (err) {
+              throw err;
+            }
+          })
+          .promise();
+        _fileLink = _paramFileLocation.Location;
         let date = MOMENT(birthday, "MM-DD-YYYY")
+        // "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
         let user = await USER.create({
             fullName: fullName,
             birthday: date,
             address: address,
             phoneNumber: phoneNumber,
             gender: gender,
-            avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+            avatar: _fileLink,
             status: true,
             accountId: accountId
         })

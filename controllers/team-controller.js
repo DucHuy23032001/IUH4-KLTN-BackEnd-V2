@@ -20,9 +20,9 @@ exports.getAllTeamByIdProject = async (req, res) => {
             for(j of works){
                 let data = {
                     _id: team.id,
-                    team: team.name,
+                    teamName: team.name,
                     leaderName: user.fullName,
-                    works:j.name
+                    workName:j.name
                 }
                 teams.push(data)
             }
@@ -54,6 +54,7 @@ exports.getAllMemberByIdProject = async (req, res) => {
                     taskJ.push(k.name)
                 }
                 let item = {
+                    _id: j,
                     teamName:team.name,
                     name: user.fullName,
                     avatar: user.avatar,

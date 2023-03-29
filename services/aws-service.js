@@ -1,34 +1,36 @@
 const { v4: UUIDV4 } = require('uuid')
-const { S3Client, PutObjectCommand, CreateBucketCommand } = require("@aws-sdk/client-s3");
-// Set the AWS Region.
-const REGION = process.env.region; //e.g. "us-east-1"
-// Create an Amazon S3 service client object.
-let s3Client = new S3Client({ region: REGION });
+const AWS = require("aws-sdk");
 
-exports.saveOneFile = async (req, res, file) => {
+const bucketName = process.env.BUCKET_NAME
+const bucketRegion = process.env.BUCKET_REGION
+const accessKey = process.env.ACCESS_KEY
+const secketAccessKey = process.env.SECKET_ACCESS_KEY
+
+AWS.config.update({
+  accessKeyId: accessKey,
+  secretAccessKey: secketAccessKey,
+  region: bucketRegion,
+});
+const s3 = new AWS.S3();
+
+exports.uploadFileToS3= async (req,res) => {
   try {
-    const params = {
-      Bucket: "iuh4kltn", // The name of the bucket. For example, 'sample-bucket-101'.
-      Key: UUIDV4() + file.name, // The name of the object. For example, 'sample_upload.txt'.
-      Body: Buffer.from(file.data, "binary"), // The content of the object. For example, 'Hello world!".
-    };
-    try {
-      const results = await s3Client.send(new PutObjectCommand(params));
-      console.log(results.Location);
-      console.log(
-        "Successfully created " +
-        params.Key +
-        " and uploaded it to " +
-        params.Bucket +
-        "/" +
-        params.Key
-      );
-      return results; // For unit tests.
-    } catch (err) {
-      console.log("Error", err);
+    const _fileLinkClient = req.files.avatar;
+    const _fileContent = Buffer.from(_fileLinkClient.data, "binary");
+    const _param = {
+      Bucket: "iuh4kltn",
+      Key: _fileLinkClient.name,
+      Body: _fileContent,
     }
-
+    const _paramFileLocation = await s3
+      .upload(_param, (err, data) => {
+        if (err) {
+          throw err;
+        }
+      })
+      .promise();
+    _fileLink = _paramFileLocation.Location;
   } catch (error) {
-    return res.status(500).json(error)
+    
   }
 }

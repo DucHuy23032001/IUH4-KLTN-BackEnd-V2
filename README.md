@@ -1,9 +1,8 @@
 # IUH4-KLTN-BackEnd
-## [Github](https://github.com/DucHuy23032001/IUH41-CNM-BackEnd-MeChat)
 
 ## **Auth**
 - SignIn
-    - Api: **POST**: https://ptask.cyclic.app/api/v1/auths/sign-in
+    - Api: **POST**: https://ptask.cyclic.app/api/auths/sign-in
     - Request:
     ```json
     {
@@ -21,33 +20,35 @@
     }
     ```
 - SignUp
-    - Api: **POST**: https://ptask.cyclic.app/api/v1/auths/sign-up
+    - Api: **POST**: https://ptask.cyclic.app/api/auths/sign-up
     - Request:
     ```json
-    {
-        "email":"123@gmail.com",
-        "password":"1234",
-        "confirmPassword":"1234",
-        "fullName":"ABC",
-        "birthday":"02/14/2023",
-        "address":"TP HCM",
-        "phoneNumber":"0879276284",
-        "gender": 0,
-        "avatarImage":"https://mechat.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
-    }
+        image.png
     ```
     - Reponse:
     ```json
     {
-        "accountId": "6406bbb97a58b596f51d393a",
-        "userId": "6406bbb97a58b596f51d393c",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDZiYmI5N2E1OGI1OTZmNTFkMzkzYyIsImlhdCI6MTY3ODE2Mjg3MywiZXhwIjoxNjc4MTYzNDczfQ.VrEbYoHAOVnlGgKIhBZjZvajaUOWAFLat-xxhTEotMg"
+        "user": {
+            "fullName": "A",
+            "birthday": "2023-02-01T17:00:00.000Z",
+            "address": "123",
+            "phoneNumber": "0879276284",
+            "gender": true,
+            "status": true,
+            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/597c706a93754e2b1764.jpg",
+            "accountId": "6423e741055181cb4e436f06",
+            "_id": "6423e742055181cb4e436f08",
+            "createdAt": "2023-03-29T07:22:42.531Z",
+            "updatedAt": "2023-03-29T07:22:42.531Z",
+            "__v": 0
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxOYW1lIjoiQSIsImJpcnRoZGF5IjoiMjAyMy0wMi0wMVQxNzowMDowMC4wMDBaIiwiYWRkcmVzcyI6IjEyMyIsInBob25lTnVtYmVyIjoiMDg3OTI3NjI4NCIsImdlbmRlciI6dHJ1ZSwic3RhdHVzIjp0cnVlLCJhdmF0YXIiOiJodHRwczovL2l1aDRrbHRuLnMzLmFwLXNvdXRoZWFzdC0xLmFtYXpvbmF3cy5jb20vNTk3YzcwNmE5Mzc1NGUyYjE3NjQuanBnIiwiYWNjb3VudElkIjoiNjQyM2U3NDEwNTUxODFjYjRlNDM2ZjA2IiwiX2lkIjoiNjQyM2U3NDIwNTUxODFjYjRlNDM2ZjA4IiwiY3JlYXRlZEF0IjoiMjAyMy0wMy0yOVQwNzoyMjo0Mi41MzFaIiwidXBkYXRlZEF0IjoiMjAyMy0wMy0yOVQwNzoyMjo0Mi41MzFaIiwiX192IjowfSwiaWF0IjoxNjgwMDc0NTYyLCJleHAiOjE2ODAwNzUxNjJ9.EZVt466llkdBg5d-FD7h7SOSTruDuLYzeYofHHUGsWk"
     }
     ```
 ## **Account**
 
 - getAllCount
-    - Api: **GET**:  https://ptask.cyclic.app/api/v1/accounts    
+    - Api: **GET**:  https://ptask.cyclic.app/api/accounts    
     - Reponse:
     ```json
     [
@@ -56,7 +57,7 @@
     ]
     ```
 - getAccountById
-    - Api: **GET**:  https://ptask.cyclic.app/api/v1/accounts/:id
+    - Api: **GET**:  https://ptask.cyclic.app/api/accounts/:id
     - Reponse
     ```json
     {
@@ -66,7 +67,7 @@
     }
     ```
 - getAccountByEmail
-    - Api: **GET**:  https://ptask.cyclic.app/api/v1/accounts/email/:email
+    - Api: **GET**:  https://ptask.cyclic.app/api/accounts/email/:email
     - Reponse
     ```json
     {
@@ -76,7 +77,7 @@
     }
     ```
 - changePassword
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/accounts/change-password/:id
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/accounts/change-password/:id
     - Request
     ```json
     {
@@ -93,7 +94,7 @@
     }
     ```
 - forgetPassword
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/accounts/forget-password
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/accounts/forget-password
     - Request
     ```json
     {
@@ -111,7 +112,7 @@
     ```
 ## **User**
 - getAllUser
-    - Api: **Get**:    https://ptask.cyclic.app/api/v1/users/
+    - Api: **Get**:    https://ptask.cyclic.app/api/users/
     - Reponse
     ```json
     {
@@ -125,7 +126,7 @@
     }
     ```
 - getUserById
-    - Api: **Get**:    https://ptask.cyclic.app/api/v1/users/63f47b681e6c6175bf4ce69c
+    - Api: **Get**:    https://ptask.cyclic.app/api/users/63f47b681e6c6175bf4ce69c
     - Reponse
     ```json
     {
@@ -141,7 +142,7 @@
     }
     ```
 - getUserByEmail
-    - Api: **Get**:    https://ptask.cyclic.app/api/v1/users/email/12345@gmail.com
+    - Api: **Get**:    https://ptask.cyclic.app/api/users/email/12345@gmail.com
     - Reponse
     ```json
     {
@@ -157,7 +158,7 @@
     }
     ```
 - getUserByName
-    - Api: **Get**:    https://ptask.cyclic.app/api/v1/users/email/ABC
+    - Api: **Get**:    https://ptask.cyclic.app/api/users/email/ABC
     - Reponse
     ```json
     {
@@ -190,7 +191,7 @@
     }
     ```
 - getUserByPhone
-    - Api: **Get**:    https://ptask.cyclic.app/api/v1/users/phone/879276284
+    - Api: **Get**:    https://ptask.cyclic.app/api/users/phone/879276284
     - Reponse
     ```json
     {
@@ -208,7 +209,7 @@
     }
     ```
 - updateUser:
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/users/update/63f47b681e6c6175bf4ce69c
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/users/update/63f47b681e6c6175bf4ce69c
     - Request
     ```json
     {
@@ -236,7 +237,7 @@
     }
     ```
 - lockUser:
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/users/lock/63f47b681e6c6175bf4ce69c
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/users/lock/63f47b681e6c6175bf4ce69c
     - Reponse
     ```json
     {
@@ -254,15 +255,15 @@
     ```
 ## Team
 - getAllTeamOfIdProject:
-    - Api: **GET**:    hhttps://ptask.cyclic.app/api/v1/teams/teams/641eb335bb721b7cdd8cbf36
+    - Api: **GET**:    hhttps://ptask.cyclic.app/api/teams/teams/641eb335bb721b7cdd8cbf36
     - Reponse
     ```json
     [
         {
             "_id": "641eb30abb721b7cdd8cbf30",
-            "team": "Team 2",
+            "teamName": "Team 2",
             "leaderName": "Nguyễn Đức Phuong",
-            "works": "Demo work"
+            "workName": "Demo work"
         },
         {
             "_id": "641eb315bb721b7cdd8cbf32",
@@ -273,11 +274,12 @@
     ]
     ```
 - getAllMemberOfIdProject:
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/teams/members-project/641ba3f0efd24fc581820aba
+    - Api: **GET**:    https://ptask.cyclic.app/api/teams/members-project/641ba3f0efd24fc581820aba
     - Reponse
     ```json
     [
         {
+            "_id": "641eb24fbb721b7cdd8cbf25",
             "teamName": "Team 2",
             "name": "Nguyễn Đức Hung",
             "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
@@ -287,6 +289,7 @@
             ]
         },
         {
+            "_id": "641eb24fbb721b7cdd8cbf25",
             "teamName": "Team 2",
             "name": "Nguyễn Đức Phuong",
             "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
@@ -295,7 +298,7 @@
     ]
     ```
 - getAllMemberOfTeam:
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/teams/members-team/641ba3f0efd24fc581820aba
+    - Api: **GET**:    https://ptask.cyclic.app/api/teams/members-team/641ba3f0efd24fc581820aba
     - Reponse
     ```json
     [
@@ -326,7 +329,7 @@
     ]
     ```
 - getAllTeamOfUser:
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/teams/63f47b681e6c6175bf4ce69c
+    - Api: **GET**:    https://ptask.cyclic.app/api/teams/63f47b681e6c6175bf4ce69c
     - Reponse
     ```json
     [
@@ -341,7 +344,7 @@
     ]
     ```
 - createTeam:
-    - Api: **POST**:    https://ptask.cyclic.app/api/v1/teams/create
+    - Api: **POST**:    https://ptask.cyclic.app/api/teams/create
     - Request
     ```json
     {
@@ -368,7 +371,7 @@
     }
     ```
 - changeNameTeam:
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/teams/change-name/63f4806dc4ec61b3edc26f6e
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/change-name/63f4806dc4ec61b3edc26f6e
     - Request
     ```json
     {
@@ -386,7 +389,7 @@
         "__v": 2
     }
 - addMembersTeam: **Đang có bug**
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/teams/add-member/63f4806dc4ec61b3edc26f6e
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/add-member/63f4806dc4ec61b3edc26f6e
     - Request
     ```json
     {
@@ -406,7 +409,7 @@
     ```
 
 - removeMemberTeam: 
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/teams/remove-member/63f4806dc4ec61b3edc26f6e
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/remove-member/63f4806dc4ec61b3edc26f6e
     - Request
     ```json
     {
@@ -427,7 +430,7 @@
     ```
 ## Project
 - getAllProject
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/projects
+    - Api: **GET**:    https://ptask.cyclic.app/api/projects
     - Reponse
     ```json
     [
@@ -452,7 +455,7 @@
     ]
     ```
 - createProject
-    - Api: **POST**:    https://ptask.cyclic.app/api/v1/projects/create
+    - Api: **POST**:    https://ptask.cyclic.app/api/projects/create
     - Request
     ```json
     {
@@ -481,7 +484,7 @@
     }
     ```
 - getProjectById:
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/projects/63f485974bad526b718962a5
+    - Api: **GET**:    https://ptask.cyclic.app/api/projects/63f485974bad526b718962a5
     - Reponse
     ```json
     {
@@ -495,7 +498,7 @@
     }
     ```
 - getProjectByName:
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/projects/name/name ***(:name)***
+    - Api: **GET**:    https://ptask.cyclic.app/api/projects/name/name ***(:name)***
     - Reponse
     ```json
     [
@@ -520,7 +523,7 @@
     ]
     ```
 - getProjectByIdUser:
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/projects/id-user/64132d32a992069c9eeca5b8 ***(:id)***
+    - Api: **GET**:    https://ptask.cyclic.app/api/projects/id-user/64132d32a992069c9eeca5b8 ***(:id)***
     - Reponse
     ```json
     [
@@ -556,7 +559,7 @@
     ```
 ## Work
 - getAllWorkByProjectId:
-    - Api: **GET**:    hhttps://ptask.cyclic.app/api/v1/works/all-work-project/63f4836e4986d4991247715a
+    - Api: **GET**:    hhttps://ptask.cyclic.app/api/works/all-work-project/63f4836e4986d4991247715a
     - Reponse
     ```json
     [
@@ -585,7 +588,7 @@
     ]
     ```
 - getWorkByName:
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/works/name/Work 2
+    - Api: **GET**:    https://ptask.cyclic.app/api/works/name/Work 2
     - Reponse
     ```json
     [
@@ -603,7 +606,7 @@
     ]
     ```
 - getWorkById:
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/works/641eb80287c02b20789b3635
+    - Api: **GET**:    https://ptask.cyclic.app/api/works/641eb80287c02b20789b3635
     - Reponse
     ```json
     [
@@ -621,7 +624,7 @@
     ]
     ```
 - createWork
-    - Api: **POST**:    https://ptask.cyclic.app/api/v1/works/
+    - Api: **POST**:    https://ptask.cyclic.app/api/works/
     - Request
     ```json
     {
@@ -648,7 +651,7 @@
     }
     ```
 - changeNameWork
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/works/change-name/641eb353bb721b7cdd8cbf38
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/works/change-name/641eb353bb721b7cdd8cbf38
     - Request
     ```json
     {
@@ -671,7 +674,7 @@
     }
     ```
 - changeStatusWork
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/works/change-status/641eb353bb721b7cdd8cbf38
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/works/change-status/641eb353bb721b7cdd8cbf38
     - Request
     ```json
     {
@@ -694,7 +697,7 @@
     ```
 ## Task
 - createTask
-    - Api: **POST**:    https://ptask.cyclic.app/api/v1/tasks/
+    - Api: **POST**:    https://ptask.cyclic.app/api/tasks/
     - Request
     ```json
     {
@@ -729,7 +732,7 @@
     }
     ```
 - getAllTaskInProject (by Id project)
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/tasks/get-task-in-project/641ba3f0efd24fc581820aba
+    - Api: **GET**:    https://ptask.cyclic.app/api/tasks/get-task-in-project/641ba3f0efd24fc581820aba
     - Reponse
     ```json
     [
@@ -776,7 +779,7 @@
     ]
     ```
 - getAllTaskInWork 
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/tasks/get-task-in-list/63f48728f071ef7be2a9e9bd
+    - Api: **GET**:    https://ptask.cyclic.app/api/tasks/get-task-in-list/63f48728f071ef7be2a9e9bd
     - Reponse
     ```json
     [
@@ -817,7 +820,7 @@
     ]
     ```
 - getTaskById
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/tasks/63f48c86c765a223ecb74b8e
+    - Api: **GET**:    https://ptask.cyclic.app/api/tasks/63f48c86c765a223ecb74b8e
     - Reponse
     ```json
     {
@@ -839,7 +842,7 @@
     }
     ```
 - getTaskByName:
-    - Api: **GET**:    https://ptask.cyclic.app/api/v1/tasks/name/name ***(:name)***
+    - Api: **GET**:    https://ptask.cyclic.app/api/tasks/name/name ***(:name)***
     - Reponse
     ```json
     [
@@ -880,7 +883,7 @@
     ]
     ```
 - updateTask
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/v1/tasks/update/63f48c272df79e949fe9243b
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/tasks/update/63f48c272df79e949fe9243b
     - Request
     ```json
     {

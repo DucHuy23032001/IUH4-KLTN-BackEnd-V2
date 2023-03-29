@@ -6,6 +6,7 @@ const USER = require('../models/user');
 exports.createToken = (user) => {
     try {
         // let data = req.body
+        console.log("123");
         return JWT.sign(
             {
                 user,
@@ -16,7 +17,7 @@ exports.createToken = (user) => {
             }
         );
     } catch (error) {
-        res.status(500).json(error)
+        return res.status(500).json(error)
     }
 };
 
@@ -25,6 +26,7 @@ exports.checkEmail = async (email) => {
         let account = await ACCOUNT.findOne({
             email: email
         })
+        // console.log(account);
         if(account){
             return false
         }
