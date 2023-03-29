@@ -28,17 +28,12 @@ app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
 
-app.use('/api/v1/accounts',accountRouter)
-app.use('/api/v1/users',userRouter)
-app.use('/api/v1/teams',teamRouter)
-app.use('/api/v1/projects',projectRouter)
-app.use('/api/v1/works',workRouter)
-app.use('/api/v1/tasks',taskRouter)
-app.use('/api/v1/auths',authRouter)
-
-// app.use('*', (req, res, next) => {
-//     const err = new AppError(404, 'fail', 'undefined route');
-//     next(err, req, res, next);
-// });
+app.use('/api/accounts',accountRouter)
+app.use('/api/users',userRouter)
+app.use('/api/teams',teamRouter)
+app.use('/api/projects',projectRouter)
+app.use('/api/works',workRouter)
+app.use('/api/tasks',taskRouter)
+app.use('/api/auths',authRouter)
 
 module.exports = app;

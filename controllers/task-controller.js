@@ -119,7 +119,7 @@ exports.updateTask = async (req, res) => {
         let id = req.params.id
         let check = true
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
-        let dateend = MOMENT(endDay, "MM-DD-YYYY")
+        let dateEnd = MOMENT(endDay, "MM-DD-YYYY")
         let task = await TASK.findById(id)
         for (i of task.members) {
             if (userId == i) {
@@ -131,6 +131,13 @@ exports.updateTask = async (req, res) => {
                 message: "Only member can edit"
             })
         }
+
+        if (dateEnd - dateStart < 0) {
+            return res.status(400).json({
+              message:"dateEnd > dateStart"
+            })
+        }
+
         task.name = name
         task.startDay = dateStart
         task.endDay = dateend

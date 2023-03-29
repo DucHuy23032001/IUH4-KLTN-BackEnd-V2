@@ -1,21 +1,33 @@
 const MONGOOSE = require("mongoose");
 const DOTENV = require("dotenv");
-const APP = require("./app");
-const PORT = process.env.PORT;
 
 // check
 DOTENV.config({
     path: "./config.env",
 });
 
+process.on("uncaughtException", (err) => {
+    process.exit(1);
+});
+
+const PORT = process.env.PORT;
+const DATABASE = process.env.DATABASE
+const APP = require("./app");
+MONGOOSE.set("strictQuery", false);
 MONGOOSE.connect(
-    "mongodb+srv://nguyenduchuy_19437351:19437351@cluster0.by7zigb.mongodb.net/test",
+    DATABASE,
     () => {
         console.log("Success");
     },
     (e) => console.error(e)
 );
 
-APP.listen(3000, () => {
-  console.log(`Application is running on PORT 3000`);
+APP.listen(PORT, () => {
+    console.log(`Application is running on PORT ${PORT}`);
+});
+
+process.on("unhandledRejection", (err) => {
+    server.close(() => {
+        process.exit(1);
+    });
 });

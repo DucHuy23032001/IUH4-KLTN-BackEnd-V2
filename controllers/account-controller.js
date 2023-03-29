@@ -57,11 +57,14 @@ exports.createAccount = async (req, res) => {
         })
         if (!checkAccount) {
             let hash = await BCRYPT.hash(password, 10);
-            let newAccount = await ACCOUNT.create({
-                email: email,
-                password: hash
-            })
-            return newAccount.id
+            let newAccount = new ACCOUNT()
+            newAccount.email = email
+            newAccount.password = hash
+            // let newAccount = await ACCOUNT.create({
+            //     email: email,
+            //     password: hash
+            // })
+            return newAccount
         }
     } catch (error) {
         return res.status(500).json({ msg: error })
