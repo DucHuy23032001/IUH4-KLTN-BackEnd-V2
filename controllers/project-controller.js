@@ -78,8 +78,8 @@ exports.updateProject = async (req,res) => {
 
     await PROJECT.findByIdAndUpdate(id,{
       name:name,
-      start_time :start,
-      end_time : end,
+      startTime :start,
+      endTime : end,
       status:status,
       background:background,
       teamIds:teamIds
