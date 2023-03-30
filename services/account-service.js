@@ -63,15 +63,17 @@ exports.checkPassword = async (email,paswordSignIn) =>{
             email: email
         })
         let user = await USER.findOne({
-            account_id:account.id
+            accountId:account.id
         })
+        console.log(user);
         let check = await BCRYPT.compare(paswordSignIn, account.password);
-        if(check) {
-            return user
-        }
-        else {
-            return !check
-        }
+        console.log(check);
+        // if(check) {
+            return {user: user, check:check}
+        // }
+        // else {
+            // return check
+        // }
     } catch (error) {
         return res.status(500).json(error)
     }
