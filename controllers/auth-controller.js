@@ -39,8 +39,9 @@ exports.signIn = async (req, res) => {
     let checkEmail = await accountService.checkEmail(email)
     if (!checkEmail) {
       let checkPassword = await accountService.checkPassword(email, password)
-      if (checkPassword) {
-        let token = accountService.createToken(checkPassword)
+      console.log(checkPassword);
+      if (checkPassword.check) {
+        let token = accountService.createToken(checkPassword.user)
         return res.status(200).json({
           msg: "Success",
           token: token
