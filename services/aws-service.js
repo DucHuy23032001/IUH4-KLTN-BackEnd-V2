@@ -13,9 +13,10 @@ AWS.config.update({
 });
 const s3 = new AWS.S3();
 
-exports.uploadFileToS3= async (req,res) => {
+exports.uploadFileToS3= async (req,res , file) => {
   try {
-    const _fileLinkClient = req.files.avatar;
+    // console.log(file);
+    const _fileLinkClient = file;
     const _fileContent = Buffer.from(_fileLinkClient.data, "binary");
     const _param = {
       Bucket: "iuh4kltn",
@@ -29,7 +30,7 @@ exports.uploadFileToS3= async (req,res) => {
         }
       })
       .promise();
-    _fileLink = _paramFileLocation.Location;
+    return _paramFileLocation.Location;
   } catch (error) {
     
   }
