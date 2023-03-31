@@ -31,9 +31,11 @@ const taskSchema = new SCHEMA(
                 link: String
             }
         ],
-        imageLink: {
-            type: String,
-        },
+        imageLink: [
+            {
+                type: String,
+            }
+        ],
         workId: {
             type: SCHEMA.Types.ObjectId,
             require: [true, "Please fill Word of task!"]
