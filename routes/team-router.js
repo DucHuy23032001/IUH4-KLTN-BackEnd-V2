@@ -1,6 +1,7 @@
 const ROUTER = require('express').Router()
 const teamController = require('../controllers/team-controller')
 
+ROUTER.get('/team/:id',teamController.getTeamById)
 ROUTER.get('/:id',teamController.getAllTeamOfUser)
 ROUTER.get('/teams/:id',teamController.getAllTeamByIdProject)
 ROUTER.get('/members-project/:id',teamController.getAllMemberByIdProject)
