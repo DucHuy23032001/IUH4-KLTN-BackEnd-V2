@@ -259,16 +259,15 @@
     ```json
     [
         {
-            "_id": "641eb30abb721b7cdd8cbf30",
-            "teamName": "Team 2",
-            "leaderName": "Nguyễn Đức Phuong",
-            "workName": "Demo work"
-        },
-        {
-            "_id": "641eb315bb721b7cdd8cbf32",
-            "team": "Team 1",
-            "leaderName": "Nguyễn Đức Phuong",
-            "works": "Test change name 1"
+            "_id":"641eb335bb721b7cdd8cbf36",
+            "leaderId": "642687fbd58ad6becd0fa95f",
+            "teamName": "Team 1",
+            "members": [
+                "642687fbd58ad6becd0fa95f",
+                "642687fbd58ad6becd0fa963"
+            ],
+            "createId": "642687fbd58ad6becd0fa95b",
+            "createAt": "2023-03-31T07:13:00.022Z"
         }
     ]
     ```
@@ -278,17 +277,16 @@
     ```json
     [
         {
-            "_id": "641eb30abb721b7cdd8cbf30",
-            "teamName": "Team 2",
-            "leaderName": "Nguyễn Đức Phuong",
-            "workName": "Demo work"
-        },
-        {
-            "_id": "641eb315bb721b7cdd8cbf32",
-            "team": "Team 1",
-            "leaderName": "Nguyễn Đức Phuong",
-            "works": "Test change name 1"
-        }
+            "_id":"641eb335bb721b7cdd8cbf36",
+            "leaderId": "642687fbd58ad6becd0fa95f",
+            "teamName": "Team 1",
+            "members": [
+                "642687fbd58ad6becd0fa95f",
+                "642687fbd58ad6becd0fa963"
+            ],
+            "createId": "642687fbd58ad6becd0fa95b",
+            "createAt": "2023-03-31T07:13:00.022Z"
+        }   
     ]
     ```
 - getAllMemberOfIdProject:
@@ -352,12 +350,15 @@
     ```json
     [
         {
-            "_id": "63f4806dc4ec61b3edc26f6e",
-            "name": "Name 1",
+            "_id":"641eb335bb721b7cdd8cbf36",
+            "leaderId": "642687fbd58ad6becd0fa95f",
+            "teamName": "Team 1",
             "members": [
-                "63f47b681e6c6175bf4ce69c"
+                "642687fbd58ad6becd0fa95f",
+                "642687fbd58ad6becd0fa963"
             ],
-            "__v": 2
+            "createId": "642687fbd58ad6becd0fa95b",
+            "createAt": "2023-03-31T07:13:00.022Z"
         }
     ]
     ```
@@ -366,10 +367,15 @@
     - Request
     ```json
     {
-        "createId":"641ba2cf87b485c176a160ae",
-        "name":"Team 1",
-        "leaderId":"641ba30d87b485c176a160b4",
-        "members":["641ba31887b485c176a160ba","641ba30d87b485c176a160b4"]
+        "_id":"641eb335bb721b7cdd8cbf36",
+        "leaderId": "642687fbd58ad6becd0fa95f",
+        "teamName": "Team 1",
+        "members": [
+            "642687fbd58ad6becd0fa95f",
+            "642687fbd58ad6becd0fa963"
+        ],
+        "createId": "642687fbd58ad6becd0fa95b",
+        "createAt": "2023-03-31T07:13:00.022Z"
     }
     ```
     - Reponse

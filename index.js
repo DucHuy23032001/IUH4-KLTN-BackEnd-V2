@@ -128,7 +128,7 @@ async function addData() {
     })
 
     let team1 = await team.create({
-        name: "Team 1",
+        teamName: "Team 1",
         createId: u1.id,
         leaderId: u2.id,
         status: true,
@@ -136,11 +136,20 @@ async function addData() {
     })
 
     let team2 = await team.create({
-        name: "Team 2",
+        teamName: "Team 2",
         createId: u1.id,
         leaderId: u4.id,
         status: true,
         members: [u4.id, u5.id]
+    })
+
+    
+    let team3 = await team.create({
+        teamName: "Project Owner",
+        createId: u1.id,
+        leaderId: u1.id,
+        status: true,
+        members: [u1.id]
     })
 
     let start = MOMENT("03/23/2010", "MM-DD-YYYY")
@@ -152,7 +161,7 @@ async function addData() {
         endTime: end,
         status: false,
         background: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
-        teamIds: [team1.id, team2.id]
+        teamIds: [team1.id, team2.id, team3.id]
     })
 
     let startTimeW1 = MOMENT("03/23/2010", "MM-DD-YYYY")
