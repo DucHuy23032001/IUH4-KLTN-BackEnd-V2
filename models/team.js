@@ -4,7 +4,7 @@ const SCHEMA = MONGOOSE.Schema
 // Đổi tên thành = team
 let teamSchema = new SCHEMA(
     {
-        name: {
+        teamName: {
             type: String,
             require: [true, "Please fill name of team!"]
         },

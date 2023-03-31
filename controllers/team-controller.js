@@ -20,7 +20,7 @@ exports.getAllTeamByIdProject = async (req, res) => {
             for(j of works){
                 let data = {
                     _id: team.id,
-                    teamName: team.name,
+                    teamName: team.teamName,
                     leaderName: user.fullName,
                     workName:j.name
                 }
@@ -55,7 +55,7 @@ exports.getAllMemberByIdProject = async (req, res) => {
                 }
                 let item = {
                     _id: j,
-                    teamName:team.name,
+                    teamName:team.teamName,
                     name: user.fullName,
                     avatar: user.avatar,
                     task:taskJ
@@ -90,12 +90,24 @@ exports.getAllMemberOfTeam = async (req, res) => {
 exports.getAllTeamOfUser = async (req, res) => {
     try {
         let id = req.params.id
-        let team = await TEAM.find({
+        let datas = []
+        let teams = await TEAM.find({
             members: {
                 $in: id
             }
         });
-        return res.status(200).json(team)
+        for ( i of teams) {
+            let data = {
+                _id:i.id,
+                leaderId:i.leaderId,
+                teamName: i.teamName,
+                members: i.members,
+                createId: i.createId,
+                createAt: i.createdAt
+            }
+            datas.push(data)
+        }
+        return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json({ msg: error })
     }
@@ -109,7 +121,7 @@ exports.getTeamById = async (req, res) => {
         let data = {
             _id:team.id,
             leaderId:team.leaderId,
-            teamName: team.name,
+            teamName: team.teamName,
             members: team.members,
             createId: team.createId,
             createAt: team.createdAt
@@ -123,17 +135,17 @@ exports.getTeamById = async (req, res) => {
 //done
 exports.createTeam = async (req, res) => {
     try {
-        let { name, members, leaderId, createId } = req.body
+        let { teamName, members, leaderId, createId } = req.body
         let team = await TEAM.create({
             leaderId:leaderId,
-            name: name,
+            teamName: teamName,
             members: members,
             createId:createId
         })
         let data = {
             _id:team.id,
             leaderId:team.leaderId,
-            teamName: team.name,
+            teamName: team.teamName,
             members: team.members,
             createId: team.createId,
             createAt: team.createdAt
@@ -156,12 +168,12 @@ exports.changeName = async (req, res) => {
                 message: "Only the creator can edit"
             })
         }
-        team.name = newName
+        team.teamName = newName
         await team.save();
         let data = {
             _id:team.id,
             leaderId:team.leaderId,
-            teamName: team.name,
+            teamName: team.teamName,
             members: team.members,
             createId: team.createId,
             createAt: team.createdAt
@@ -190,7 +202,7 @@ exports.removeMember = async (req, res) => {
         let data = {
             _id:team.id,
             leaderId:team.leaderId,
-            teamName: team.name,
+            teamName: team.teamName,
             members: team.members,
             createId: team.createId,
             createAt: team.createdAt
