@@ -6,7 +6,7 @@ const USER = require('../models/user');
 exports.createToken = (user) => {
     try {
         // let data = req.body
-        console.log("123");
+        // console.log("123");
         return JWT.sign(
             {
                 user,

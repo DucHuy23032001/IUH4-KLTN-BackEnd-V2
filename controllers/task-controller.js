@@ -92,7 +92,7 @@ exports.getTaskByName = async (req, res) => {
 //done
 exports.createTask = async (req, res) => {
     try {
-        let { name, startDay, endDay, startHour, endHour, linkSupport, imageLink, workId, members } = req.body
+        let { name, startDay, endDay, startHour, endHour, workId, members } = req.body
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
         let dateend = MOMENT(endDay, "MM-DD-YYYY")
         let task = await TASK.create({
@@ -101,8 +101,8 @@ exports.createTask = async (req, res) => {
             endDay: dateend,
             startHour: startHour,
             endHour: endHour,
-            linkSupport: linkSupport,
-            imageLink: imageLink,
+            linkSupport: [],
+            imageLink: [],
             workId: workId,
             members
         })

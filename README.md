@@ -22,9 +22,8 @@
 - SignUp
     - Api: **POST**: https://ptask.cyclic.app/api/auths/sign-up
     - Request:
-    ```json
-        image.png
-    ```
+    
+    ![image](https://user-images.githubusercontent.com/113782478/229042411-896af149-f949-48fe-a18c-26e60a9a3aa4.png)
     - Reponse:
     ```json
     {
@@ -457,15 +456,7 @@
 - createProject
     - Api: **POST**:    https://ptask.cyclic.app/api/projects/create
     - Request
-    ```json
-    {
-        "mainProject":"641ba2cf87b485c176a160ae",
-        "name":"Project test",
-        "startTime" :"03-24-2001",
-        "endTime" :"03-24-2001",
-        "teamIds":["641ba36e87b485c176a160bc","641ba3a387b485c176a160be"]
-    }
-    ```
+    ![image](https://user-images.githubusercontent.com/113782478/229061766-9d3673bb-3f21-4a2b-b472-310626f6ffe2.png)
     - Reponse
     ```json
     {
@@ -488,13 +479,24 @@
     - Reponse
     ```json
     {
-        "_id": "63f4836e4986d4991247715a",
-        "name": "name",
-        "startTime": "2001-03-22T17:00:00.000Z",
-        "endTime": "2100-03-22T17:00:00.000Z",
-        "status": true,
-        "teamIds": [],
-        "__v": 0
+        "_id": "642687fcd58ad6becd0fa971",
+        "name": "Project 1",
+        "startTime": "2010-03-22T17:00:00.000Z",
+        "endTime": "2012-03-22T17:00:00.000Z",
+        "status": false,
+        "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
+        "teamIds": [
+            "642687fcd58ad6becd0fa96d",
+            "642687fcd58ad6becd0fa96f"
+        ],
+        "createdAt": "2023-03-31T07:13:00.140Z",
+        "updatedAt": "2023-03-31T07:13:00.140Z",
+        "__v": 0,
+        "leaders": [
+            "642687fbd58ad6becd0fa95f",
+            "642687fbd58ad6becd0fa967"
+        ],
+        "mainProject": "642687fbd58ad6becd0fa95b"
     }
     ```
 - getProjectByName:
@@ -706,8 +708,6 @@
         "endDay":"03-23-2010",
         "startHour":"9:00",
         "endHour":"16:00",
-        "linkSupport":"ABC",
-        "imageLink":"ABC",
         "workId":"641ba5a6efd24fc581820abc",
         "members":["641ba30d87b485c176a160b4"]
     }
@@ -720,7 +720,7 @@
         "endDay": "2010-03-22T17:00:00.000Z",
         "startHour": "9:00",
         "endHour": "16:00",
-        "imageLink": "ABC",
+        "imageLink": [],
         "workId": "641ba5a6efd24fc581820abc",
         "members": [
             "641ba30d87b485c176a160b4"
