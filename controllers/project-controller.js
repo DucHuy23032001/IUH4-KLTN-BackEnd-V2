@@ -39,10 +39,6 @@ exports.getProjectById = async (req, res) => {
       leaders: idLeaders,
       mainProject: mainId
     }
-    // console.log(idLeaders);
-    // idLeaders.pull(project.mainProject)
-    // console.log(project.teamIds);
-    // project['idLeaders'] = idLeaders
     return res.status(200).json(data)
   } catch (error) {
     return res.status(500).json(error)
