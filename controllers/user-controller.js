@@ -2,21 +2,22 @@ const USER = require('../models/user')
 const ACCOUNT = require('../models/account')
 const MOMENT = require('moment')
 const crypto = require('crypto')
+const awsService = require('../services/aws-service')
 
-const { v4: UUIDV4 } = require('uuid')
-const AWS = require("aws-sdk");
+// const { v4: UUIDV4 } = require('uuid')
+// const AWS = require("aws-sdk");
 
-const bucketName = process.env.BUCKET_NAME
-const bucketRegion = process.env.BUCKET_REGION
-const accessKey = process.env.ACCESS_KEY
-const secketAccessKey = process.env.SECKET_ACCESS_KEY
+// const bucketName = process.env.BUCKET_NAME
+// const bucketRegion = process.env.BUCKET_REGION
+// const accessKey = process.env.ACCESS_KEY
+// const secketAccessKey = process.env.SECKET_ACCESS_KEY
 
-AWS.config.update({
-  accessKeyId: accessKey,
-  secretAccessKey: secketAccessKey,
-  region: bucketRegion,
-});
-const s3 = new AWS.S3();
+// AWS.config.update({
+//   accessKeyId: accessKey,
+//   secretAccessKey: secketAccessKey,
+//   region: bucketRegion,
+// });
+// const s3 = new AWS.S3();
 
 // done
 exports.getAllUser = async (req, res) => {
@@ -110,21 +111,8 @@ exports.getUserByPhone = async (req, res) => {
 exports.createUser = async (req, res, accountId) => {
     try {
         let { fullName, birthday, address, phoneNumber, gender } = req.body
-        const _fileLinkClient = req.files.avatar;
-        const _fileContent = Buffer.from(_fileLinkClient.data, "binary");
-        const _param = {
-          Bucket: bucketName,
-          Key: _fileLinkClient.name,
-          Body: _fileContent,
-        }
-        const _paramFileLocation = await s3
-          .upload(_param, (err, data) => {
-            if (err) {
-              throw err;
-            }
-          })
-          .promise();
-        _fileLink = _paramFileLocation.Location;
+        const file = req.files.avatar;
+        let path = await awsService.uploadFileToS3(req,res,file)
         let date = MOMENT(birthday, "MM-DD-YYYY")
         // "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
         let user = await USER.create({
@@ -133,11 +121,26 @@ exports.createUser = async (req, res, accountId) => {
             address: address,
             phoneNumber: phoneNumber,
             gender: gender,
-            avatar: _fileLink,
+            avatar: path,
             status: true,
             accountId: accountId
         })
         return user
+    } catch (error) {
+        return res.status(500).json({ msg: error });
+    }
+}
+
+//Chưa có readme ( chưa test)
+exports.updateAvatar = async (req, res) => {
+    try {
+        let id = req.params.id
+        let path = await awsService.uploadFileToS3(req,res,req.files.avatarImage)
+        await USER.findByIdAndUpdate(id, {
+            avatar:path
+        })
+        let user = await USER.findById(id)
+        return res.status(200).json(user)
     } catch (error) {
         return res.status(500).json({ msg: error });
     }
@@ -148,6 +151,7 @@ exports.updateUser = async (req, res) => {
     try {
         let id = req.params.id
         let { fullName, birthday, address, phoneNumber, gender, avatarImage } = req.body
+        let path = await awsService.uploadFileToS3(req,res,avatarImage)
         let date = MOMENT(birthday, "MM-DD-YYYY")
         await USER.findByIdAndUpdate(id, {
             fullName: fullName,
@@ -155,7 +159,7 @@ exports.updateUser = async (req, res) => {
             address: address,
             phoneNumber: phoneNumber,
             gender: gender,
-            avatar: avatarImage,
+            avatar: path,
             status: true
         })
         let user = await USER.findById(id)

@@ -102,17 +102,43 @@ exports.getAllTeamOfUser = async (req, res) => {
 }
 
 //done
+exports.getTeamById = async (req, res) => {
+    try {
+        let id = req.params.id
+        let team = await TEAM.findById(id);
+        let data = {
+            _id:team.id,
+            leaderId:team.leaderId,
+            teamName: team.name,
+            members: team.members,
+            createId: team.createId,
+            createAt: team.createdAt
+        }
+        return res.status(200).json(data)
+    } catch (error) {
+        return res.status(500).json({ msg: error })
+    }
+}
+
+//done
 exports.createTeam = async (req, res) => {
     try {
-        let { name, members, leaderId, status, createId } = req.body
+        let { name, members, leaderId, createId } = req.body
         let team = await TEAM.create({
-            status: status,
             leaderId:leaderId,
             name: name,
             members: members,
             createId:createId
         })
-        return res.status(200).json(team)
+        let data = {
+            _id:team.id,
+            leaderId:team.leaderId,
+            teamName: team.name,
+            members: team.members,
+            createId: team.createId,
+            createAt: team.createdAt
+        }
+        return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json({ msg: error })
     }
@@ -132,7 +158,15 @@ exports.changeName = async (req, res) => {
         }
         team.name = newName
         await team.save();
-        return res.status(200).json(roteamle)
+        let data = {
+            _id:team.id,
+            leaderId:team.leaderId,
+            teamName: team.name,
+            members: team.members,
+            createId: team.createId,
+            createAt: team.createdAt
+        }
+        return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json({ msg: error })
     }
@@ -153,10 +187,15 @@ exports.removeMember = async (req, res) => {
         members.pull(memberId)
         team.members = members
         await team.save();
-        return res.status(200).json({
-            team:team,
-            memberId:memberId
-        })
+        let data = {
+            _id:team.id,
+            leaderId:team.leaderId,
+            teamName: team.name,
+            members: team.members,
+            createId: team.createId,
+            createAt: team.createdAt
+        }
+        return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json({ msg: error })
     }

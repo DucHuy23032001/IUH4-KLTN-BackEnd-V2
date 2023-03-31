@@ -253,6 +253,25 @@
     }
     ```
 ## Team
+- getTeamById
+    - Api: **GET**:    https://ptask.cyclic.app/api/teams/team/641eb335bb721b7cdd8cbf36
+    - Reponse
+    ```json
+    [
+        {
+            "_id": "641eb30abb721b7cdd8cbf30",
+            "teamName": "Team 2",
+            "leaderName": "Nguyễn Đức Phuong",
+            "workName": "Demo work"
+        },
+        {
+            "_id": "641eb315bb721b7cdd8cbf32",
+            "team": "Team 1",
+            "leaderName": "Nguyễn Đức Phuong",
+            "works": "Test change name 1"
+        }
+    ]
+    ```
 - getAllTeamOfIdProject:
     - Api: **GET**:    hhttps://ptask.cyclic.app/api/teams/teams/641eb335bb721b7cdd8cbf36
     - Reponse
@@ -347,7 +366,6 @@
     - Request
     ```json
     {
-        "status":true,
         "createId":"641ba2cf87b485c176a160ae",
         "name":"Team 1",
         "leaderId":"641ba30d87b485c176a160b4",
@@ -364,7 +382,6 @@
             "641ba31887b485c176a160ba",
             "641ba30d87b485c176a160b4"
         ],
-        "status": true,
         "_id": "641ba36e87b485c176a160bc",
         "__v": 0
     }

@@ -21,11 +21,11 @@ let teamSchema = new SCHEMA(
                 type: SCHEMA.Types.ObjectId,
                 require: [true, "Please fill members of team!"]
             }
-        ],
-        status: {
-            type: Boolean,
-            require: [true, "Please fill status of team!"]
-        }
+        ]
+        // status: {
+        //     type: Boolean,
+        //     require: [true, "Please fill status of team!"]
+        // }
     },
     {
         timestamps: true
