@@ -120,7 +120,6 @@ exports.createProject = async (req, res) => {
     let start = MOMENT(startTime, "MM-DD-YYYY")
     let end = MOMENT(endTime, "MM-DD-YYYY")
 
-    // console.log(teamIds);
     let background = req.files.background
 
     if (!background) {
@@ -141,11 +140,12 @@ exports.createProject = async (req, res) => {
     let team = await TEAM.create({
       leaderId: mainProject,
       name: "Project Owner",
-      members: [mainProject]
+      members: [mainProject],
+      createId: mainProject
     })
 
-    console.log(team);
-    // teamIds.push(team._id)
+    // console.log(team);
+    teamIds.push(team._id)
 
     let project = await PROJECT.create({
       name: name,

@@ -367,28 +367,25 @@
     - Request
     ```json
     {
-        "_id":"641eb335bb721b7cdd8cbf36",
-        "leaderId": "642687fbd58ad6becd0fa95f",
-        "teamName": "Team 1",
-        "members": [
-            "642687fbd58ad6becd0fa95f",
-            "642687fbd58ad6becd0fa963"
-        ],
-        "createId": "642687fbd58ad6becd0fa95b",
-        "createAt": "2023-03-31T07:13:00.022Z"
-    }
+        "createId":"642687fbd58ad6becd0fa95b",
+        "name":"Team 1",
+        "leaderId":"642687fbd58ad6becd0fa95b",
+        "members":["642687fbd58ad6becd0fa95b","642687fbd58ad6becd0fa95f"]
+    } 
     ```
     - Reponse
     ```json
     {
         "name": "Team 1",
-        "createId": "641ba2cf87b485c176a160ae",
-        "leaderId": "641ba30d87b485c176a160b4",
+        "createId": "642687fbd58ad6becd0fa95b",
+        "leaderId": "642687fbd58ad6becd0fa95b",
         "members": [
-            "641ba31887b485c176a160ba",
-            "641ba30d87b485c176a160b4"
+            "642687fbd58ad6becd0fa95b",
+            "642687fbd58ad6becd0fa95f"
         ],
-        "_id": "641ba36e87b485c176a160bc",
+        "_id": "6426a0d725eb6bcc4d1039fe",
+        "createdAt": "2023-03-31T08:59:03.885Z",
+        "updatedAt": "2023-03-31T08:59:03.885Z",
         "__v": 0
     }
     ```
@@ -415,21 +412,26 @@
     - Request
     ```json
     {
-        "memberIds":["63f481f55f6bee2a60d910eb","63f47b681e6c6175bf4ce69c"]
+        "createId":"6426a65d8b1cc3b37eb12206",
+        "memberIds": ["6426a65e8b1cc3b37eb12213","6426a65e8b1cc3b37eb12217"]
     }
     ```
     - Reponse
     ```json
     {
-        "_id": "63f4806dc4ec61b3edc26f6e",
-        "name": "Name 1",
+        "_id": "6426a65e8b1cc3b37eb12219",
+        "leaderId": "6426a65e8b1cc3b37eb1220b",
+        "teamName": "Team 1",
         "members": [
-            "63f47b681e6c6175bf4ce69c"
+            "6426a65e8b1cc3b37eb1220b",
+            "6426a65e8b1cc3b37eb1220f",
+            "6426a65e8b1cc3b37eb12213",
+            "6426a65e8b1cc3b37eb12217"
         ],
-        "__v": 2
+        "createId": "6426a65d8b1cc3b37eb12206",
+        "createAt": "2023-03-31T09:22:38.614Z"
     }
     ```
-
 - removeMemberTeam: 
     - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/remove-member/63f4806dc4ec61b3edc26f6e
     - Request
