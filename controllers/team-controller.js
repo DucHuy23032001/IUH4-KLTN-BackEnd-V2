@@ -32,7 +32,6 @@ exports.getAllTeamByIdProject = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.getAllMemberByIdProject = async (req, res) => {
     try {
@@ -68,7 +67,6 @@ exports.getAllMemberByIdProject = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.getAllMemberOfTeam = async (req, res) => {
     try {
@@ -85,7 +83,6 @@ exports.getAllMemberOfTeam = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.getAllTeamOfUser = async (req, res) => {
     try {
@@ -112,7 +109,6 @@ exports.getAllTeamOfUser = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.getTeamById = async (req, res) => {
     try {
@@ -131,24 +127,27 @@ exports.getTeamById = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.createTeam = async (req, res) => {
     try {
-        let { teamName, members, leaderId, createId } = req.body
+        let { teamName, members, leaderId, createId, projectId } = req.body
         let team = await TEAM.create({
             leaderId:leaderId,
             teamName: teamName,
             members: members,
             createId:createId
         })
+        let project = await PROJECT.findById(projectId)
+        let proId = project.teamIds.push(team.id)
+        project.save()
         let data = {
             _id:team.id,
             leaderId:team.leaderId,
             teamName: team.teamName,
             members: team.members,
             createId: team.createId,
-            createAt: team.createdAt
+            createAt: team.createdAt,
+            projectId: projectId
         }
         return res.status(200).json(data)
     } catch (error) {

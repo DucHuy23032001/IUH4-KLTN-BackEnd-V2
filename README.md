@@ -368,25 +368,25 @@
     ```json
     {
         "createId":"642687fbd58ad6becd0fa95b",
-        "name":"Team 1",
+        "teamName":"Team 1",
         "leaderId":"642687fbd58ad6becd0fa95b",
-        "members":["642687fbd58ad6becd0fa95b","642687fbd58ad6becd0fa95f"]
-    } 
+        "members":["642687fbd58ad6becd0fa95b","642687fbd58ad6becd0fa95f"],
+        "projectId":"6426a65e8b1cc3b37eb1221f"
+    }
     ```
     - Reponse
     ```json
     {
-        "name": "Team 1",
-        "createId": "642687fbd58ad6becd0fa95b",
+        "_id": "6427f648e35d083e95b84c07",
         "leaderId": "642687fbd58ad6becd0fa95b",
+        "teamName": "Team 1",
         "members": [
             "642687fbd58ad6becd0fa95b",
             "642687fbd58ad6becd0fa95f"
         ],
-        "_id": "6426a0d725eb6bcc4d1039fe",
-        "createdAt": "2023-03-31T08:59:03.885Z",
-        "updatedAt": "2023-03-31T08:59:03.885Z",
-        "__v": 0
+        "createId": "642687fbd58ad6becd0fa95b",
+        "createAt": "2023-04-01T09:15:52.389Z",
+        "projectId": "6426a65e8b1cc3b37eb1221f"
     }
     ```
 - changeNameTeam:
