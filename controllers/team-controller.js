@@ -3,7 +3,7 @@ const PROJECT = require('../models/project')
 const USER = require('../models/user')
 const TASK = require('../models/task')
 const WORK = require('../models/work')
-
+// const mongoose = require('mongoose');
 //done
 exports.getAllTeamByIdProject = async (req, res) => {
     try {
@@ -213,36 +213,40 @@ exports.removeMember = async (req, res) => {
     }
 }
 
-//d\có bug
+//done
 exports.addMember = async (req, res) => {
     try {
         let id = req.params.id
-        let { memberIds } = req.body
+        let { memberIds, createId } = req.body
         let team = await TEAM.findById(id)
+        if (team.createId != createId) {
+            return res.status(400).json({
+                message: "Only the creator can edit"
+            })
+        }
         let members = team.members
-        let check = false
-        // let newMembers = []
-        for (let i of memberIds) {
-            for (let j of members) {
-
-                if (i == j) {
+        for ( i of memberIds) {
+            let check = false
+            for(j of members) {
+                if( j == i){
                     check = true
                 }
             }
-            console.log(check);
             if (!check) {
                 members.push(i)
-            } else {
-                console.log(i);
-                console.log(memberIds);
-                newMembers = memberIds.pull(i)
             }
         }
+        team.members = members
         await team.save();
-        return res.status(200).json({
-            team: team,
-            newMembers: memberIds
-        })
+        let data = {
+            _id:team.id,
+            leaderId:team.leaderId,
+            teamName: team.teamName,
+            members: team.members,
+            createId: team.createId,
+            createAt: team.createdAt
+        }
+        return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json({ msg: error })
     }
