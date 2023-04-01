@@ -4,12 +4,14 @@ const USER = require('../models/user')
 const TASK = require('../models/task')
 const WORK = require('../models/work')
 // const mongoose = require('mongoose');
+
 //done
-exports.getAllTeamByIdProject = async (req, res) => {
+exports.getALlTeamOfProject = async (req, res) => {
     try {
         let teams = []
         let id = req.params.id
         let project = await PROJECT.findById(id)
+        // console.log(projects);
         let teamProject = project.teamIds
         for (i of teamProject) {
             let team = await TEAM.findById(i)
@@ -23,6 +25,46 @@ exports.getAllTeamByIdProject = async (req, res) => {
                     teamName: team.teamName,
                     leaderName: user.fullName,
                     workName:j.name
+                }
+                teams.push(data)
+            }
+        }
+        return res.status(200).json(teams)
+    } catch (error) {
+        return res.status(500).json({ msg: error })
+    }
+}
+//done
+exports.getAllTeamByIdProject = async (req, res) => {
+    try {
+        let teams = []
+        let id = req.params.id
+        let project = await PROJECT.findById(id)
+        let teamProject = project.teamIds
+        for (i of teamProject) {
+            let team = await TEAM.findById(i)
+            // console.log(team);
+            let user = await USER.findById(team.leaderId)
+            let works = await WORK.find({
+                teamId:team.id
+            })
+            if (works.length > 0) {
+                for(j of works){
+                    let data = {
+                        _id: team.id,
+                        teamName: team.teamName,
+                        leaderName: user.fullName,
+                        workName:j.name
+                    }
+                    teams.push(data)
+                }
+            }
+            else if (works.length == 0) {
+                let data = {
+                    _id: team.id,
+                    teamName: team.teamName,
+                    leaderName: null,
+                    workName:null
                 }
                 teams.push(data)
             }
