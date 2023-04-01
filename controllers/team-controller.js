@@ -43,7 +43,6 @@ exports.getAllTeamByIdProject = async (req, res) => {
         let teamProject = project.teamIds
         for (i of teamProject) {
             let team = await TEAM.findById(i)
-            // console.log(team);
             let user = await USER.findById(team.leaderId)
             let works = await WORK.find({
                 teamId:team.id
@@ -63,7 +62,7 @@ exports.getAllTeamByIdProject = async (req, res) => {
                 let data = {
                     _id: team.id,
                     teamName: team.teamName,
-                    leaderName: null,
+                    leaderName: user.fullName,
                     workName:null
                 }
                 teams.push(data)
@@ -91,17 +90,29 @@ exports.getAllMemberByIdProject = async (req, res) => {
                         $in: j
                     }
                 })
-                for (k of taskJoin){
-                    taskJ.push(k.name)
+                if( taskJoin.length > 0){
+                    for (k of taskJoin){
+                        taskJ.push(k.name)
+                    }
+                    let item = {
+                        _id: j,
+                        teamName:team.teamName,
+                        name: user.fullName,
+                        avatar: user.avatar,
+                        task:taskJ
+                    }
+                    members.push(item)
                 }
-                let item = {
-                    _id: j,
-                    teamName:team.teamName,
-                    name: user.fullName,
-                    avatar: user.avatar,
-                    task:taskJ
+                else if (taskJoin.length == 0) {
+                    let item = {
+                        _id: j,
+                        teamName:team.teamName,
+                        name: user.fullName,
+                        avatar: user.avatar,
+                        task:taskJ
+                    }
+                    members.push(item)
                 }
-                members.push(item)
             }
         }
         return res.status(200).json(members)
