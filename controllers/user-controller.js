@@ -4,21 +4,6 @@ const MOMENT = require('moment')
 const crypto = require('crypto')
 const awsService = require('../services/aws-service')
 
-// const { v4: UUIDV4 } = require('uuid')
-// const AWS = require("aws-sdk");
-
-// const bucketName = process.env.BUCKET_NAME
-// const bucketRegion = process.env.BUCKET_REGION
-// const accessKey = process.env.ACCESS_KEY
-// const secketAccessKey = process.env.SECKET_ACCESS_KEY
-
-// AWS.config.update({
-//   accessKeyId: accessKey,
-//   secretAccessKey: secketAccessKey,
-//   region: bucketRegion,
-// });
-// const s3 = new AWS.S3();
-
 // done
 exports.getAllUser = async (req, res) => {
     try {
