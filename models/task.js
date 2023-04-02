@@ -7,9 +7,11 @@ const taskSchema = new SCHEMA(
             type: String,
             require: [true, "Please fill task name!"]
         },
-        description: {
-            type: String,
-        },
+        description: [
+            {
+                type: String,
+            }
+        ],
         startDay: {
             type: Date,
             require: [true, "Please fill start day of task!"]
@@ -31,11 +33,6 @@ const taskSchema = new SCHEMA(
                 link: String
             }
         ],
-        imageLink: [
-            {
-                type: String,
-            }
-        ],
         workId: {
             type: SCHEMA.Types.ObjectId,
             require: [true, "Please fill Word of task!"]
@@ -51,10 +48,10 @@ const taskSchema = new SCHEMA(
         level: {
             type: Number,
             enum: {
-                values: ['Bình thường', 'Quan trọng', 'Khẩn cấp'],
+                values: [1,2,3],
                 message: '{VALUE} is not supported'
             },
-            default: 'Bình thường'
+            default: 1
             /// (1,2,3) = (Bình thường, Quan trọng, Khẩn cấp)
         }
     },

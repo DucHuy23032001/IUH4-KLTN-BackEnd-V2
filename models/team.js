@@ -16,16 +16,22 @@ let teamSchema = new SCHEMA(
             type: SCHEMA.Types.ObjectId,
             require: [true, "Please fill leaderId of team!"]
         },
-        members: [
+        listMembers: [
             {
                 type: SCHEMA.Types.ObjectId,
-                require: [true, "Please fill members of team!"]
+                require: [true, "Please fill listMembers of team!"]
             }
-        ]
-        // status: {
-        //     type: Boolean,
-        //     require: [true, "Please fill status of team!"]
-        // }
+        ],
+        listTeams: [
+            {
+                type: SCHEMA.Types.ObjectId,
+                require: [true, "Please fill listTeams of team!"]
+            }
+        ],
+        status: {
+            type: Boolean,
+            require: [true, "Please fill status of team!"]
+        }
     },
     {
         timestamps: true

@@ -14,8 +14,6 @@ exports.getAllWorkByProjectId = async (req,res) => {
         })
         for ( i of works) {
             let team = await TEAM.findById(i.teamId)
-            console.log(i);
-            console.log("team", team);
             let data = {
                 _id: i._id,
                 name: i.name,
@@ -65,11 +63,22 @@ exports.getWorkById = async (req,res) => {
 //done
 exports.createWork = async (req,res) => {
     try {
-        let {name, projectId, startTime, endTime, createId, teamId} = req.body
+        let {name, projectId, startTime, endTime, createId, teamId, managerId} = req.body
         let start = MOMENT(startTime,"MM-DD-YYYY")      
-        let end = MOMENT(endTime,"MM-DD-YYYY")   
+        let end = MOMENT(endTime,"MM-DD-YYYY")  
+        let team
+        if (managerId != undefined || managerId != null) {
+            team = await TEAM.create({
+                teamName: name,
+                createId: createId,
+                leaderId: managerId,
+                status: false,
+                members: teamId,
+            })
+        }
+
         let work = await WORK.create({
-            teamId:teamId,
+            teamId:team.id,
             status:false,
             createId:createId,
             name:name,

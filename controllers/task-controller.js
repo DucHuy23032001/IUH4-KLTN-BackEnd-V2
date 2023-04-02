@@ -92,19 +92,20 @@ exports.getTaskByName = async (req, res) => {
 //done
 exports.createTask = async (req, res) => {
     try {
-        let { name, startDay, endDay, startHour, endHour, workId, members } = req.body
+        let { name, startDay, endDay, startHour, endHour, workId, members , level} = req.body
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
-        let dateend = MOMENT(endDay, "MM-DD-YYYY")
+        let dateEnd = MOMENT(endDay, "MM-DD-YYYY")
         let task = await TASK.create({
             name: name,
+            description: [],
             startDay: dateStart,
-            endDay: dateend,
+            endDay: dateEnd,
             startHour: startHour,
             endHour: endHour,
             linkSupport: [],
-            imageLink: [],
             workId: workId,
-            members
+            members: members,
+            level:level
         })
         return res.status(200).json(task)
     } catch (error) {
@@ -140,11 +141,41 @@ exports.updateTask = async (req, res) => {
 
         task.name = name
         task.startDay = dateStart
-        task.endDay = dateend
+        task.endDay = dateEnd
         task.startTime = startTime
         task.endTime = endTime
         task.linkSupports = linkSupports
         task.imageLink = imageLink
+        task.save()
+        return res.status(200).json(task)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+}
+
+//done
+exports.addDescription = async (req, res) => {
+    try {
+        let description = req.body.description
+        let id = req.params.id
+        let task = await TASK.findById(id)
+
+        task.description.push(description)
+        task.save()
+        return res.status(200).json(task)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+}
+
+//done
+exports.addLinkSupport = async (req, res) => {
+    try {
+        let linkSupport = req.body.LlnkSupport
+        let id = req.params.id
+        let task = await TASK.findById(id)
+
+        task.linkSupports.push(linkSupport)
         task.save()
         return res.status(200).json(task)
     } catch (error) {

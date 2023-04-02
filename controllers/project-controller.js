@@ -144,7 +144,6 @@ exports.createProject = async (req, res) => {
       createId: mainProject
     })
 
-    // console.log(team);
     teamIds.push(team._id)
 
     let project = await PROJECT.create({

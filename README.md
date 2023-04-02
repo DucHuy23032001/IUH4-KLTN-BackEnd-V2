@@ -262,7 +262,7 @@
             "_id":"641eb335bb721b7cdd8cbf36",
             "leaderId": "642687fbd58ad6becd0fa95f",
             "teamName": "Team 1",
-            "members": [
+            "listMembers": [
                 "642687fbd58ad6becd0fa95f",
                 "642687fbd58ad6becd0fa963"
             ],
@@ -280,7 +280,7 @@
             "_id":"641eb335bb721b7cdd8cbf36",
             "leaderId": "642687fbd58ad6becd0fa95f",
             "teamName": "Team 1",
-            "members": [
+            "listMembers": [
                 "642687fbd58ad6becd0fa95f",
                 "642687fbd58ad6becd0fa963"
             ],
@@ -353,7 +353,7 @@
             "_id":"641eb335bb721b7cdd8cbf36",
             "leaderId": "642687fbd58ad6becd0fa95f",
             "teamName": "Team 1",
-            "members": [
+            "listMembers": [
                 "642687fbd58ad6becd0fa95f",
                 "642687fbd58ad6becd0fa963"
             ],
@@ -364,14 +364,16 @@
     ```
 - createTeam:
     - Api: **POST**:    https://ptask.cyclic.app/api/teams/create
-    - Request
+    - Request **status true(nhóm), false(đơn)**
     ```json
     {
-        "createId":"642687fbd58ad6becd0fa95b",
-        "teamName":"Team 1",
-        "leaderId":"642687fbd58ad6becd0fa95b",
-        "members":["642687fbd58ad6becd0fa95b","642687fbd58ad6becd0fa95f"],
-        "projectId":"6426a65e8b1cc3b37eb1221f"
+        "createId":"64280789e4fa172184218593",
+        "teamName":"Team Test",
+        "leaderId":"64280789e4fa172184218593",
+        "listMembers":["64280789e4fa172184218593","64280789e4fa172184218597"],
+        "listTeams":[],
+        "projectId":"6428078ae4fa1721842185ab",
+        "status": true
     }
     ```
     - Reponse
@@ -380,13 +382,15 @@
         "_id": "6427f648e35d083e95b84c07",
         "leaderId": "642687fbd58ad6becd0fa95b",
         "teamName": "Team 1",
-        "members": [
+        "listMembers": [
             "642687fbd58ad6becd0fa95b",
             "642687fbd58ad6becd0fa95f"
         ],
+        "listTeams":[],
         "createId": "642687fbd58ad6becd0fa95b",
         "createAt": "2023-04-01T09:15:52.389Z",
-        "projectId": "6426a65e8b1cc3b37eb1221f"
+        "projectId": "6426a65e8b1cc3b37eb1221f",
+        "status": true
     }
     ```
 - changeNameTeam:
@@ -402,54 +406,112 @@
     {
         "_id": "63f4806dc4ec61b3edc26f6e",
         "name": "Name 1",
-        "members": [
-            "63f47b681e6c6175bf4ce69c"
+        "listMembers": [
+            "642687fbd58ad6becd0fa95b",
+            "642687fbd58ad6becd0fa95f"
         ],
+        "listTeams":[],
         "__v": 2
     }
-- addMembersTeam: **Đang có bug**
+- addMember: 
     - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/add-member/63f4806dc4ec61b3edc26f6e
     - Request
     ```json
     {
-        "createId":"6426a65d8b1cc3b37eb12206",
-        "memberIds": ["6426a65e8b1cc3b37eb12213","6426a65e8b1cc3b37eb12217"]
+        "createId":"6429449d32e69be96008c587",
+        "memberIds": ["6429449d32e69be96008c587","6429449d32e69be96008c58c"]
     }
     ```
     - Reponse
     ```json
     {
-        "_id": "6426a65e8b1cc3b37eb12219",
-        "leaderId": "6426a65e8b1cc3b37eb1220b",
+        "_id": "6429449e32e69be96008c59a",
+        "leaderId": "6429449d32e69be96008c58c",
         "teamName": "Team 1",
-        "members": [
-            "6426a65e8b1cc3b37eb1220b",
-            "6426a65e8b1cc3b37eb1220f",
-            "6426a65e8b1cc3b37eb12213",
-            "6426a65e8b1cc3b37eb12217"
+        "listMembers": [
+            "6429449d32e69be96008c58c",
+            "6429449e32e69be96008c590",
+            "6429449d32e69be96008c587"
         ],
-        "createId": "6426a65d8b1cc3b37eb12206",
-        "createAt": "2023-03-31T09:22:38.614Z"
+        "listTeams": [],
+        "createId": "6429449d32e69be96008c587",
+        "createAt": "2023-04-02T09:02:22.306Z"
     }
     ```
-- removeMemberTeam: 
+- removeMember: 
     - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/remove-member/63f4806dc4ec61b3edc26f6e
     - Request
     ```json
     {
-        "memberId":"63f481f55f6bee2a60d910eb"
+        "createId":"6429449d32e69be96008c587",
+        "memberId":"6429449d32e69be96008c587"
     }
     ```
     - Reponse
     ```json
     {
-        "team": {
-            "_id": "63f4806dc4ec61b3edc26f6e",
-            "name": "Name 1",
-            "members": [],
-            "__v": 3
-        },
-        "memberId": "63f47b681e6c6175bf4ce69c"
+        "_id": "6429449e32e69be96008c59a",
+        "leaderId": "6429449d32e69be96008c58c",
+        "teamName": "Team 1",
+        "listMembers": [
+            "6429449d32e69be96008c58c",
+            "6429449e32e69be96008c590"
+        ],
+        "listTeams": [],
+        "createId": "6429449d32e69be96008c587",
+        "createAt": "2023-04-02T09:02:22.306Z"
+    }
+    ```
+- addTeam: 
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/add-team/63f4806dc4ec61b3edc26f6e
+    - Request
+    ```json
+    {
+        "createId":"6429449d32e69be96008c587",
+        "teamIds": ["6429449e32e69be96008c59c"]
+    }
+    ```
+    - Reponse
+    ```json
+    {
+        "_id": "6429449e32e69be96008c59a",
+        "leaderId": "6429449d32e69be96008c58c",
+        "teamName": "Team 1",
+        "listMembers": [
+            "6429449e32e69be96008c59c",
+            "6429449d32e69be96008c58c",
+            "6429449e32e69be96008c590"
+        ],
+        "listTeams": [
+            "6429449e32e69be96008c59c"
+        ],
+        "createId": "6429449d32e69be96008c587",
+        "createAt": "2023-04-02T09:02:22.306Z"
+    }
+    ```
+- removeTeam: 
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/remove-team/63f4806dc4ec61b3edc26f6e
+    - Request
+    ```json
+    {
+        "createId":"6429449d32e69be96008c587",
+        "teamId":"6429449e32e69be96008c59c"
+    }
+    ```
+    - Reponse
+    ```json
+    {
+        "_id": "6429449e32e69be96008c59a",
+        "leaderId": "6429449d32e69be96008c58c",
+        "teamName": "Team 1",
+        "listMembers": [
+            "6429449e32e69be96008c59c",
+            "6429449d32e69be96008c58c",
+            "6429449e32e69be96008c590"
+        ],
+        "listTeams": [],
+        "createId": "6429449d32e69be96008c587",
+        "createAt": "2023-04-02T09:02:22.306Z"
     }
     ```
 ## Project
@@ -655,25 +717,28 @@
     - Request
     ```json
     {
-        "teamId":"641eb315bb721b7cdd8cbf32",
-        "createId":"641eb25bbb721b7cdd8cbf2b",
-        "name":"Work 2",
+        "teamId":["642925c841b4e01633caa2b5"],
+        "createId":"642925c841b4e01633caa2a2",
+        "name":"Work 3",
         "startTime": "03/23/2001",
         "endTime": "03/23/2002",
-        "projectId":"641eb335bb721b7cdd8cbf36"    
+        "projectId":"642925c941b4e01633caa2bb",
+        "managerId":"642925c841b4e01633caa2a2"  
     }
     ```
-    - Reponse
+    - Reponse **ManagerId nó sẽ được tạo thành leader của 1 team mới mà cái teamId trên kia là members trong đó**
     ```json
     {
-        "name": "Work 2",
+        "name": "Work 3",
         "status": false,
         "startTime": "2001-03-22T17:00:00.000Z",
         "endTime": "2002-03-22T17:00:00.000Z",
-        "teamId": "641eb315bb721b7cdd8cbf32",
-        "createId": "641eb25bbb721b7cdd8cbf2b",
-        "projectId": "641eb335bb721b7cdd8cbf36",
-        "_id": "641eb80287c02b20789b3635",
+        "teamId": "642929be0cc3bda5fec1708b",
+        "createId": "642925c841b4e01633caa2a2",
+        "projectId": "642925c941b4e01633caa2bb",
+        "_id": "642929be0cc3bda5fec1708d",
+        "createdAt": "2023-04-02T07:07:42.727Z",
+        "updatedAt": "2023-04-02T07:07:42.727Z",
         "__v": 0
     }
     ```
@@ -728,31 +793,36 @@
     - Request
     ```json
     {
-        "name":"task 2",
+        "name":"task 1",
         "startDay":"03-23-2001",
         "endDay":"03-23-2010",
         "startHour":"9:00",
         "endHour":"16:00",
-        "workId":"641ba5a6efd24fc581820abc",
-        "members":["641ba30d87b485c176a160b4"]
+        "linkSupport":"ABC",
+        "imageLink":"ABC",
+        "workId":"6428078ae4fa1721842185ad",
+        "members":["64280789e4fa172184218597"]
     }
     ```
     - Reponse
     ```json
     {
-        "name": "task 2",
+        "name": "task 1",
         "startDay": "2001-03-22T17:00:00.000Z",
         "endDay": "2010-03-22T17:00:00.000Z",
         "startHour": "9:00",
         "endHour": "16:00",
         "imageLink": [],
-        "workId": "641ba5a6efd24fc581820abc",
+        "workId": "6428078ae4fa1721842185ad",
         "members": [
-            "641ba30d87b485c176a160b4"
+            "64280789e4fa172184218597"
         ],
         "status": 3,
-        "_id": "641ba6722d192869ea462018",
+        "level": "Bình thường",
+        "_id": "64280906e1a5e1900bfa4cde",
         "linkSupports": [],
+        "createdAt": "2023-04-01T10:35:50.654Z",
+        "updatedAt": "2023-04-01T10:35:50.654Z",
         "__v": 0
     }
     ```
