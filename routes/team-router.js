@@ -14,4 +14,7 @@ ROUTER.patch('/change-name/:id',teamController.changeName)
 ROUTER.patch('/add-member/:id',teamController.addMember)
 ROUTER.patch('/remove-member/:id',teamController.removeMember)
 
+ROUTER.patch('/add-team/:id',teamController.addTeam)
+ROUTER.patch('/remove-team/:id',teamController.removeTeam)
+
 module.exports = ROUTER

@@ -110,7 +110,6 @@ async function addData() {
         accountId: a4.id
     })
 
-
     let a5 = await account.create({
         email: "nam@gmail.com",
         password: hash,
@@ -132,7 +131,8 @@ async function addData() {
         createId: u1.id,
         leaderId: u2.id,
         status: true,
-        members: [u2.id, u3.id]
+        listMembers:[u2.id, u3.id],
+        listTeams: [],
     })
 
     let team2 = await team.create({
@@ -140,7 +140,8 @@ async function addData() {
         createId: u1.id,
         leaderId: u4.id,
         status: true,
-        members: [u4.id, u5.id]
+        listMembers: [u4.id, u5.id],
+        listTeams: [],
     })
 
     
@@ -148,8 +149,9 @@ async function addData() {
         teamName: "Project Owner",
         createId: u1.id,
         leaderId: u1.id,
-        status: true,
-        members: [u1.id]
+        status: false,
+        listMembers: [u1.id],
+        listTeams: [],
     })
 
     let start = MOMENT("03/23/2010", "MM-DD-YYYY")
@@ -174,7 +176,8 @@ async function addData() {
         endTime: endTimeW1,
         teamId: team1.id,
         createId: u2.id,
-        projectId: project.id
+        leaderId: u2.id,
+        projectId: p1.id
     })
 
     let startTimeW2 = MOMENT("03/23/2011", "MM-DD-YYYY")
@@ -186,68 +189,9 @@ async function addData() {
         startTime: startTimeW2,
         endTime: endTimeW2,
         teamId: team2.id,
+        leaderId: u4.id,
         createId: u4.id,
-        projectId: project.id
+        projectId: p1.id
     })
 
-    // let startTask1 = MOMENT("03-23-2010", "MM-DD-YYYY")
-    // let endTask1 = MOMENT("03-23-2011", "MM-DD-YYYY")
-    // let task1 = await task.create({
-    //     name: "Task 1",
-    //     startDay: startTask1,
-    //     endDay: endTask1,
-    //     startHour: "9:00",
-    //     endHour: "16:00",
-    //     linkSupport: "ABC",
-    //     imageLink: "ABC",
-    //     workId: work1.id,
-    //     members: [u2.id]
-    // })
-
-    // let startTask2 = MOMENT("03-23-2010", "MM-DD-YYYY")
-    // let endTask2 = MOMENT("03-23-2011", "MM-DD-YYYY")
-    // let task2 = await task.create({
-    //     name: "Task 2",
-    //     startDay: startTask2,
-    //     endDay: endTask2,
-    //     startHour: "9:00",
-    //     endHour: "16:00",
-    //     linkSupport: "ABC",
-    //     imageLink: "ABC",
-    //     workId: work1.id,
-    //     members: [u3.id]
-    // })
-
-    // let startTask3 = MOMENT("03-23-2011", "MM-DD-YYYY")
-    // let endTask3 = MOMENT("03-23-2012", "MM-DD-YYYY")
-    // let task3 = await task.create({
-    //     name: "Task 3",
-    //     startDay: startTask3,
-    //     endDay: endTask3,
-    //     startHour: "9:00",
-    //     endHour: "16:00",
-    //     linkSupport: "ABC",
-    //     imageLink: "ABC",
-    //     workId: work2.id,
-    //     members: [u4.id]
-    // })
-
-    // let task4 = await task.create({
-    //     name: "Task 4",
-    //     startDay: startTask3,
-    //     endDay: endTask3,
-    //     startHour: "9:00",
-    //     endHour: "16:00",
-    //     linkSupport: "ABC",
-    //     imageLink: "ABC",
-    //     workId: work2.id,
-    //     members: [u5.id]
-    // })
-
-    // let n1 = await note.create({
-    //     text: "Không biết làm",
-    //     links: null,
-    //     taskId: task2.id,
-    //     createId: u3.id
-    // })
 }
