@@ -7,7 +7,6 @@ const MOMENT = require('moment')
 exports.getAllWorkByProjectId = async (req,res) => {
     try {
         let id = req.params.id  
-        // console.log(id);
         let datas = []
         let works = await WORK.find({
             projectId:id

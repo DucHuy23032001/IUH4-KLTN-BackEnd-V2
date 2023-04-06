@@ -272,7 +272,7 @@
     ]
     ```
 - getAllTeamOfIdProject:
-    - Api: **GET**:    hhttps://ptask.cyclic.app/api/teams/teams/641eb335bb721b7cdd8cbf36
+    - Api: **GET**:    https://ptask.cyclic.app/api/teams/teams-project/641eb335bb721b7cdd8cbf36
     - Reponse
     ```json
     [
@@ -361,6 +361,31 @@
             "createAt": "2023-03-31T07:13:00.022Z"
         }
     ]
+    ```
+- getAllTeamOfIdWork:
+    - Api: **GET**:    https://ptask.cyclic.app/api/teams/teams-work/641eb335bb721b7cdd8cbf36
+    - Reponse
+    ```json
+    [
+        {
+            "_id": "6429449e32e69be96008c59a",
+            "teamName": "Team 1",
+            "leaderName": "Nguyễn Đức Huy",
+            "listMembers": [
+                "6429449d32e69be96008c58c",
+                "6429449e32e69be96008c590"
+            ]
+        },
+        {
+            "_id": "6429449e32e69be96008c59c",
+            "teamName": "Team 2",
+            "leaderName": "Nguyễn Việt Hoàng",
+            "listMembers": [
+                "6429449e32e69be96008c594",
+                "6429449e32e69be96008c598"
+            ]
+        }
+    ]  
     ```
 - createTeam:
     - Api: **POST**:    https://ptask.cyclic.app/api/teams/create
