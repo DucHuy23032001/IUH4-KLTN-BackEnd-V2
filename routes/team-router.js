@@ -3,7 +3,8 @@ const teamController = require('../controllers/team-controller')
 
 ROUTER.get('/team/:id',teamController.getTeamById)
 ROUTER.get('/:id',teamController.getAllTeamOfUser)
-ROUTER.get('/teams/:id',teamController.getAllTeamByIdProject)
+ROUTER.get('/teams-project/:id',teamController.getAllTeamByIdProject)
+ROUTER.get('/teams-work/:id',teamController.getAllTeamByIdWork)
 ROUTER.get('/members-project/:id',teamController.getAllMemberByIdProject)
 ROUTER.get('/members-team/:id',teamController.getAllMemberOfTeam)
 
