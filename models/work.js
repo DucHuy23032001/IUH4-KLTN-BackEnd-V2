@@ -29,7 +29,7 @@ let workSchema = new SCHEMA(
         },
         leaderId: {
             type: SCHEMA.Types.ObjectId,
-            require: [true, "Please fill leaderId of work!"]
+            default: null
         },
         projectId:
         {
