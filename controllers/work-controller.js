@@ -66,7 +66,9 @@ exports.createWork = async (req,res) => {
         let start = MOMENT(startTime,"MM-DD-YYYY")      
         let end = MOMENT(endTime,"MM-DD-YYYY")  
         let team
+        console.log(managerId);
         if (managerId != undefined || managerId != null) {
+            console.log("0");
             team = await TEAM.create({
                 teamName: name,
                 createId: createId,
@@ -75,9 +77,9 @@ exports.createWork = async (req,res) => {
                 members: teamId,
             })
         }
-
+        console.log("0");
         let work = await WORK.create({
-            teamId:team.id,
+            teamId:teamId,
             status:false,
             createId:createId,
             name:name,
@@ -85,6 +87,7 @@ exports.createWork = async (req,res) => {
             startTime:start,
             endTime:end
         })
+        console.log(work);
         return res.status(200).json(work)
     } catch (error) {
         return res.status(500).json(error)

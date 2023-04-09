@@ -28,12 +28,12 @@ exports.getProjectById = async (req, res) => {
     let data = {
       _id: project.id,
       name: project.name,
-      startTime:project.startTime,
+      startTime: project.startTime,
       endTime: project.endTime,
       status: false,
       background: project.background,
       teamIds: project.teamIds,
-      createdAt:project.createdAt,
+      createdAt: project.createdAt,
       updatedAt: project.updatedAt,
       __v: 0,
       leaders: idLeaders,
@@ -139,12 +139,23 @@ exports.createProject = async (req, res) => {
 
     let team = await TEAM.create({
       leaderId: mainProject,
-      name: "Project Owner",
+      teamName: "Project Owner",
       members: [mainProject],
       createId: mainProject
     })
 
-    teamIds.push(team._id)
+    let teams = []
+    // console.log(Array.isArray(teamIds));
+    if(Array.isArray(teamIds)) {
+      teamIds.push(team._id)
+      teams = teamIds
+    }
+    else {
+      teams.push(teamIds)
+      teams.push(team._id)
+    }
+
+    console.log(teamIds);
 
     let project = await PROJECT.create({
       name: name,
@@ -152,8 +163,43 @@ exports.createProject = async (req, res) => {
       endTime: end,
       status: 1,
       background: pathBackground,
-      teamIds: teamIds
+      teamIds: teams
     })
+    return res.status(201).json(project)
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+}
+
+
+// Chưa test
+exports.addTeams = async (req, res) => {
+  try {
+    let { teamIds, mainProject } = req.body
+    let id = req.params.id
+    let check = false
+    let project = await PROJECT.findById(id)
+
+    for (i of project.teamIds) {
+      if (i.leaderId == mainProject) {
+        check = true
+      }
+    }
+
+    if (check) {
+      return res.status(400).json({
+        message: "Only the main project can edit"
+      })
+    }
+    
+    let teams = project.teamIds
+    for( i of teamIds) {
+      teams.push(i)
+    }
+
+    project.teamIds = teams
+    project.save()
+
     return res.status(201).json(project)
   } catch (error) {
     return res.status(500).json(error)
