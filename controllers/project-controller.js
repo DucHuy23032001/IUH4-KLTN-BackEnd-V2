@@ -17,12 +17,15 @@ exports.getProjectById = async (req, res) => {
   try {
     let id = req.params.id
     let project = await PROJECT.findById(id)
+    console.log(project);
     let idLeaders = []
     let mainId
     for (i of project.teamIds) {
-      let team = await TEAM.findById(i)
-      idLeaders.push(team.leaderId)
-      mainId = team.createId
+      if (i != null) {
+        let team = await TEAM.findById(i)
+        idLeaders.push(team.leaderId)
+        mainId = team.createId
+      }
     }
 
     let data = {
@@ -184,10 +187,10 @@ exports.addTeams = async (req, res) => {
       let team = await TEAM.findById(i)
       // console.log(team);
       if (!team.status) {
-        console.log(team.leaderId== mainProject);
-          if(team.leaderId == mainProject) {
-            check = true
-          }
+        console.log(team.leaderId == mainProject);
+        if (team.leaderId == mainProject) {
+          check = true
+        }
       }
     }
 
@@ -201,11 +204,11 @@ exports.addTeams = async (req, res) => {
     for (i of teamIds) {
       let check = true
       for (j of project.teamIds) {
-        if(j == i){
+        if (j == i) {
           check = false
         }
       }
-      if(check) {
+      if (check) {
         teams.push(i)
       }
     }
