@@ -755,28 +755,29 @@
     - Request
     ```json
     {
-        "teamId":["642925c841b4e01633caa2b5"],
-        "createId":"642925c841b4e01633caa2a2",
-        "name":"Work 3",
+        "teamId":["643278efa6fdbb3a058caa05", "643278efa6fdbb3a058caa07"],
+        "createId":"643278eea6fdbb3a058ca9f3",
+        "name":"Work Huy tesst 3 ",
         "startTime": "03/23/2001",
         "endTime": "03/23/2002",
-        "projectId":"642925c941b4e01633caa2bb",
-        "managerId":"642925c841b4e01633caa2a2"  
+        "projectId":"643278efa6fdbb3a058caa0b",
+        "leaderId":"643278eea6fdbb3a058ca9f3"
     }
     ```
     - Reponse **ManagerId nó sẽ được tạo thành leader của 1 team mới mà cái teamId trên kia là members trong đó**
     ```json
     {
-        "name": "Work 3",
+        "name": "Work Huy tesst 3 ",
         "status": false,
         "startTime": "2001-03-22T17:00:00.000Z",
         "endTime": "2002-03-22T17:00:00.000Z",
-        "teamId": "642929be0cc3bda5fec1708b",
-        "createId": "642925c841b4e01633caa2a2",
-        "projectId": "642925c941b4e01633caa2bb",
-        "_id": "642929be0cc3bda5fec1708d",
-        "createdAt": "2023-04-02T07:07:42.727Z",
-        "updatedAt": "2023-04-02T07:07:42.727Z",
+        "teamId": "6432a2de1b83802815e147f9",
+        "createId": "643278eea6fdbb3a058ca9f3",
+        "leaderId": null,
+        "projectId": "643278efa6fdbb3a058caa0b",
+        "_id": "6432a2de1b83802815e147fd",
+        "createdAt": "2023-04-09T11:34:54.515Z",
+        "updatedAt": "2023-04-09T11:34:54.515Z",
         "__v": 0
     }
     ```

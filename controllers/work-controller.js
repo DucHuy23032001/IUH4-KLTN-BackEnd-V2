@@ -13,6 +13,12 @@ exports.getAllWorkByProjectId = async (req,res) => {
         })
         for ( i of works) {
             let team = await TEAM.findById(i.teamId)
+            let nameTeam = []
+            nameTeam.push(team.teamName)
+            for(i of team.listTeams){
+                let itemTeam = await TEAM.findById(i.teamId)
+                nameTeam.push(itemTeam.teamName)
+            }
             let data = {
                 _id: i._id,
                 name: i.name,
@@ -22,9 +28,9 @@ exports.getAllWorkByProjectId = async (req,res) => {
                 teamId: i.teamId,
                 createId: i.createId,
                 projectId: i.projectId,
-                teamName: team.teamName
+                teamName: nameTeam
             }
-            console.log(data);
+            // console.log(data);
             datas.push(data)
         }
         return res.status(200).json(datas)
@@ -47,7 +53,6 @@ exports.getWorkByName = async (req,res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.getWorkById = async (req,res) => {
     try {
@@ -58,36 +63,53 @@ exports.getWorkById = async (req,res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.createWork = async (req,res) => {
     try {
+        let nameTeam = []
         let {name, projectId, startTime, endTime, createId, teamId, leaderId} = req.body
         let start = MOMENT(startTime,"MM-DD-YYYY")      
         let end = MOMENT(endTime,"MM-DD-YYYY")  
         let team
-        console.log(leaderId);
         if (leaderId != undefined || leaderId != null) {
-            console.log("0");
             team = await TEAM.create({
-                teamName: name,
+                teamName: null,
                 createId: createId,
                 leaderId: leaderId,
                 status: false,
-                members: teamId,
+                listTeams: teamId,
             })
         }
-        console.log("0");
-        let work = await WORK.create({
-            teamId:teamId,
-            status:false,
-            createId:createId,
-            name:name,
-            projectId:projectId,
-            startTime:start,
-            endTime:end
-        })
-        console.log(work);
+        for(i of teamId){
+            let team = await TEAM.findById(i)
+            nameTeam.push(team.teamName)
+        }
+
+        let work
+        // console.log(teamId.length);
+        if(teamId.length == 1){
+            work = await WORK.create({
+                teamId:teamId,
+                status:false,
+                createId:createId,
+                name:name,
+                projectId:projectId,
+                startTime:start,
+                endTime:end
+            })
+        } else if (teamId.length > 1){
+            console.log("2");
+            work = await WORK.create({
+                teamId:team.id,
+                status:false,
+                createId:createId,
+                name:name,
+                projectId:projectId,
+                startTime:start,
+                endTime:end
+            })
+        }
+
         return res.status(200).json(work)
     } catch (error) {
         return res.status(500).json(error)
