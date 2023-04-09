@@ -691,26 +691,30 @@
     ```json
     [
         {
-            "_id": "641eca7e1719488051e48de7",
-            "name": "Work 2",
+            "_id": "643278efa6fdbb3a058caa0d",
+            "name": "Work 1",
             "status": false,
-            "startTime": "2001-03-22T17:00:00.000Z",
-            "endTime": "2002-03-22T17:00:00.000Z",
-            "teamId": "641eb315bb721b7cdd8cbf32",
-            "createId": "641eb25bbb721b7cdd8cbf2b",
-            "projectId": "641eb335bb721b7cdd8cbf36",
-            "teamName": "Team 1"
+            "startTime": "2010-03-22T17:00:00.000Z",
+            "endTime": "2011-03-22T17:00:00.000Z",
+            "teamId": "643278efa6fdbb3a058caa05",
+            "createId": "643278eea6fdbb3a058ca9f7",
+            "projectId": "643278efa6fdbb3a058caa0b",
+            "teamName": [
+                "Team 1"
+            ]
         },
         {
-            "_id": "641ecaaaa4524814a198f0c3",
+            "_id": "643278efa6fdbb3a058caa0f",
             "name": "Work 2",
             "status": false,
-            "startTime": "2001-03-22T17:00:00.000Z",
-            "endTime": "2002-03-22T17:00:00.000Z",
-            "teamId": "641eb315bb721b7cdd8cbf32",
-            "createId": "641eb25bbb721b7cdd8cbf2b",
-            "projectId": "641eb335bb721b7cdd8cbf36",
-            "teamName": "Team 1"
+            "startTime": "2011-03-22T17:00:00.000Z",
+            "endTime": "2012-03-22T17:00:00.000Z",
+            "teamId": "643278efa6fdbb3a058caa07",
+            "createId": "643278efa6fdbb3a058ca9ff",
+            "projectId": "643278efa6fdbb3a058caa0b",
+            "teamName": [
+                "Team 2"
+            ]
         }
     ]
     ```
