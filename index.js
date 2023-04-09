@@ -194,4 +194,16 @@ async function addData() {
         projectId: p1.id
     })
 
+    let task1 = await task.create({
+        name: "Task 1 Work 1",
+        startDay: startTimeW1,
+        endDay: endTimeW1,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work1.id,
+        members: [],
+        status: false,
+        level: 1
+    })
+
 }
