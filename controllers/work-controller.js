@@ -62,17 +62,17 @@ exports.getWorkById = async (req,res) => {
 //done
 exports.createWork = async (req,res) => {
     try {
-        let {name, projectId, startTime, endTime, createId, teamId, managerId} = req.body
+        let {name, projectId, startTime, endTime, createId, teamId, leaderId} = req.body
         let start = MOMENT(startTime,"MM-DD-YYYY")      
         let end = MOMENT(endTime,"MM-DD-YYYY")  
         let team
-        console.log(managerId);
-        if (managerId != undefined || managerId != null) {
+        console.log(leaderId);
+        if (leaderId != undefined || leaderId != null) {
             console.log("0");
             team = await TEAM.create({
                 teamName: name,
                 createId: createId,
-                leaderId: managerId,
+                leaderId: leaderId,
                 status: false,
                 members: teamId,
             })
