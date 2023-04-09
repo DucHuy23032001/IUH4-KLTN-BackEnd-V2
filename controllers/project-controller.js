@@ -146,7 +146,7 @@ exports.createProject = async (req, res) => {
 
     let teams = []
     // console.log(Array.isArray(teamIds));
-    if(Array.isArray(teamIds)) {
+    if (Array.isArray(teamIds)) {
       teamIds.push(team._id)
       teams = teamIds
     }
@@ -165,7 +165,7 @@ exports.createProject = async (req, res) => {
       background: pathBackground,
       teamIds: teams
     })
-    return res.status(201).json(project)
+    return res.status(200).json(project)
   } catch (error) {
     return res.status(500).json(error)
   }
@@ -181,26 +181,38 @@ exports.addTeams = async (req, res) => {
     let project = await PROJECT.findById(id)
 
     for (i of project.teamIds) {
-      if (i.leaderId == mainProject) {
-        check = true
+      let team = await TEAM.findById(i)
+      // console.log(team);
+      if (!team.status) {
+        console.log(team.leaderId== mainProject);
+          if(team.leaderId == mainProject) {
+            check = true
+          }
       }
     }
 
-    if (check) {
+    if (!check) {
       return res.status(400).json({
         message: "Only the main project can edit"
       })
     }
-    
+
     let teams = project.teamIds
-    for( i of teamIds) {
-      teams.push(i)
+    for (i of teamIds) {
+      let check = true
+      for (j of project.teamIds) {
+        if(j == i){
+          check = false
+        }
+      }
+      if(check) {
+        teams.push(i)
+      }
     }
 
     project.teamIds = teams
     project.save()
-
-    return res.status(201).json(project)
+    return res.status(200).json(project)
   } catch (error) {
     return res.status(500).json(error)
   }
