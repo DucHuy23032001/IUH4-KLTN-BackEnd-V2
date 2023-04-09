@@ -295,21 +295,34 @@
     ```json
     [
         {
-            "_id": "641eb24fbb721b7cdd8cbf25",
-            "teamName": "Team 2",
-            "name": "Nguyễn Đức Hung",
-            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
-            "task": [
-                "task 1",
-                "task 2"
+            "_id": "6429449e32e69be96008c59a",
+            "teamName": "Team 1",
+            "leaderName": "Nguyễn Đức Huy",
+            "workName": [
+                "Work Huy tesst 3 ",
+                "Work Huy tesst 3 ",
+                "Work Huy tesst 3 "
             ]
         },
         {
-            "_id": "641eb24fbb721b7cdd8cbf25",
+            "_id": "6429449e32e69be96008c59c",
             "teamName": "Team 2",
-            "name": "Nguyễn Đức Phuong",
-            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
-            "task": []
+            "leaderName": "Nguyễn Việt Hoàng",
+            "workName": [
+                "Work Huy tesst 3 ",
+                "Work Huy tesst 3 ",
+                "Work Huy tesst 3 "
+            ]
+        },
+        {
+            "_id": "64324dd6ddfc33701e523476",
+            "teamName": "Project Owner",
+            "leaderName": "Nguyễn Đức Huy",
+            "workName": [
+                "Work Huy tesst 3 ",
+                "Work Huy tesst 3 ",
+                "Work Huy tesst 3 "
+            ]
         }
     ]
     ```

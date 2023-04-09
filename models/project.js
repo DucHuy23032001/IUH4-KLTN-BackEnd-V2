@@ -26,7 +26,7 @@ let projectSchema = new SCHEMA(
         teamIds: [
             {
                 type: SCHEMA.Types.ObjectId,
-                require: [true, "Please fill teamId of project!"]
+                default: null
             }
         ]
     },
