@@ -126,6 +126,86 @@ async function addData() {
         accountId: a5.id
     })
 
+    let a6 = await account.create({
+        email: "6@gmail.com",
+        password: hash,
+    })
+
+    let u6 = await user.create({
+        fullName: "6",
+        birthday: "02/02/2001",
+        address: "12 Lê Văn Thọ, Gò Gấp, TP HCM",
+        phoneNumber: "0987654321",
+        gender: 0,
+        status: true,
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+        accountId: a1.id
+    })
+
+    let a7 = await account.create({
+        email: "7@gmail.com",
+        password: hash,
+    })
+
+    let u7 = await user.create({
+        fullName: "7",
+        birthday: "03/23/2001",
+        address: "247 Lê Đức Thọ, Gò Gấp, TP HCM",
+        phoneNumber: "0879276284",
+        gender: 0,
+        status: true,
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+        accountId: a2.id
+    })
+
+    let a8= await account.create({
+        email: "8@gmail.com",
+        password: hash,
+    })
+
+    let u8 = await user.create({
+        fullName: "8",
+        birthday: "09/13/2004",
+        address: "247 Lê Đức Thọ, Gò Gấp, TP HCM",
+        phoneNumber: "0879276333",
+        gender: 0,
+        status: true,
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+        accountId: a3.id
+    })
+
+    let a9 = await account.create({
+        email: "9@gmail.com",
+        password: hash,
+    })
+
+    let u9 = await user.create({
+        fullName: "9",
+        birthday: "02/12/2001",
+        address: "Nghĩa trang liệt sỹ Thủ Đức, TP HCM",
+        phoneNumber: "0879276285",
+        gender: 0,
+        status: true,
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+        accountId: a4.id
+    })
+
+    let a10 = await account.create({
+        email: "10@gmail.com",
+        password: hash,
+    })
+
+    let u10 = await user.create({
+        fullName: "10",
+        birthday: "02/12/2003",
+        address: "Nghĩa trang liệt sỹ Thủ Đức, TP HCM",
+        phoneNumber: "0879276222",
+        gender: 0,
+        status: true,
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+        accountId: a5.id
+    })
+
     let team1 = await team.create({
         teamName: "Team 1",
         createId: u1.id,

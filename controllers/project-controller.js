@@ -17,7 +17,6 @@ exports.getProjectById = async (req, res) => {
   try {
     let id = req.params.id
     let project = await PROJECT.findById(id)
-    console.log(project);
     let idLeaders = []
     let mainId
     for (i of project.teamIds) {
@@ -148,7 +147,6 @@ exports.createProject = async (req, res) => {
     })
 
     let teams = []
-    // console.log(Array.isArray(teamIds));
     if (Array.isArray(teamIds)) {
       teamIds.push(team._id)
       teams = teamIds
@@ -157,9 +155,6 @@ exports.createProject = async (req, res) => {
       teams.push(teamIds)
       teams.push(team._id)
     }
-
-    console.log(teamIds);
-
     let project = await PROJECT.create({
       name: name,
       startTime: start,
@@ -185,7 +180,6 @@ exports.addTeams = async (req, res) => {
 
     for (i of project.teamIds) {
       let team = await TEAM.findById(i)
-      // console.log(team);
       if (!team.status) {
         console.log(team.leaderId == mainProject);
         if (team.leaderId == mainProject) {
