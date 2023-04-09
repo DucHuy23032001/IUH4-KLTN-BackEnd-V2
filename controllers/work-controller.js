@@ -22,7 +22,7 @@ exports.getAllWorkByProjectId = async (req,res) => {
                 teamId: i.teamId,
                 createId: i.createId,
                 projectId: i.projectId,
-                teamName: team.name
+                teamName: team.teamName
             }
             console.log(data);
             datas.push(data)
