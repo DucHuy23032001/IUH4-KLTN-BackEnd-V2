@@ -4,20 +4,24 @@ const TEAM = require('../models/team')
 const MOMENT = require('moment')
 
 //done
-exports.getAllWorkByProjectId = async (req,res) => {
+exports.getAllWorkByProjectId = async (req, res) => {
     try {
-        let id = req.params.id  
+        let id = req.params.id
         let datas = []
         let works = await WORK.find({
-            projectId:id
+            projectId: id
         })
-        for ( i of works) {
+        for (i of works) {
             let team = await TEAM.findById(i.teamId)
             let nameTeam = []
+
             nameTeam.push(team.teamName)
-            for(i of team.listTeams){
-                let itemTeam = await TEAM.findById(i.teamId)
-                nameTeam.push(itemTeam.teamName)
+            let listTeam = team.listTeams
+            for (i of listTeam) {
+                if (i != null) {
+                    let itemTeam = await TEAM.findById(i)
+                    nameTeam.push(itemTeam.teamName)
+                }
             }
             let data = {
                 _id: i._id,
@@ -30,7 +34,6 @@ exports.getAllWorkByProjectId = async (req,res) => {
                 projectId: i.projectId,
                 teamName: nameTeam
             }
-            // console.log(data);
             datas.push(data)
         }
         return res.status(200).json(datas)
@@ -40,12 +43,12 @@ exports.getAllWorkByProjectId = async (req,res) => {
 }
 
 //done
-exports.getWorkByName = async (req,res) => {
+exports.getWorkByName = async (req, res) => {
     try {
-        let name = req.params.name 
+        let name = req.params.name
         console.log(name);
         let works = await WORK.find({
-            name:name
+            name: name
         })
         console.log(works);
         return res.status(200).json(works)
@@ -54,9 +57,9 @@ exports.getWorkByName = async (req,res) => {
     }
 }
 //done
-exports.getWorkById = async (req,res) => {
+exports.getWorkById = async (req, res) => {
     try {
-        let id = req.params.id 
+        let id = req.params.id
         let works = await WORK.findById(id)
         return res.status(200).json(works)
     } catch (error) {
@@ -64,12 +67,12 @@ exports.getWorkById = async (req,res) => {
     }
 }
 //done
-exports.createWork = async (req,res) => {
+exports.createWork = async (req, res) => {
     try {
         let nameTeam = []
-        let {name, projectId, startTime, endTime, createId, teamId, leaderId} = req.body
-        let start = MOMENT(startTime,"MM-DD-YYYY")      
-        let end = MOMENT(endTime,"MM-DD-YYYY")  
+        let { name, projectId, startTime, endTime, createId, teamId, leaderId } = req.body
+        let start = MOMENT(startTime, "MM-DD-YYYY")
+        let end = MOMENT(endTime, "MM-DD-YYYY")
         let team
         if (leaderId != undefined || leaderId != null) {
             team = await TEAM.create({
@@ -80,33 +83,33 @@ exports.createWork = async (req,res) => {
                 listTeams: teamId,
             })
         }
-        for(i of teamId){
+        for (i of teamId) {
             let team = await TEAM.findById(i)
             nameTeam.push(team.teamName)
         }
 
         let work
         // console.log(teamId.length);
-        if(teamId.length == 1){
+        if (teamId.length == 1) {
             work = await WORK.create({
-                teamId:teamId,
-                status:false,
-                createId:createId,
-                name:name,
-                projectId:projectId,
-                startTime:start,
-                endTime:end
+                teamId: teamId,
+                status: false,
+                createId: createId,
+                name: name,
+                projectId: projectId,
+                startTime: start,
+                endTime: end
             })
-        } else if (teamId.length > 1){
+        } else if (teamId.length > 1) {
             console.log("2");
             work = await WORK.create({
-                teamId:team.id,
-                status:false,
-                createId:createId,
-                name:name,
-                projectId:projectId,
-                startTime:start,
-                endTime:end
+                teamId: team.id,
+                status: false,
+                createId: createId,
+                name: name,
+                projectId: projectId,
+                startTime: start,
+                endTime: end
             })
         }
 
@@ -117,16 +120,16 @@ exports.createWork = async (req,res) => {
 }
 
 //done
-exports.updateTimeWork = async (req,res) => {
+exports.updateTimeWork = async (req, res) => {
     try {
-        let {createId, startTime, endTime,} = req.body
-        let id = req.params.id  
-        let start = MOMENT(startTime,"MM-DD-YYYY")      
-        let end = MOMENT(endTime,"MM-DD-YYYY") 
+        let { createId, startTime, endTime, } = req.body
+        let id = req.params.id
+        let start = MOMENT(startTime, "MM-DD-YYYY")
+        let end = MOMENT(endTime, "MM-DD-YYYY")
         let work = await WORK.findById(id)
-        if(work.createId != createId) {
+        if (work.createId != createId) {
             return res.status(400).json({
-                message:"Only the project owner can edit"
+                message: "Only the project owner can edit"
             })
         }
 
@@ -140,15 +143,15 @@ exports.updateTimeWork = async (req,res) => {
 }
 
 //done
-exports.changeNameWork = async (req,res) => {
+exports.changeNameWork = async (req, res) => {
     try {
-        let {createId, name} = req.body
-        let id = req.params.id  
+        let { createId, name } = req.body
+        let id = req.params.id
 
         let work = await WORK.findById(id)
-        if(work.createId != createId) {
+        if (work.createId != createId) {
             return res.status(400).json({
-                message:"Only the project owner can edit"
+                message: "Only the project owner can edit"
             })
         }
 
@@ -161,19 +164,19 @@ exports.changeNameWork = async (req,res) => {
 }
 
 // done
-exports.changeStatusWork = async (req,res) => {
+exports.changeStatusWork = async (req, res) => {
     try {
         let createId = req.body.createId
-        let id = req.params.id  
+        let id = req.params.id
 
         let work = await WORK.findById(id)
-        if(work.createId != createId) {
+        if (work.createId != createId) {
             return res.status(400).json({
-                message:"Only the project owner can edit"
+                message: "Only the project owner can edit"
             })
         }
 
-        await TASK.updateMany({status:0}, { $set: { listId: id } });
+        await TASK.updateMany({ status: 0 }, { $set: { listId: id } });
         work.status = true
         work.save()
         return res.status(200).json(work)
