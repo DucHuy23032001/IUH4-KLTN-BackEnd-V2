@@ -406,19 +406,19 @@ exports.addTeam = async (req, res) => {
                 message: "Only the creator can edit"
             })
         }
-        let members = team.listTeams
+        let teams = team.listTeams
         for (i of teamIds) {
             let check = false
-            for (j of members) {
+            for (j of teams) {
                 if (j == i) {
                     check = true
                 }
             }
             if (!check) {
-                members.push(i)
+                teams.push(i)
             }
         }
-        team.listTeams = members
+        team.listTeams = teams
         await team.save();
         let data = {
             _id: team.id,

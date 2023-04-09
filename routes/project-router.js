@@ -9,5 +9,7 @@ ROUTER.get("/id-user/:id",projectController.getProjectByIdUser)
 ROUTER.post("/create",projectController.createProject)
 
 ROUTER.patch("/update/:id",projectController.updateProject)
+ROUTER.patch("/add-team/:id",projectController.addTeams)
+
 
 module.exports = ROUTER
