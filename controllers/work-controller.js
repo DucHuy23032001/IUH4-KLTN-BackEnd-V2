@@ -12,17 +12,20 @@ exports.getAllWorkByProjectId = async (req, res) => {
             projectId: id
         })
         for (i of works) {
+            // console.log(i);
             let team = await TEAM.findById(i.teamId)
             let nameTeam = []
-
-            nameTeam.push(team.teamName)
-            let listTeam = team.listTeams
-            for (i of listTeam) {
-                if (i != null) {
-                    let itemTeam = await TEAM.findById(i)
-                    nameTeam.push(itemTeam.teamName)
+            if(team != null){
+                nameTeam.push(team.teamName)
+                let listTeam = team.listTeams
+                for (j of listTeam) {
+                    if (j != null) {
+                        let itemTeam = await TEAM.findById(j)
+                        nameTeam.push(itemTeam.teamName)
+                    }
                 }
             }
+
             let data = {
                 _id: i._id,
                 name: i.name,
@@ -36,6 +39,7 @@ exports.getAllWorkByProjectId = async (req, res) => {
             }
             datas.push(data)
         }
+        console.log(datas);
         return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json(error)
