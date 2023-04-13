@@ -143,6 +143,7 @@ exports.createProject = async (req, res) => {
       leaderId: mainProject,
       teamName: "Project Owner",
       members: [mainProject],
+      status:false,
       createId: mainProject
     })
 
