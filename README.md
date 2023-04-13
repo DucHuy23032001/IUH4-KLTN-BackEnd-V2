@@ -277,16 +277,27 @@
     ```json
     [
         {
-            "_id":"641eb335bb721b7cdd8cbf36",
-            "leaderId": "642687fbd58ad6becd0fa95f",
+            "_id": "643278efa6fdbb3a058caa05",
             "teamName": "Team 1",
-            "listMembers": [
-                "642687fbd58ad6becd0fa95f",
-                "642687fbd58ad6becd0fa963"
-            ],
-            "createId": "642687fbd58ad6becd0fa95b",
-            "createAt": "2023-03-31T07:13:00.022Z"
-        }   
+            "leaderName": "Nguyễn Đức Huy",
+            "workName": [
+                "Work 1"
+            ]
+        },
+        {
+            "_id": "643278efa6fdbb3a058caa07",
+            "teamName": "Team 2",
+            "leaderName": "Nguyễn Việt Hoàng",
+            "workName": [
+                "Work 2"
+            ]
+        },
+        {
+            "_id": "643278efa6fdbb3a058caa09",
+            "teamName": "Project Owner",
+            "leaderName": "Võ Minh Phương",
+            "workName": []
+        }
     ]
     ```
 - getAllMemberOfIdProject:
@@ -295,34 +306,42 @@
     ```json
     [
         {
-            "_id": "6429449e32e69be96008c59a",
+            "_id": "643278eea6fdbb3a058ca9f7",
             "teamName": "Team 1",
-            "leaderName": "Nguyễn Đức Huy",
-            "workName": [
-                "Work Huy tesst 3 ",
-                "Work Huy tesst 3 ",
-                "Work Huy tesst 3 "
+            "position": "Leader",
+            "name": "Nguyễn Đức Huy",
+            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+            "task": [
+                "Task 1 Work 1"
             ]
         },
         {
-            "_id": "6429449e32e69be96008c59c",
+            "_id": "643278eea6fdbb3a058ca9f7",
+            "teamName": "Team 1",
+            "position": "Member",
+            "name": "Nguyễn Đức Huy",
+            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+            "task": [
+                "Task 1 Work 1"
+            ]
+        },
+        {
+            "_id": "643278eea6fdbb3a058ca9fb",
+            "teamName": "Team 1",
+            "position": "Member",
+            "name": "Nguyễn Đức Hùng",
+            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+            "task": [
+                "Task 2 Work 1"
+            ]
+        },
+        {
+            "_id": "643278efa6fdbb3a058ca9ff",
             "teamName": "Team 2",
-            "leaderName": "Nguyễn Việt Hoàng",
-            "workName": [
-                "Work Huy tesst 3 ",
-                "Work Huy tesst 3 ",
-                "Work Huy tesst 3 "
-            ]
-        },
-        {
-            "_id": "64324dd6ddfc33701e523476",
-            "teamName": "Project Owner",
-            "leaderName": "Nguyễn Đức Huy",
-            "workName": [
-                "Work Huy tesst 3 ",
-                "Work Huy tesst 3 ",
-                "Work Huy tesst 3 "
-            ]
+            "position": "Leader",
+            "name": "Nguyễn Việt Hoàng",
+            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+            "task": []
         }
     ]
     ```

@@ -8,13 +8,13 @@ const WORK = require('../models/work')
 exports.getAllTeamByIdProject = async (req, res) => {
     try {
         let teams = []
-        let workName = []
+        // let workName = []
         let id = req.params.id
         let project = await PROJECT.findById(id)
         let teamProject = project.teamIds
         let arrays = []
         for (i of teamProject) {
-            console.log(i);
+            // console.log(i);
             let array = {
                 id: i,
                 name: []
@@ -42,7 +42,7 @@ exports.getAllTeamByIdProject = async (req, res) => {
             }
         }
         for (item of arrays) {
-            console.log(item);
+            // console.log(item);
             var team = await TEAM.findById(item.id)
             var user = await USER.findById(team.leaderId)
             let data = {
@@ -67,46 +67,50 @@ exports.getAllMemberByIdProject = async (req, res) => {
         let teamProject = project.teamIds
         // console.log(teamProject);
         for (i of teamProject) {
-            var team = await TEAM.findById(i)
-            console.log(team);
-            for (j of team.listMembers) {
-                let taskJ = []
-                let user = await USER.findById(j)
-                console.log(user);
+            let team = await TEAM.findById(i)
+            if(team.status) {
+                let leader = await USER.findById(team.leaderId)
                 let taskJoin = await TASK.find({
                     members: {
-                        $in: j
+                        $in: leader.id
                     }
                 })
-                if (taskJoin.length > 0) {
+                // console.log(leader);
+                if (taskJoin.length == 0) {
+                    // console.log("1");
+                    let item = {
+                        _id: leader.id,
+                        teamName: team.teamName,
+                        position: "Leader",
+                        name: leader.fullName,
+                        avatar: leader.avatar,
+                        task: []
+                    }
+                    // console.log(item);
+                    members.push(item)
+                } else if (taskJoin.length > 0) {
+    
+                    // console.log("2");
+                    let taskJ = []
                     for (k of taskJoin) {
+                        console.log(k);
                         taskJ.push(k.name)
                     }
+                    // console.log(taskJ);
                     let item = {
-                        _id: j,
+                        _id: leader.id,
                         teamName: team.teamName,
-                        name: user.fullName,
-                        avatar: user.avatar,
+                        position: "Leader",
+                        name: leader.fullName,
+                        avatar: leader.avatar,
                         task: taskJ
                     }
-                    console.log(item);
                     members.push(item)
-                }
-                else if (taskJoin.length == 0) {
-                    let item = {
-                        _id: j,
-                        teamName: team.teamName,
-                        name: user.fullName,
-                        avatar: user.avatar,
-                        task: taskJ
-                    }
-                    console.log(item);
-                    members.push(item)
-                }
-                if (team.listTeams.length > 0) {
+    
                     for (j of team.listMembers) {
                         let taskJ = []
                         let user = await USER.findById(j)
+                        // console.log(user);
                         let taskJoin = await TASK.find({
                             members: {
                                 $in: j
@@ -119,10 +123,12 @@ exports.getAllMemberByIdProject = async (req, res) => {
                             let item = {
                                 _id: j,
                                 teamName: team.teamName,
+                                position: "Member",
                                 name: user.fullName,
                                 avatar: user.avatar,
                                 task: taskJ
                             }
+                            // console.log(item);
                             members.push(item)
                         }
                         else if (taskJoin.length == 0) {
@@ -130,9 +136,11 @@ exports.getAllMemberByIdProject = async (req, res) => {
                                 _id: j,
                                 teamName: team.teamName,
                                 name: user.fullName,
+                                position: "Member",
                                 avatar: user.avatar,
                                 task: taskJ
                             }
+                            // console.log(item);
                             members.push(item)
                         }
                     }
