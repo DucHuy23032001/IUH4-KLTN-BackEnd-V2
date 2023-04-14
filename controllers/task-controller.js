@@ -29,6 +29,8 @@ exports.getAllTaskByIdProject = async (req, res) => {
                 let item = {
                     "_id": j._id,
                     "name": j.name,
+                    "description": j.description,
+                    "level": j.level,
                     "startDay": j.startDay,
                     "endDay": j.endDay,
                     "startHour": j.startHour,
@@ -92,17 +94,17 @@ exports.getTaskByName = async (req, res) => {
 //done
 exports.createTask = async (req, res) => {
     try {
-        let { name, startDay, endDay, startHour, endHour, workId, members , level} = req.body
+        let { name, startDay, endDay, startHour, endHour, workId, members , level, description, linkSupport} = req.body
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
         let dateEnd = MOMENT(endDay, "MM-DD-YYYY")
         let task = await TASK.create({
             name: name,
-            description: [],
+            description: description,
             startDay: dateStart,
             endDay: dateEnd,
             startHour: startHour,
             endHour: endHour,
-            linkSupport: [],
+            linkSupport: linkSupport,
             workId: workId,
             members: members,
             level:level
@@ -116,7 +118,7 @@ exports.createTask = async (req, res) => {
 //done
 exports.updateTask = async (req, res) => {
     try {
-        let { name, startDay, endDay, startTime, endTime, linkSupports, imageLink, userId } = req.body
+        let { name, startDay, endDay, startTime, endTime, linkSupports, userId, description, level } = req.body
         let id = req.params.id
         let check = true
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
@@ -145,7 +147,8 @@ exports.updateTask = async (req, res) => {
         task.startTime = startTime
         task.endTime = endTime
         task.linkSupports = linkSupports
-        task.imageLink = imageLink
+        task.description = description
+        task.level = level
         task.save()
         return res.status(200).json(task)
     } catch (error) {
@@ -154,13 +157,13 @@ exports.updateTask = async (req, res) => {
 }
 
 //done
-exports.addDescription = async (req, res) => {
+exports.updateDescription = async (req, res) => {
     try {
         let description = req.body.description
         let id = req.params.id
         let task = await TASK.findById(id)
 
-        task.description.push(description)
+        task.description = description
         task.save()
         return res.status(200).json(task)
     } catch (error) {
