@@ -855,26 +855,27 @@
     - Request
     ```json
     {
-        "name":"task 1",
+        "name":"Task 2 Work 1",
+        "description": "description",
         "startDay":"03-23-2001",
         "endDay":"03-23-2010",
         "startHour":"9:00",
         "endHour":"16:00",
-        "linkSupport":"ABC",
-        "imageLink":"ABC",
-        "workId":"6428078ae4fa1721842185ad",
-        "members":["64280789e4fa172184218597"]
+        "linkSupport": ["linkSupport"],
+        "workId":"643278efa6fdbb3a058caa0d",
+        "members":["643278eea6fdbb3a058ca9fb"],
+        "level": 1
     }
     ```
     - Reponse
     ```json
     {
         "name": "task 1",
+        "description": "description",
         "startDay": "2001-03-22T17:00:00.000Z",
         "endDay": "2010-03-22T17:00:00.000Z",
         "startHour": "9:00",
         "endHour": "16:00",
-        "imageLink": [],
         "workId": "6428078ae4fa1721842185ad",
         "members": [
             "64280789e4fa172184218597"
@@ -882,7 +883,7 @@
         "status": 3,
         "level": "Bình thường",
         "_id": "64280906e1a5e1900bfa4cde",
-        "linkSupports": [],
+        "linkSupports": ["linkSupport"],
         "createdAt": "2023-04-01T10:35:50.654Z",
         "updatedAt": "2023-04-01T10:35:50.654Z",
         "__v": 0
@@ -896,11 +897,11 @@
         {
             "_id": "641f0759e0289a292bde5e1c",
             "name": "task 1",
+            "description": "description",
             "startDay": "2001-03-22T17:00:00.000Z",
             "endDay": "2010-03-22T17:00:00.000Z",
             "startHour": "9:00",
             "endHour": "16:00",
-            "imageLink": "ABC",
             "workId": "641eb80287c02b20789b3635",
             "workName": "Work 2",
             "members": [
@@ -909,6 +910,7 @@
                     "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
                 }
             ],
+            "level" : 1,
             "status": 3,
             "linkSupports": [],
             "__v": 0
@@ -916,11 +918,11 @@
         {
             "_id": "641f075fe0289a292bde5e1e",
             "name": "task 2",
+            "description": "description",
             "startDay": "2001-03-22T17:00:00.000Z",
             "endDay": "2010-03-22T17:00:00.000Z",
             "startHour": "9:00",
             "endHour": "16:00",
-            "imageLink": "ABC",
             "workId": "641eb80287c02b20789b3635",
             "workName": "Work 2",
             "members": [
@@ -929,6 +931,7 @@
                     "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
                 }
             ],
+            "level":1,
             "status": 3,
             "linkSupports": [],
             "__v": 0
@@ -944,11 +947,12 @@
             "status": 3,
             "_id": "63f48c86c765a223ecb74b8e",
             "name": "name",
+            "description": "description",
+            "level": 1,
             "startDay": "2001-03-22T17:00:00.000Z",
             "endDay": "2010-03-22T17:00:00.000Z",
             "startHour": "9:00",
             "endHour": "16:00",
-            "imageLink": "ABC",
             "listId": "63f48728f071ef7be2a9e9bd",
             "members": [
                 "63f47b681e6c6175bf4ce69c",
@@ -960,11 +964,12 @@
         {
             "_id": "640745aa372921bca42eae22",
             "name": "name",
+            "description": "description",
+            "level": 1,
             "startDay": "2001-03-22T17:00:00.000Z",
             "endDay": "2010-03-22T17:00:00.000Z",
             "startHour": "9:00",
             "endHour": "16:00",
-            "imageLink": "ABC",
             "listId": "63f48728f071ef7be2a9e9bd",
             "members": [
                 "63f47b681e6c6175bf4ce69c",
@@ -984,11 +989,12 @@
         "status": 3,
         "_id": "63f48c86c765a223ecb74b8e",
         "name": "name",
+        "description": "description",
+        "level": 1,
         "startDay": "2001-03-22T17:00:00.000Z",
         "endDay": "2010-03-22T17:00:00.000Z",
         "startHour": "9:00",
         "endHour": "16:00",
-        "imageLink": "ABC",
         "listId": "63f48728f071ef7be2a9e9bd",
         "members": [
             "63f47b681e6c6175bf4ce69c",
@@ -1007,11 +1013,12 @@
             "status": 3,
             "_id": "63f48c86c765a223ecb74b8e",
             "name": "name",
+            "description": "description",
+            "level": 1,
             "startDay": "2001-03-22T17:00:00.000Z",
             "endDay": "2010-03-22T17:00:00.000Z",
             "startHour": "9:00",
             "endHour": "16:00",
-            "imageLink": "ABC",
             "listId": "63f48728f071ef7be2a9e9bd",
             "members": [
                 "63f47b681e6c6175bf4ce69c",
@@ -1027,7 +1034,8 @@
             "endDay": "2010-03-22T17:00:00.000Z",
             "startHour": "9:00",
             "endHour": "16:00",
-            "imageLink": "ABC",
+            "description": "description",
+            "level": 1,
             "listId": "63f48728f071ef7be2a9e9bd",
             "members": [
                 "63f47b681e6c6175bf4ce69c",
@@ -1050,7 +1058,6 @@
         "startTime":"9:00",
         "endTime":"16:00",
         "linkSupport":["ABC"],
-        "imageLink":"ABC",
         "userId":"641eb24fbb721b7cdd8cbf25"
     }
     ```
@@ -1063,12 +1070,13 @@
         "endDay": "2010-03-22T17:00:00.000Z",
         "startHour": "9:00",
         "endHour": "16:00",
-        "imageLink": "ABC",
         "workId": "641eb7fc87c02b20789b3633",
         "members": [
             "641eb24fbb721b7cdd8cbf25"
         ],
         "status": 3,
+        "description": "description",
+        "level": 1,
         "__v": 0
     }
     ```
