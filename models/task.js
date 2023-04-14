@@ -7,11 +7,9 @@ const taskSchema = new SCHEMA(
             type: String,
             require: [true, "Please fill task name!"]
         },
-        description: [
-            {
-                type: String,
-            }
-        ],
+        description:{
+            type: String,
+        },
         startDay: {
             type: Date,
             require: [true, "Please fill start day of task!"]
@@ -48,7 +46,7 @@ const taskSchema = new SCHEMA(
         level: {
             type: Number,
             enum: {
-                values: [1,2,3],
+                values: [1, 2, 3],
                 message: '{VALUE} is not supported'
             },
             default: 1
