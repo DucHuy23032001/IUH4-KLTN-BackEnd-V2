@@ -40,7 +40,6 @@ exports.getAllTaskByIdProject = async (req, res) => {
                     "workName": work.name,
                     "members": members,
                     "status": j.status,
-                    "linkSupports": [],
                     "__v": 0
                 }
                 data.push(item)
@@ -94,7 +93,7 @@ exports.getTaskByName = async (req, res) => {
 //done
 exports.createTask = async (req, res) => {
     try {
-        let { name, startDay, endDay, startHour, endHour, workId, members , level, description, linkSupport} = req.body
+        let { name, startDay, endDay, startHour, endHour, workId, members , level, description} = req.body
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
         let dateEnd = MOMENT(endDay, "MM-DD-YYYY")
         let task = await TASK.create({
@@ -104,7 +103,6 @@ exports.createTask = async (req, res) => {
             endDay: dateEnd,
             startHour: startHour,
             endHour: endHour,
-            linkSupport: linkSupport,
             workId: workId,
             members: members,
             level:level
@@ -118,7 +116,7 @@ exports.createTask = async (req, res) => {
 //done
 exports.updateTask = async (req, res) => {
     try {
-        let { name, startDay, endDay, startTime, endTime, linkSupports, userId, description, level } = req.body
+        let { name, startDay, endDay, startTime, endTime, userId, description, level } = req.body
         let id = req.params.id
         let check = true
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
@@ -146,7 +144,6 @@ exports.updateTask = async (req, res) => {
         task.endDay = dateEnd
         task.startTime = startTime
         task.endTime = endTime
-        task.linkSupports = linkSupports
         task.description = description
         task.level = level
         task.save()

@@ -861,7 +861,6 @@
         "endDay":"03-23-2010",
         "startHour":"9:00",
         "endHour":"16:00",
-        "linkSupport": ["linkSupport"],
         "workId":"643278efa6fdbb3a058caa0d",
         "members":["643278eea6fdbb3a058ca9fb"],
         "level": 1
@@ -883,7 +882,6 @@
         "status": 3,
         "level": "Bình thường",
         "_id": "64280906e1a5e1900bfa4cde",
-        "linkSupports": ["linkSupport"],
         "createdAt": "2023-04-01T10:35:50.654Z",
         "updatedAt": "2023-04-01T10:35:50.654Z",
         "__v": 0
@@ -912,7 +910,6 @@
             ],
             "level" : 1,
             "status": 3,
-            "linkSupports": [],
             "__v": 0
         },
         {
@@ -933,7 +930,6 @@
             ],
             "level":1,
             "status": 3,
-            "linkSupports": [],
             "__v": 0
         }
     ]
@@ -958,7 +954,6 @@
                 "63f47b681e6c6175bf4ce69c",
                 "63f481f55f6bee2a60d910eb"
             ],
-            "linkSupports": [],
             "__v": 0
         },
         {
@@ -976,7 +971,6 @@
                 "63f481f55f6bee2a60d910eb"
             ],
             "status": 3,
-            "linkSupports": [],
             "__v": 0
         }
     ]
@@ -1000,7 +994,6 @@
             "63f47b681e6c6175bf4ce69c",
             "63f481f55f6bee2a60d910eb"
         ],
-        "linkSupports": [],
         "__v": 0
     }
     ```
@@ -1024,7 +1017,6 @@
                 "63f47b681e6c6175bf4ce69c",
                 "63f481f55f6bee2a60d910eb"
             ],
-            "linkSupports": [],
             "__v": 0
         },
         {
@@ -1042,7 +1034,6 @@
                 "63f481f55f6bee2a60d910eb"
             ],
             "status": 3,
-            "linkSupports": [],
             "__v": 0
         }
     ]
@@ -1056,8 +1047,8 @@
         "startDay":"03-23-2001",
         "endDay":"03-23-20100",
         "startTime":"9:00",
+        "description": "description",
         "endTime":"16:00",
-        "linkSupport":["ABC"],
         "userId":"641eb24fbb721b7cdd8cbf25"
     }
     ```
