@@ -35,8 +35,8 @@ const taskSchema = new SCHEMA(
             require: [true, "Please fill Members of task!"]
         }],
         status: {
-            type: Number,
-            default: 3
+            type: Boolean,
+            default: false
         },
         level: {
             type: Number,
