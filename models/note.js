@@ -12,11 +12,6 @@ let noteSchema = new SCHEMA(
                 link: String
             }
         ],
-        // thingToDoId: {
-        //     type: SCHEMA.Types.ObjectId,
-        //     default: null,
-        //     require: [true, "Please fill thingToDoId of note!"]
-        // },
         taskId: {
             type: SCHEMA.Types.ObjectId,
             default: null,

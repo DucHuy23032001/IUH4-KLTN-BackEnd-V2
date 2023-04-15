@@ -26,11 +26,6 @@ const taskSchema = new SCHEMA(
             type: String,
             require: [true, "Please fill end Hour of task!"]
         },
-        linkSupports: [
-            {
-                link: String
-            }
-        ],
         workId: {
             type: SCHEMA.Types.ObjectId,
             require: [true, "Please fill Word of task!"]
