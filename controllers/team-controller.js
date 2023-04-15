@@ -164,11 +164,16 @@ exports.getAllTeamByIdWork = async (req, res) => {
         let user = await USER.findById(team.leaderId)
 
         if (team.listMembers.length > 0) {
+            let listMembers = []
+            for ( i of team.listMembers){
+                let user = await USER.findById(i)
+                listMembers.push(user.fullName)
+            }
             let data = {
                 _id: team.id,
                 teamName: team.teamName,
                 leaderName: user.fullName,
-                listMembers: team.listMembers
+                listMembers: listMembers
             }
             teams.push(data)
         }
@@ -179,30 +184,35 @@ exports.getAllTeamByIdWork = async (req, res) => {
                 let user = await USER.findById(team.leaderId)
 
                 if (team.listMembers.length > 0) {
+                    let listMembers = []
+                    for ( j of team.listMembers){
+                        let user1 = await USER.findById(j)
+                        listMembers.push(user1.fullName)
+                    }
                     let data = {
                         _id: team.id,
                         teamName: team.teamName,
                         leaderName: user.fullName,
-                        listMembers: team.listMembers
+                        listMembers: listMembers
                     }
                     teams.push(data)
                 }
-                if (team.listTeams.length > 0) {
-                    for (i of team.listTeams) {
-                        let team = await TEAM.findById(i)
-                        let user = await USER.findById(team.leaderId)
+                // if (team.listTeams.length > 0) {
+                //     for (i of team.listTeams) {
+                //         let team = await TEAM.findById(i)
+                //         let user = await USER.findById(team.leaderId)
 
-                        if (team.listMembers.length > 0) {
-                            let data = {
-                                _id: team.id,
-                                teamName: team.teamName,
-                                leaderName: user.fullName,
-                                listMembers: team.listMembers
-                            }
-                            teams.push(data)
-                        }
-                    }
-                }
+                //         if (team.listMembers.length > 0) {
+                //             let data = {
+                //                 _id: team.id,
+                //                 teamName: team.teamName,
+                //                 leaderName: user.fullName,
+                //                 listMembers: team.listMembers
+                //             }
+                //             teams.push(data)
+                //         }
+                //     }
+                // }
             }
         }
         return res.status(200).json(teams)
