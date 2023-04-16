@@ -167,7 +167,11 @@ exports.getAllTeamByIdWork = async (req, res) => {
             let listMembers = []
             for ( i of team.listMembers){
                 let user = await USER.findById(i)
-                listMembers.push(user.fullName)
+                let data = {
+                    id : user.id,
+                    fullName: user.fullName
+                }
+                listMembers.push(data)
             }
             let data = {
                 _id: team.id,
@@ -187,7 +191,11 @@ exports.getAllTeamByIdWork = async (req, res) => {
                     let listMembers = []
                     for ( j of team.listMembers){
                         let user1 = await USER.findById(j)
-                        listMembers.push(user1.fullName)
+                        let data = {
+                            id : user1.id,
+                            fullName: user1.fullName
+                        }
+                        listMembers.push(data)
                     }
                     let data = {
                         _id: team.id,

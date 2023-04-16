@@ -99,7 +99,6 @@ exports.createUser = async (req, res, accountId) => {
         const file = req.files.avatar;
         let path = await awsService.uploadFileToS3(req,res,file)
         let date = MOMENT(birthday, "MM-DD-YYYY")
-        console.log(req.body);
         // "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
         let user = await USER.create({
             fullName: fullName,
