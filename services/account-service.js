@@ -5,8 +5,6 @@ const USER = require('../models/user');
 
 exports.createToken = (user) => {
     try {
-        // let data = req.body
-        // console.log("123");
         return JWT.sign(
             {
                 user,
@@ -26,13 +24,12 @@ exports.checkEmail = async (email) => {
         let account = await ACCOUNT.findOne({
             email: email
         })
-        // console.log(account);
-        if(account){
+        if (account) {
             return false
         }
         return true
     } catch (error) {
-        res.status(500).json(error)
+        return res.status(500).json(error)
     }
 }
 
@@ -42,7 +39,7 @@ exports.checkPasswordOfChangePassword = async (id, password) => {
         let check = await BCRYPT.compare(password, account.password);
         return check
     } catch (error) {
-        res.status(500).json(error)
+        return res.status(500).json(error)
     }
 }
 
@@ -53,27 +50,20 @@ exports.confirmNewPassword = (password, confirm) => {
         }
         return false;
     } catch (error) {
-        res.status(500).json(error)
+        return res.status(500).json(error)
     }
 }
 
-exports.checkPassword = async (email,paswordSignIn) =>{
+exports.checkPassword = async (email, paswordSignIn) => {
     try {
         let account = await ACCOUNT.findOne({
             email: email
         })
         let user = await USER.findOne({
-            accountId:account.id
+            accountId: account.id
         })
-        console.log(user);
         let check = await BCRYPT.compare(paswordSignIn, account.password);
-        console.log(check);
-        // if(check) {
-            return {user: user, check:check}
-        // }
-        // else {
-            // return check
-        // }
+        return { user: user, check: check }
     } catch (error) {
         return res.status(500).json(error)
     }

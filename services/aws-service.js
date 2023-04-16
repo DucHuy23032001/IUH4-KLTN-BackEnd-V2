@@ -15,7 +15,6 @@ const s3 = new AWS.S3();
 
 exports.uploadFileToS3= async (req,res , file) => {
   try {
-    // console.log(file);
     const _fileLinkClient = file;
     const _fileContent = Buffer.from(_fileLinkClient.data, "binary");
     const _param = {
@@ -32,6 +31,6 @@ exports.uploadFileToS3= async (req,res , file) => {
       .promise();
     return _paramFileLocation.Location;
   } catch (error) {
-    
+    return res.status(500).json(error) 
   }
 }
