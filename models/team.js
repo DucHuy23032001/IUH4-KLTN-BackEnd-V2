@@ -1,7 +1,6 @@
 const MONGOOSE = require('mongoose')
 const SCHEMA = MONGOOSE.Schema
 
-// Đổi tên thành = team
 let teamSchema = new SCHEMA(
     {
         teamName: {

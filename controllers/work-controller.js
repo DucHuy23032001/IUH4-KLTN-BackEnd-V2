@@ -12,7 +12,6 @@ exports.getAllWorkByProjectId = async (req, res) => {
             projectId: id
         })
         for (i of works) {
-            // console.log(i);
             let team = await TEAM.findById(i.teamId)
             let nameTeam = []
             if(team != null){
@@ -54,7 +53,6 @@ exports.getWorkByName = async (req, res) => {
         let works = await WORK.find({
             name: name
         })
-        console.log(works);
         return res.status(200).json(works)
     } catch (error) {
         return res.status(500).json(error)
@@ -93,7 +91,6 @@ exports.createWork = async (req, res) => {
         }
 
         let work
-        // console.log(teamId.length);
         if (teamId.length == 1) {
             work = await WORK.create({
                 teamId: teamId,

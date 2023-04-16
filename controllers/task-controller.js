@@ -169,21 +169,6 @@ exports.updateDescription = async (req, res) => {
 }
 
 //done
-exports.addLinkSupport = async (req, res) => {
-    try {
-        let linkSupport = req.body.LlnkSupport
-        let id = req.params.id
-        let task = await TASK.findById(id)
-
-        task.linkSupports.push(linkSupport)
-        task.save()
-        return res.status(200).json(task)
-    } catch (error) {
-        return res.status(500).json(error)
-    }
-}
-
-//done
 exports.changeName = async (req, res) => {
     try {
         let name = req.body.name
@@ -197,23 +182,6 @@ exports.changeName = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
-// exports.deleteLinkSupport = async (req,res) => {
-//     try {
-//         let _link_support = req.body.link_support
-//         let id = req.params.id 
-//         let _task = await task.findById(id)
-//         let _links = _task.link_supports
-//         for(let i = 0 ; i < _links.length() ; i ++ ){
-//             if(_links[i] == _link_support){
-
-//             }
-//         }
-//         res.status(200).json(_task)
-//     } catch (error) {
-//         res.status(500).json(error)
-//     }
-// }
 
 //done
 exports.deleteTask = async (req, res) => {

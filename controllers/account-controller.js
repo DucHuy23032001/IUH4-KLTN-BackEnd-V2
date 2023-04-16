@@ -60,10 +60,6 @@ exports.createAccount = async (req, res) => {
             let newAccount = new ACCOUNT()
             newAccount.email = email
             newAccount.password = hash
-            // let newAccount = await ACCOUNT.create({
-            //     email: email,
-            //     password: hash
-            // })
             return newAccount
         }
     } catch (error) {
@@ -87,14 +83,12 @@ exports.changePassword = async (req, res) => {
                 msg: "Check new password"
             })
         }
-        // if (!check && confirmPassword) {
         let hash = await BCRYPT.hash(newPassword, 10);
         await ACCOUNT.findByIdAndUpdate(id, { password: hash })
         return res.status(200).json({
             id: id,
             status: "Success"
         })
-        // }
     } catch (error) {
         return res.status(500).json({ msg: error })
     }
@@ -117,7 +111,6 @@ exports.forgetPassword = async (req, res) => {
         })
         account.password = hash
         account.save()
-        // await ACCOUNT.findByIdAndUpdate(id, { password: hash })
         return res.status(200).json({
             id: account.id,
             status: "Success"
