@@ -114,7 +114,7 @@ exports.createTask = async (req, res) => {
 //done
 exports.updateTask = async (req, res) => {
     try {
-        let { name, startDay, endDay, startTime, endTime, userId, description, level } = req.body
+        let { name, startDay, endDay, startTime, endTime, userId, description, level, status , members } = req.body
         let id = req.params.id
         let check = true
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
@@ -144,6 +144,8 @@ exports.updateTask = async (req, res) => {
         task.endTime = endTime
         task.description = description
         task.level = level
+        task.status = status
+        task.members = members
         task.save()
         return res.status(200).json(task)
     } catch (error) {
