@@ -1074,7 +1074,10 @@
         "startTime":"9:00",
         "description": "description",
         "endTime":"16:00",
-        "userId":"641eb24fbb721b7cdd8cbf25"
+        "userId":"641eb24fbb721b7cdd8cbf25",
+        "level":2,
+        "status": true,
+        "member":[ "641eb24fbb721b7cdd8cbf25"]
     }
     ```
     - Reponse
@@ -1090,9 +1093,9 @@
         "members": [
             "641eb24fbb721b7cdd8cbf25"
         ],
-        "status": 3,
+        "status": true,
         "description": "description",
-        "level": 1,
+        "level": 2,
         "__v": 0
     }
     ```
