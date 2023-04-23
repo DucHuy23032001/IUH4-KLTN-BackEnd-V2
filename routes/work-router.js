@@ -10,4 +10,6 @@ ROUTER.post("/",workController.createWork)
 ROUTER.patch("/change-name/:id",workController.changeNameWork)
 ROUTER.patch("/change-status/:id",workController.changeStatusWork)
 
+ROUTER.delete("/:id",workController.removeWork)
+
 module.exports = ROUTER

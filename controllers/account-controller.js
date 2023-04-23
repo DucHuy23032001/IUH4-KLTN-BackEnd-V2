@@ -11,7 +11,6 @@ exports.getAllAccount = async (req, res) => {
         for (let i of accounts) {
             list.push(i.id)
         }
-        console.log(list);
         return res.status(200).json(list)
     } catch (error) {
         return res.status(500).json({ msg: error })

@@ -700,6 +700,20 @@
         }
     ]
     ```
+- removeProject
+    - Api: **DELETE**:    http://localhost:3000/api/projects/6444cff9f3bb45946187c2af
+    - Request
+    ```json
+    {
+        "mainProject" :"6444cff9f3bb45946187c29b"
+    }
+    ```
+    - Reponse
+    ```json
+    {
+        "_id": "6444cff9f3bb45946187c2af",
+    }
+    ```
 ## Work
 - getAllWorkByProjectId:
     - Api: **GET**:    hhttps://ptask.cyclic.app/api/works/all-work-project/63f4836e4986d4991247715a
@@ -844,6 +858,20 @@
         "createId": "641eb25bbb721b7cdd8cbf2b",
         "projectId": "641eb335bb721b7cdd8cbf36",
         "__v": 0
+    }
+    ```
+- removeWork
+    - Api: **DELETE**:    http://localhost:3000/api/works/6444cff9f3bb45946187c2af
+    - Request
+    ```json
+    {
+        "createId" :"6444cff9f3bb45946187c29b"
+    }
+    ```
+    - Reponse
+    ```json
+    {
+        "_id": "6444cff9f3bb45946187c2af",
     }
     ```
 ## Task
@@ -1063,6 +1091,35 @@
             "641eb24fbb721b7cdd8cbf25"
         ],
         "status": 3,
+        "description": "description",
+        "level": 1,
+        "__v": 0
+    }
+    ```
+- removeTask
+    - Api: **PATCH**:    http://localhost:3000/api/tasks/63f48c272df79e949fe9243b
+    - Reponse
+    ```json
+    {
+        "_id": "63f48c272df79e949fe9243b"
+    }
+    ```
+- changeStatus
+    - Api: **PATCH**:    http://localhost:3000/api/tasks/update-status/63f48c272df79e949fe9243b
+    - Reponse
+    ```json
+    {
+        "_id": "641eb81187c02b20789b3637",
+        "name": "task test update",
+        "startDay": "2001-03-22T17:00:00.000Z",
+        "endDay": "2010-03-22T17:00:00.000Z",
+        "startHour": "9:00",
+        "endHour": "16:00",
+        "workId": "641eb7fc87c02b20789b3633",
+        "members": [
+            "641eb24fbb721b7cdd8cbf25"
+        ],
+        "status": true,
         "description": "description",
         "level": 1,
         "__v": 0

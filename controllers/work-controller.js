@@ -38,7 +38,6 @@ exports.getAllWorkByProjectId = async (req, res) => {
             }
             datas.push(data)
         }
-        console.log(datas);
         return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json(error)
@@ -49,7 +48,6 @@ exports.getAllWorkByProjectId = async (req, res) => {
 exports.getWorkByName = async (req, res) => {
     try {
         let name = req.params.name
-        console.log(name);
         let works = await WORK.find({
             name: name
         })
@@ -102,7 +100,6 @@ exports.createWork = async (req, res) => {
                 endTime: end
             })
         } else if (teamId.length > 1) {
-            console.log("2");
             work = await WORK.create({
                 teamId: team.id,
                 status: false,
@@ -114,6 +111,26 @@ exports.createWork = async (req, res) => {
             })
         }
 
+        return res.status(200).json(work)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+}
+
+//done
+exports.updateWork = async (req, res) => {
+    try {
+        let id = req.params.id
+        let { name, startTime, endTime, teamId, leaderId } = req.body
+        let start = MOMENT(startTime, "MM-DD-YYYY")
+        let end = MOMENT(endTime, "MM-DD-YYYY")
+        let work = await WORK.findByIdAndUpdate(id, {
+            name : name,
+            startTime : start,
+            endTime: end,
+            teamId: teamId,
+            leaderId: leaderId
+        })
         return res.status(200).json(work)
     } catch (error) {
         return res.status(500).json(error)
@@ -183,5 +200,26 @@ exports.changeStatusWork = async (req, res) => {
         return res.status(200).json(work)
     } catch (error) {
         return res.status(500).json(error)
+    }
+}
+
+//done (Chưa test)
+exports.removeWork = async (req, res) => {
+    try {
+        let id = req.params.id
+        let { createId } = req.body
+        let work = await WORK.findById(id)
+        if (work.createId != createId) {
+            return res.status(400).json({
+                message: "Only the creator can edit"
+            })
+        }
+        await WORK.deleteOne({ _id: id });
+        await TASK.deleteMany({workId : id});
+        return res.status(200).json({
+            _id:id
+        })
+    } catch (error) {
+        return res.status(500).json({ msg: error })
     }
 }

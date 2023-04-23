@@ -23,6 +23,10 @@ let projectSchema = new SCHEMA(
             type: String,
             require: [true, "Please fill your project name!"]
         },
+        mainProject:{
+            type: SCHEMA.Types.ObjectId,
+            require: [true, "Please fill id main project!"]
+        },
         teamIds: [
             {
                 type: SCHEMA.Types.ObjectId,
