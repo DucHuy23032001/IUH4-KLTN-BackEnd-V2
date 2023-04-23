@@ -147,15 +147,15 @@ exports.createProject = async (req, res) => {
     //   createId: mainProject
     // })
 
-    // let teams = []
-    // if (Array.isArray(teamIds)) {
-    //   teamIds.push(team._id)
-    //   teams = teamIds
-    // }
-    // else {
-    //   teams.push(teamIds)
-    //   teams.push(team._id)
-    // }
+    let teams = []
+    if (Array.isArray(teamIds)) {
+      // teamIds.push(team._id)
+      teams = teamIds
+    }
+    else {
+      teams.push(teamIds)
+      // teams.push(team._id)
+    }
     let project = await PROJECT.create({
       name: name,
       startTime: start,
@@ -163,7 +163,7 @@ exports.createProject = async (req, res) => {
       status: 1,
       background: pathBackground,
       mainProject: mainProject,
-      teamIds: teamIds
+      teamIds: teams
     })
     return res.status(200).json(project)
   } catch (error) {
