@@ -44,7 +44,6 @@ exports.getAllTaskByIdProject = async (req, res) => {
                 }
                 data.push(item)
             }
-            // console.log(tasks);
         }
         return res.status(200).json(data)
     } catch (error) {
@@ -56,7 +55,6 @@ exports.getAllTaskByIdProject = async (req, res) => {
 exports.getAllTaskInWork = async (req, res) => {
     try {
         let id = req.params.id
-        console.log(id);
         let tasks = await TASK.find({
             workId: id
         })
@@ -189,9 +187,22 @@ exports.deleteTask = async (req, res) => {
         let id = req.params.id
         await TASK.deleteOne({ _id: id });
         return res.status(200).json({
-            id: id,
-            msg: "Success"
+            _id: id,
         })
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+}
+
+// done
+exports.updateStatusTask  = async (req, res) => {
+    try {
+
+        let id = req.params.id
+        let task = await TASK.findById(id)
+        task.status = true
+        task.save()
+        return res.status(200).json(task)
     } catch (error) {
         return res.status(500).json(error)
     }
