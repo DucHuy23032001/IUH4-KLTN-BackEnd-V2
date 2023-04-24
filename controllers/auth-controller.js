@@ -24,7 +24,7 @@ exports.signUp = async (req, res) => {
     account.save()
     let token = accountService.createToken(user)
     return res.status(200).json({
-      user: user,
+      // user: user,
       token: token
     })
   } catch (error) {
@@ -39,7 +39,6 @@ exports.signIn = async (req, res) => {
     let checkEmail = await accountService.checkEmail(email)
     if (!checkEmail) {
       let checkPassword = await accountService.checkPassword(email, password)
-      console.log(checkPassword);
       if (checkPassword.check) {
         let token = accountService.createToken(checkPassword.user)
         return res.status(200).json({
@@ -48,12 +47,12 @@ exports.signIn = async (req, res) => {
         })
       } else {
         return res.status(404).json({
-          msg: "Check password"
+          msg: "Vui lòng kiểm tra lại mật khẩu!"
         })
       }
     } else {
       return res.status(403).json({
-        msg: "Check mail"
+        msg: "Tài khoản không tồn tại!"
       })
     }
   } catch (error) {

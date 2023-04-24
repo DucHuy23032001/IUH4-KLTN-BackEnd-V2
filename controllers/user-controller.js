@@ -96,10 +96,18 @@ exports.getUserByPhone = async (req, res) => {
 exports.createUser = async (req, res, accountId) => {
     try {
         let { fullName, birthday, address, phoneNumber, gender } = req.body
-        const file = req.files.avatar;
-        let path = await awsService.uploadFileToS3(req,res,file)
+        let path
+        if(!req.files) {
+            if (gender) {
+                path = "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
+            } else {
+                path = "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nu.png"
+            }
+        } else {
+            const file = req.files.avatar;
+            path = await awsService.uploadFileToS3(req,res,file)
+        }
         let date = MOMENT(birthday, "MM-DD-YYYY")
-        // "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
         let user = await USER.create({
             fullName: fullName,
             birthday: date,

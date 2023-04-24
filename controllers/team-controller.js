@@ -62,78 +62,79 @@ exports.getAllMemberByIdProject = async (req, res) => {
         let id = req.params.id
         let project = await PROJECT.findById(id)
         let teamProject = project.teamIds
-        for (i of teamProject) {
-            let team = await TEAM.findById(i)
-            if(team.status) {
-                let leader = await USER.findById(team.leaderId)
-                let taskJoin = await TASK.find({
-                    members: {
-                        $in: leader.id
-                    }
-                })
-                if (taskJoin.length == 0) {
-                    let item = {
-                        _id: leader.id,
-                        teamName: team.teamName,
-                        position: "Leader",
-                        name: leader.fullName,
-                        avatar: leader.avatar,
-                        task: []
-                    }
-                    members.push(item)
-                } else if (taskJoin.length > 0) {
-                    let taskJ = []
-                    for (k of taskJoin) {
-                        console.log(k);
-                        taskJ.push(k.name)
-                    }
-                    let item = {
-                        _id: leader.id,
-                        teamName: team.teamName,
-                        position: "Leader",
-                        name: leader.fullName,
-                        avatar: leader.avatar,
-                        task: taskJ
-                    }
-                    members.push(item)
-    
-                    for (j of team.listMembers) {
+        if(teamProject != null ) {
+            for (i of teamProject) {
+                let team = await TEAM.findById(i)
+                // if(team.status) {
+                    let leader = await USER.findById(team.leaderId)
+                    let taskJoin = await TASK.find({
+                        members: {
+                            $in: leader.id
+                        }
+                    })
+                    if (taskJoin.length == 0) {
+                        let item = {
+                            _id: leader.id,
+                            teamName: team.teamName,
+                            position: "Leader",
+                            name: leader.fullName,
+                            avatar: leader.avatar,
+                            task: []
+                        }
+                        members.push(item)
+                    } else if (taskJoin.length > 0) {
                         let taskJ = []
-                        let user = await USER.findById(j)
-                        let taskJoin = await TASK.find({
-                            members: {
-                                $in: j
-                            }
-                        })
-                        if (taskJoin.length > 0) {
-                            for (k of taskJoin) {
-                                taskJ.push(k.name)
-                            }
-                            let item = {
-                                _id: j,
-                                teamName: team.teamName,
-                                position: "Member",
-                                name: user.fullName,
-                                avatar: user.avatar,
-                                task: taskJ
-                            }
-                            members.push(item)
+                        for (k of taskJoin) {
+                            taskJ.push(k.name)
                         }
-                        else if (taskJoin.length == 0) {
-                            let item = {
-                                _id: j,
-                                teamName: team.teamName,
-                                name: user.fullName,
-                                avatar: user.avatar,
-                                task: taskJ
+                        let item = {
+                            _id: leader.id,
+                            teamName: team.teamName,
+                            position: "Leader",
+                            name: leader.fullName,
+                            avatar: leader.avatar,
+                            task: taskJ
+                        }
+                        members.push(item)
+        
+                        for (j of team.listMembers) {
+                            let taskJ = []
+                            let user = await USER.findById(j)
+                            let taskJoin = await TASK.find({
+                                members: {
+                                    $in: j
+                                }
+                            })
+                            if (taskJoin.length > 0) {
+                                for (k of taskJoin) {
+                                    taskJ.push(k.name)
+                                }
+                                let item = {
+                                    _id: j,
+                                    teamName: team.teamName,
+                                    position: "Member",
+                                    name: user.fullName,
+                                    avatar: user.avatar,
+                                    task: taskJ
+                                }
+                                members.push(item)
                             }
-                            // console.log(item);
-                            members.push(item)
+                            else if (taskJoin.length == 0) {
+                                let item = {
+                                    _id: j,
+                                    teamName: team.teamName,
+                                    name: user.fullName,
+                                    avatar: user.avatar,
+                                    task: taskJ
+                                }
+                                members.push(item)
+                            }
                         }
                     }
-                }
+                
             }
         }
+
         let main = await USER.findById(project.mainProject)
         let itemMain = {
             _id: main.id,
