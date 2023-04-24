@@ -30,7 +30,6 @@ let projectSchema = new SCHEMA(
         teamIds: [
             {
                 type: SCHEMA.Types.ObjectId,
-                default: null
             }
         ]
     },
