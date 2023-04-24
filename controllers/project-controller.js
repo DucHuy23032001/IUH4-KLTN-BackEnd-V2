@@ -121,14 +121,15 @@ exports.createProject = async (req, res) => {
     let { name, startTime, endTime, teamIds, mainProject } = req.body
     let start = MOMENT(startTime, "MM-DD-YYYY")
     let end = MOMENT(endTime, "MM-DD-YYYY")
-    // console.log(req.body.background);
-    let background = req.files.background
-
-    if (req.files == undefined) {
-      background = "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png"
+    console.log(req.body);
+    console.log(req.files);
+    let pathBackground 
+    if (req.files == null) {
+      pathBackground = "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png"
     }
-    console.log(background);
-    let pathBackground = await awsService.uploadFileToS3(req, res, background)
+    else {
+      pathBackground = await awsService.uploadFileToS3(req, res, req.files.background)
+    }
 
     if (!startTime) {
       startTime = Date.now()
@@ -149,19 +150,17 @@ exports.createProject = async (req, res) => {
     // })
 
     let teams = []
-    console.log(req.body);
-
-    if ( teamIds != undefined) {
+    if ( teamIds != null) {
       if (Array.isArray(teamIds)) {
-        // teamIds.push(team._id)
         teams = teamIds
       }
       else {
         teams.push(teamIds)
-        // teams.push(team._id)
       }
+    } 
+    if( teamIds == '') {
+      teams = []
     }
-    console.log(teams);
     let project = await PROJECT.create({
       name: name,
       startTime: start,
