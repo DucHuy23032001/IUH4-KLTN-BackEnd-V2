@@ -207,13 +207,13 @@ exports.changeStatusWork = async (req, res) => {
 exports.removeWork = async (req, res) => {
     try {
         let id = req.params.id
-        let { createId } = req.body
-        let work = await WORK.findById(id)
-        if (work.createId != createId) {
-            return res.status(400).json({
-                message: "Only the creator can edit"
-            })
-        }
+        // let { createId } = req.body
+        // let work = await WORK.findById(id)
+        // if (work.createId != createId) {
+        //     return res.status(400).json({
+        //         message: "Only the creator can edit"
+        //     })
+        // }
         await WORK.deleteOne({ _id: id });
         await TASK.deleteMany({workId : id});
         return res.status(200).json({
