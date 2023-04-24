@@ -97,7 +97,6 @@ exports.changePassword = async (req, res) => {
 exports.forgetPassword = async (req, res) => {
     try {
         let {email, newPassword, confirm} = req.body
-        console.log(req.body);
         let confirmPassword = accountService.confirmNewPassword(newPassword, confirm)
         if (!confirmPassword) {
             return res.status(404).json({

@@ -14,8 +14,6 @@
     ```json
     {
         "msg": "Success",
-        "accountId": "6406b883e37a41dce48544d5",
-        "userId": "63f47b681e6c6175bf4ce69c",
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjQ3YjY4MWU2YzYxNzViZjRjZTY5YyIsImlhdCI6MTY3ODE2MjcxNywiZXhwIjoxNjc4MTYzMzE3fQ.BHf4pcM4o11Rrm4UCJAUSDCgpJvvbOA6MJdhxXef78I"
     }
     ```
@@ -27,25 +25,10 @@
     - Reponse:
     ```json
     {
-        "user": {
-            "fullName": "A",
-            "birthday": "2023-02-01T17:00:00.000Z",
-            "address": "123",
-            "phoneNumber": "0879276284",
-            "gender": true,
-            "status": true,
-            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/597c706a93754e2b1764.jpg",
-            "accountId": "6423e741055181cb4e436f06",
-            "_id": "6423e742055181cb4e436f08",
-            "createdAt": "2023-03-29T07:22:42.531Z",
-            "updatedAt": "2023-03-29T07:22:42.531Z",
-            "__v": 0
-        },
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZ1bGxOYW1lIjoiQSIsImJpcnRoZGF5IjoiMjAyMy0wMi0wMVQxNzowMDowMC4wMDBaIiwiYWRkcmVzcyI6IjEyMyIsInBob25lTnVtYmVyIjoiMDg3OTI3NjI4NCIsImdlbmRlciI6dHJ1ZSwic3RhdHVzIjp0cnVlLCJhdmF0YXIiOiJodHRwczovL2l1aDRrbHRuLnMzLmFwLXNvdXRoZWFzdC0xLmFtYXpvbmF3cy5jb20vNTk3YzcwNmE5Mzc1NGUyYjE3NjQuanBnIiwiYWNjb3VudElkIjoiNjQyM2U3NDEwNTUxODFjYjRlNDM2ZjA2IiwiX2lkIjoiNjQyM2U3NDIwNTUxODFjYjRlNDM2ZjA4IiwiY3JlYXRlZEF0IjoiMjAyMy0wMy0yOVQwNzoyMjo0Mi41MzFaIiwidXBkYXRlZEF0IjoiMjAyMy0wMy0yOVQwNzoyMjo0Mi41MzFaIiwiX192IjowfSwiaWF0IjoxNjgwMDc0NTYyLCJleHAiOjE2ODAwNzUxNjJ9.EZVt466llkdBg5d-FD7h7SOSTruDuLYzeYofHHUGsWk"
     }
     ```
 ## **Account**
-
 - getAllCount
     - Api: **GET**:  https://ptask.cyclic.app/api/accounts    
     - Reponse:
