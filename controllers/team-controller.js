@@ -352,13 +352,13 @@ exports.changeName = async (req, res) => {
 exports.removeMember = async (req, res) => {
     try {
         let id = req.params.id
-        let { memberId, createId } = req.body
+        let { memberId } = req.body
         let team = await TEAM.findById(id)
-        if (team.createId != createId) {
-            return res.status(400).json({
-                message: "Only the creator can edit"
-            })
-        }
+        // if (team.createId != createId) {
+        //     return res.status(400).json({
+        //         message: "Only the creator can edit"
+        //     })
+        // }
         let members = team.listMembers
         members.pull(memberId)
         team.listMembers = members
@@ -462,13 +462,13 @@ exports.addTeam = async (req, res) => {
 exports.removeTeam = async (req, res) => {
     try {
         let id = req.params.id
-        let { teamId, createId } = req.body
+        let { teamId } = req.body
         let team = await TEAM.findById(id)
-        if (team.createId != createId) {
-            return res.status(400).json({
-                message: "Only the creator can edit"
-            })
-        }
+        // if (team.createId != createId) {
+        //     return res.status(400).json({
+        //         message: "Only the creator can edit"
+        //     })
+        // }
         let teams = team.listTeams
         teams.pull(teamId)
         team.listTeams = teams

@@ -2,6 +2,7 @@ const PROJECT = require('../models/project')
 const WORK = require('../models/work')
 const TASK = require('../models/task')
 const TEAM = require('../models/team')
+const USER = require('../models/user')
 const MOMENT = require('moment')
 const awsService = require('../services/aws-service')
 //done
@@ -27,6 +28,8 @@ exports.getProjectById = async (req, res) => {
       }
     }
 
+    let user = await USER.findById(project.mainProject)
+
     let data = {
       _id: project.id,
       name: project.name,
@@ -39,7 +42,8 @@ exports.getProjectById = async (req, res) => {
       updatedAt: project.updatedAt,
       __v: 0,
       leaders: idLeaders,
-      mainProject: project.mainProject
+      mainProject: project.mainProject,
+      mainName: user.fullName
     }
     return res.status(200).json(data)
   } catch (error) {
@@ -226,13 +230,13 @@ exports.addTeams = async (req, res) => {
 exports.removeProject = async (req, res) => {
   try {
       let id = req.params.id
-      let { mainProject } = req.body
-      let project = await PROJECT.findById(id)
-      if (project.mainProject != mainProject) {
-          return res.status(400).json({
-              message: "Only the creator can remove"
-          })
-      }
+      // let { mainProject } = req.body
+      // let project = await PROJECT.findById(id)
+      // if (project.mainProject != mainProject) {
+      //     return res.status(400).json({
+      //         message: "Only the creator can remove"
+      //     })
+      // }
       await PROJECT.deleteOne({ _id: id });
       let works = await WORK.find({projectId: id})
       for ( i of works) {

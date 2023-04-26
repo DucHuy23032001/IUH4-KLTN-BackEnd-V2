@@ -17,6 +17,7 @@ const authRouter = require("./routes/auth-router")
 const projectRouter = require("./routes/project-router")
 const workRouter = require("./routes/work-router")
 const taskRouter = require("./routes/task-router")
+const noteRouter = require("./routes/note-router")
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -35,5 +36,6 @@ app.use('/api/projects',projectRouter)
 app.use('/api/works',workRouter)
 app.use('/api/tasks',taskRouter)
 app.use('/api/auths',authRouter)
+app.use('/api/notes',noteRouter)
 
 module.exports = app;
