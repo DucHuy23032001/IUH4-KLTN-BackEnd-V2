@@ -1,6 +1,7 @@
 const TASK = require('../models/task')
 const WORK = require('../models/work')
 const USER  = require('../models/user')
+const TEAM = require('../models/team')
 const MOMENT = require('moment')
 
 //done
@@ -79,10 +80,44 @@ exports.getTaskById = async (req, res) => {
 exports.getTaskByName = async (req, res) => {
     try {
         let name = req.params.name
-        let task = await TASK.find({
+        let projectId = req.body.projectId
+        let workId = req.body.workId
+        let datas = []
+        let tasks = await TASK.find({
             name: name
         })
-        return res.status(200).json(task)
+        for ( i of tasks ) {
+            let members = []
+            let work = await WORK.findById(i.workId)
+            if (work.projectId == projectId && work.id == workId ) {
+                for ( j of i.members) {
+                    let user = await USER.findById(j)
+                    let item = {
+                        name : user.fullName,
+                        avatar : user.avatar
+                    }
+                    members.push(item)
+                }
+                let data = {
+                    _id: i.id,
+                    name: i.name,
+                    startDay: i.startDay,
+                    endDay: i.endDay,
+                    startHour: i.startHour,
+                    endHour: i.endHour,
+                    workId: i.workId,
+                    workName: work.name,
+                    members: members,
+                    status: i.status,
+                    level: i.level,
+                    createdAt: i.createdAt,
+                    updatedAt: i.updatedAt,
+                    __v: i.__v
+                }
+                datas.push(data)
+            }
+        }
+        return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json(error)
     }
@@ -91,7 +126,16 @@ exports.getTaskByName = async (req, res) => {
 //done
 exports.createTask = async (req, res) => {
     try {
-        let { name, startDay, endDay, startHour, endHour, workId, members , level, description} = req.body
+        let { name, startDay, endDay, startHour, endHour, workId, members , level, description } = req.body
+
+        let work = await WORK.findById(workId)
+        let team = await TEAM.findById(work.teamId)
+        for ( i of members) {
+            if (!team.listMembers.includes(i)) {
+                team.listMembers.push(i)
+            }
+        }
+        team.save()
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
         let dateEnd = MOMENT(endDay, "MM-DD-YYYY")
         let task = await TASK.create({

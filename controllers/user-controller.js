@@ -64,9 +64,6 @@ exports.getUserByName = async (req, res) => {
         let name = req.params.name
         let user = await USER.find({ fullName: name })
         if (user) {
-            // let data = { "_id": user.id , "fullName":user.fullName,"birthday":user.birthday,
-            // "address":user.address,"phoneNumber":user.phoneNumber,"gender":user.gender,
-            // "avatar":user.avatar,"status":user.status,"accountId":user.accountId}
             return res.status(200).json(user);
         }
     } catch (error) {

@@ -480,7 +480,6 @@
     - Request
     ```json
     {
-        "createId":"6429449d32e69be96008c587",
         "memberId":"6429449d32e69be96008c587"
     }
     ```
@@ -531,7 +530,6 @@
     - Request
     ```json
     {
-        "createId":"6429449d32e69be96008c587",
         "teamId":"6429449e32e69be96008c59c"
     }
     ```
@@ -603,24 +601,27 @@
     - Reponse
     ```json
     {
-        "_id": "642687fcd58ad6becd0fa971",
+        "_id": "6444d8568e1db702b44a3f8d",
         "name": "Project 1",
         "startTime": "2010-03-22T17:00:00.000Z",
         "endTime": "2012-03-22T17:00:00.000Z",
         "status": false,
         "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
         "teamIds": [
-            "642687fcd58ad6becd0fa96d",
-            "642687fcd58ad6becd0fa96f"
+            "6444d8568e1db702b44a3f89",
+            "6444d8568e1db702b44a3f8b",
+            "644635ecf69b64c9cd07450c"
         ],
-        "createdAt": "2023-03-31T07:13:00.140Z",
-        "updatedAt": "2023-03-31T07:13:00.140Z",
+        "createdAt": "2023-04-23T07:03:50.528Z",
+        "updatedAt": "2023-04-24T07:55:24.179Z",
         "__v": 0,
         "leaders": [
-            "642687fbd58ad6becd0fa95f",
-            "642687fbd58ad6becd0fa967"
+            "6444d8568e1db702b44a3f7b",
+            "6444d8568e1db702b44a3f83",
+            "6444d8568e1db702b44a3f7b"
         ],
-        "mainProject": "642687fbd58ad6becd0fa95b"
+        "mainProject": "6444d8558e1db702b44a3f77",
+        "mainName": "Võ Minh Phương"
     }
     ```
 - getProjectByName:
@@ -685,12 +686,6 @@
     ```
 - removeProject
     - Api: **DELETE**:    http://localhost:3000/api/projects/6444cff9f3bb45946187c2af
-    - Request
-    ```json
-    {
-        "mainProject" :"6444cff9f3bb45946187c29b"
-    }
-    ```
     - Reponse
     ```json
     {
@@ -798,6 +793,35 @@
         "__v": 0
     }
     ```
+- updateWork
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/works/
+    - Request
+    ```json
+    {
+        "teamId":["643278efa6fdbb3a058caa05", "643278efa6fdbb3a058caa07"],
+        "name":"Work Huy tesst 3 ",
+        "startTime": "03/23/2001",
+        "endTime": "03/23/2002",
+        "leaderId":"643278eea6fdbb3a058ca9f3"
+    }
+    ```
+    - Reponse 
+    ```json
+    {
+        "name": "Work Huy tesst 3 ",
+        "status": false,
+        "startTime": "2001-03-22T17:00:00.000Z",
+        "endTime": "2002-03-22T17:00:00.000Z",
+        "teamId": "6432a2de1b83802815e147f9",
+        "createId": "643278eea6fdbb3a058ca9f3",
+        "leaderId": null,
+        "projectId": "643278efa6fdbb3a058caa0b",
+        "_id": "6432a2de1b83802815e147fd",
+        "createdAt": "2023-04-09T11:34:54.515Z",
+        "updatedAt": "2023-04-09T11:34:54.515Z",
+        "__v": 0
+    }
+    ```
 - changeNameWork
     - Api: **PATCH**:    https://ptask.cyclic.app/api/works/change-name/641eb353bb721b7cdd8cbf38
     - Request
@@ -845,12 +869,6 @@
     ```
 - removeWork
     - Api: **DELETE**:    http://localhost:3000/api/works/6444cff9f3bb45946187c2af
-    - Request
-    ```json
-    {
-        "createId" :"6444cff9f3bb45946187c29b"
-    }
-    ```
     - Reponse
     ```json
     {
@@ -1006,42 +1024,45 @@
     }
     ```
 - getTaskByName:
-    - Api: **GET**:    https://ptask.cyclic.app/api/tasks/name/name ***(:name)***
+    - Api: **GET**:    https://ptask.cyclic.app/api/tasks/name/Task 1 Work 1 ***(:name)***
+
+    - Request
+    ```json
+    {
+        "projectId": "6447c816a980f937d79eb973",
+        "workId": "6447cd7ae12c0a9a41b75626"
+    }
+    ```
     - Reponse
     ```json
     [
         {
-            "status": 3,
-            "_id": "63f48c86c765a223ecb74b8e",
-            "name": "name",
-            "description": "description",
-            "level": 1,
-            "startDay": "2001-03-22T17:00:00.000Z",
-            "endDay": "2010-03-22T17:00:00.000Z",
-            "startHour": "9:00",
-            "endHour": "16:00",
-            "listId": "63f48728f071ef7be2a9e9bd",
+            "_id": "6447cdb779b011741ccca4ac",
+            "name": "RedMiu123",
+            "startDay": "2023-03-26T00:00:00.000Z",
+            "endDay": "2023-03-26T00:00:00.000Z",
+            "startHour": "20:56",
+            "endHour": "10:58",
+            "workId": "6447cd7ae12c0a9a41b75626",
+            "workName": "RedMiu999",
             "members": [
-                "63f47b681e6c6175bf4ce69c",
-                "63f481f55f6bee2a60d910eb"
+                {
+                    "name": "Nguyễn Đức Hùng",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
+                },
+                {
+                    "name": "Nguyễn Đức Huy",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
+                },
+                {
+                    "name": "Nguyễn Việt Nam",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
+                }
             ],
-            "__v": 0
-        },
-        {
-            "_id": "640745aa372921bca42eae22",
-            "name": "name",
-            "startDay": "2001-03-22T17:00:00.000Z",
-            "endDay": "2010-03-22T17:00:00.000Z",
-            "startHour": "9:00",
-            "endHour": "16:00",
-            "description": "description",
+            "status": false,
             "level": 1,
-            "listId": "63f48728f071ef7be2a9e9bd",
-            "members": [
-                "63f47b681e6c6175bf4ce69c",
-                "63f481f55f6bee2a60d910eb"
-            ],
-            "status": 3,
+            "createdAt": "2023-04-25T12:55:19.547Z",
+            "updatedAt": "2023-04-25T12:55:19.547Z",
             "__v": 0
         }
     ]
@@ -1108,6 +1129,145 @@
         "status": true,
         "description": "description",
         "level": 1,
+        "__v": 0
+    }
+    ```
+## Note
+- getAllNotes
+    - Api: **GET**:    https://ptask.cyclic.app/api/notes/
+    - Reponse
+    ```json
+    [
+        {
+            "_id": "6448a35c0d4b2e5c5edb0e1f",
+            "text": "Note 1",
+            "links": [
+                "ABC"
+            ],
+            "taskId": "6447cdb779b011741ccca4ac",
+            "createId": "6444d8568e1db702b44a3f7f",
+            "createdAt": "2023-04-26T04:06:52.732Z",
+            "updatedAt": "2023-04-26T04:06:52.732Z",
+            "__v": 0
+        }
+    ]
+    ```
+- getAllNoteByIdTask 
+    - Api: **GET**:    http://localhost:3000/api/notes/task/6447cdb779b011741ccca4ac
+    - Reponse
+    ```json
+    [
+        {
+            "_id": "6448a6fb6ae435d66e655b58",
+            "text": "Note 1",
+            "links": [
+                "ABC"
+            ],
+            "taskId": "6447cdb779b011741ccca4ac",
+            "createId": "6444d8568e1db702b44a3f7f",
+            "createdAt": "2023-04-26T04:22:19.277Z",
+            "updatedAt": "2023-04-26T04:22:19.277Z",
+            "__v": 0
+        },
+        {
+            "_id": "6448a6fd6ae435d66e655b5a",
+            "text": "Note 2",
+            "links": [
+                "ABC"
+            ],
+            "taskId": "6447cdb779b011741ccca4ac",
+            "createId": "6444d8568e1db702b44a3f7f",
+            "createdAt": "2023-04-26T04:22:21.997Z",
+            "updatedAt": "2023-04-26T04:22:21.997Z",
+            "__v": 0
+        },
+        {
+            "_id": "6448a7016ae435d66e655b5c",
+            "text": "Note 3",
+            "links": [
+                "ABC"
+            ],
+            "taskId": "6447cdb779b011741ccca4ac",
+            "createId": "6444d8568e1db702b44a3f7f",
+            "createdAt": "2023-04-26T04:22:25.560Z",
+            "updatedAt": "2023-04-26T04:22:25.560Z",
+            "__v": 0
+        }
+    ]
+    ```
+- getNoteById 
+    - Api: **GET**:    https://ptask.cyclic.app/api/notes/6448a35c0d4b2e5c5edb0e1f
+    - Reponse
+    ```json
+    {
+        "_id": "6448a35c0d4b2e5c5edb0e1f",
+        "text": "Note 1",
+        "links": [
+            "ABC"
+        ],
+        "taskId": "6447cdb779b011741ccca4ac",
+        "createId": "6444d8568e1db702b44a3f7f",
+        "createdAt": "2023-04-26T04:06:52.732Z",
+        "updatedAt": "2023-04-26T04:06:52.732Z",
+        "__v": 0
+    }
+    ```
+- createNote
+    - Api: **POST**:    https://ptask.cyclic.app/api/notes/
+    - Request
+    ```json
+    {
+        "text": "Note 1" ,
+        "links": ["ABC"],
+        "taskId": "6447cdb779b011741ccca4ac" ,
+        "createId": "6444d8568e1db702b44a3f7f"
+    }
+    ```
+    - Reponse
+    ```json
+    {
+        "text": "Note 1",
+        "links": [
+            "ABC"
+        ],
+        "taskId": "6447cdb779b011741ccca4ac",
+        "createId": "6444d8568e1db702b44a3f7f",
+        "_id": "6448a35c0d4b2e5c5edb0e1f",
+        "createdAt": "2023-04-26T04:06:52.732Z",
+        "updatedAt": "2023-04-26T04:06:52.732Z",
+        "__v": 0
+    }
+    ```
+- removeNote
+    - Api: **DELETE**:    https://ptask.cyclic.app/api/notes/6448a35c0d4b2e5c5edb0e1f
+    - Reponse
+    ```json
+    {
+        "_id": "6448a35c0d4b2e5c5edb0e1f"
+    }
+    ```
+- updateNote
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/notes/63f48c272df79e949fe9243b
+    - Request
+    ```json
+    {
+        "text": "Note 1",
+        "links": ["ABC"],
+        "createId": "6444d8568e1db702b44a3f7f"
+    }
+    ```
+    - Reponse
+    ```json
+    {
+        "text": "Note 1",
+        "links": [
+            "ABC"
+        ],
+        "taskId": "6447cdb779b011741ccca4ac",
+        "createId": "6444d8568e1db702b44a3f7f",
+        "_id": "6448a35c0d4b2e5c5edb0e1f",
+        "createdAt": "2023-04-26T04:06:52.732Z",
+        "updatedAt": "2023-04-26T04:06:52.732Z",
         "__v": 0
     }
     ```
