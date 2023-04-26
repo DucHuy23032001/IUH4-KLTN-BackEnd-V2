@@ -7,6 +7,7 @@ ROUTER.get("/name/:name",workController.getWorkByName)
 
 ROUTER.post("/",workController.createWork)
 
+ROUTER.patch("/:id",workController.updateWork)
 ROUTER.patch("/change-name/:id",workController.changeNameWork)
 ROUTER.patch("/change-status/:id",workController.changeStatusWork)
 
