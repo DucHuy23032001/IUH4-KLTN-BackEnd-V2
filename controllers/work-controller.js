@@ -48,8 +48,10 @@ exports.getAllWorkByProjectId = async (req, res) => {
 exports.getWorkByName = async (req, res) => {
     try {
         let name = req.params.name
+        let id = req.body.projectId 
         let works = await WORK.find({
-            name: name
+            name: name,
+            projectId: id 
         })
         return res.status(200).json(works)
     } catch (error) {
