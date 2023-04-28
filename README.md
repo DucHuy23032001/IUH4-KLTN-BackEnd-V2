@@ -727,19 +727,28 @@
     ]
     ```
 - getWorkByName:
-    - Api: **GET**:    https://ptask.cyclic.app/api/works/name/Work 2
+    - Api: **GET**:    https://ptask.cyclic.app/api/works/name/Nám 1
+    - Request
+    ```json
+    {
+        "projectId" : "6444d8568e1db702b44a3f8d"
+    }
+    ```
     - Reponse
     ```json
     [
         {
-            "_id": "641eb80287c02b20789b3635",
-            "name": "Work 2",
+            "_id": "6444d8568e1db702b44a3f8f",
+            "name": "Nám 1",
             "status": false,
-            "startTime": "2001-03-22T17:00:00.000Z",
-            "endTime": "2002-03-22T17:00:00.000Z",
-            "teamId": "641eb315bb721b7cdd8cbf32",
-            "createId": "641eb25bbb721b7cdd8cbf2b",
-            "projectId": "641eb335bb721b7cdd8cbf36",
+            "startTime": "2010-03-22T17:00:00.000Z",
+            "endTime": "2011-03-22T17:00:00.000Z",
+            "teamId": "6444d8568e1db702b44a3f89",
+            "createId": "6444d8568e1db702b44a3f7b",
+            "leaderId": "6444d8568e1db702b44a3f7b",
+            "projectId": "6444d8568e1db702b44a3f8d",
+            "createdAt": "2023-04-23T07:03:50.582Z",
+            "updatedAt": "2023-04-23T07:03:50.582Z",
             "__v": 0
         }
     ]

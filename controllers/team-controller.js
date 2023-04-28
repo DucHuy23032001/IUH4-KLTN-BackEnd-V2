@@ -135,16 +135,16 @@ exports.getAllMemberByIdProject = async (req, res) => {
             }
         }
 
-        let main = await USER.findById(project.mainProject)
-        let itemMain = {
-            _id: main.id,
-            position: "Main",
-            teamName: null,
-            name: main.fullName,
-            avatar: main.avatar,
-            task: null
-        }
-        members.push(itemMain)
+        // let main = await USER.findById(project.mainProject)
+        // let itemMain = {
+        //     _id: main.id,
+        //     position: "Main",
+        //     teamName: null,
+        //     name: main.fullName,
+        //     avatar: main.avatar,
+        //     task: null
+        // }
+        // members.push(itemMain)
         return res.status(200).json(members)
     } catch (error) {
         return res.status(500).json({ msg: error })
