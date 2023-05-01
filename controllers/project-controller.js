@@ -125,8 +125,6 @@ exports.createProject = async (req, res) => {
     let { name, startTime, endTime, teamIds, mainProject } = req.body
     let start = MOMENT(startTime, "MM-DD-YYYY")
     let end = MOMENT(endTime, "MM-DD-YYYY")
-    console.log(req.body);
-    console.log(req.files);
     let pathBackground 
     if (req.files == null) {
       pathBackground = "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png"
