@@ -307,25 +307,17 @@
             "task": [
                 "Task 1 Work 1"
             ]
-        },
-        {
-            "_id": "643278eea6fdbb3a058ca9fb",
-            "teamName": "Team 1",
-            "position": "Member",
-            "name": "Nguyễn Đức Hùng",
-            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
-            "task": [
-                "Task 2 Work 1"
-            ]
-        },
-        {
-            "_id": "643278efa6fdbb3a058ca9ff",
-            "teamName": "Team 2",
-            "position": "Leader",
-            "name": "Nguyễn Việt Hoàng",
-            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
-            "task": []
         }
+    ]
+    ```
+- getAllIdLeaderOfProject:
+    - Api: **GET**:   http://localhost:3000/api/teams/leader/6444d8568e1db702b44a3f8d
+    - Reponse
+    ```json
+    [
+        "6444d8568e1db702b44a3f7b",
+        "6444d8568e1db702b44a3f83",
+        "6444d8568e1db702b44a3f7b"
     ]
     ```
 - getAllMemberOfTeam:
@@ -498,7 +490,7 @@
         "createAt": "2023-04-02T09:02:22.306Z"
     }
     ```
-- addTeam: 
+- addTeamInTeam: 
     - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/add-team/63f4806dc4ec61b3edc26f6e
     - Request
     ```json
@@ -525,7 +517,7 @@
         "createAt": "2023-04-02T09:02:22.306Z"
     }
     ```
-- removeTeam: 
+- removeTeamInTeam: 
     - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/remove-team/63f4806dc4ec61b3edc26f6e
     - Request
     ```json
@@ -757,19 +749,17 @@
     - Api: **GET**:    https://ptask.cyclic.app/api/works/641eb80287c02b20789b3635
     - Reponse
     ```json
-    [
-        {
-            "_id": "641eb80287c02b20789b3635",
-            "name": "Work 2",
-            "status": false,
-            "startTime": "2001-03-22T17:00:00.000Z",
-            "endTime": "2002-03-22T17:00:00.000Z",
-            "teamId": "641eb315bb721b7cdd8cbf32",
-            "createId": "641eb25bbb721b7cdd8cbf2b",
-            "projectId": "641eb335bb721b7cdd8cbf36",
-            "__v": 0
-        }
-    ]
+    {
+        "_id": "6444d8568e1db702b44a3f8f",
+        "name": "Nám 1",
+        "status": false,
+        "startTime": "2010-03-22T17:00:00.000Z",
+        "endTime": "2011-03-22T17:00:00.000Z",
+        "teamId": "6444d8568e1db702b44a3f89",
+        "createId": "6444d8568e1db702b44a3f7b",
+        "projectId": "6444d8568e1db702b44a3f8d",
+        "teamName": "Team 1"
+    }
     ```
 - createWork
     - Api: **POST**:    https://ptask.cyclic.app/api/works/
@@ -1015,20 +1005,22 @@
     - Reponse
     ```json
     {
-        "status": 3,
-        "_id": "63f48c86c765a223ecb74b8e",
-        "name": "name",
-        "description": "description",
-        "level": 1,
-        "startDay": "2001-03-22T17:00:00.000Z",
-        "endDay": "2010-03-22T17:00:00.000Z",
-        "startHour": "9:00",
-        "endHour": "16:00",
-        "listId": "63f48728f071ef7be2a9e9bd",
+        "_id": "644f0b227803eeb315da8fb3",
+        "name": "Demo",
+        "description": "ffff",
+        "level": 2,
+        "startDay": "2023-04-30T00:00:00.000Z",
+        "endDay": "2023-04-30T00:00:00.000Z",
+        "startHour": "13:01",
+        "endHour": "17:02",
+        "workId": "644a7c32d014f3bd84234e5f",
+        "workName": "RedMiu123",
         "members": [
-            "63f47b681e6c6175bf4ce69c",
-            "63f481f55f6bee2a60d910eb"
+            "6444d8568e1db702b44a3f7b",
+            "6444d8568e1db702b44a3f87",
+            "6444d8568e1db702b44a3f7f"
         ],
+        "status": false,
         "__v": 0
     }
     ```
