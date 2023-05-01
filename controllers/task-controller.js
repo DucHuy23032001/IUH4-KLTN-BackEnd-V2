@@ -70,7 +70,23 @@ exports.getTaskById = async (req, res) => {
     try {
         let id = req.params.id
         let tasks = await TASK.findById(id)
-        return res.status(200).json(tasks)
+        let work = await WORK.findById(tasks.workId)
+        let data = {
+            "_id": tasks._id,
+            "name": tasks.name,
+            "description": tasks.description,
+            "level": tasks.level,
+            "startDay": tasks.startDay,
+            "endDay": tasks.endDay,
+            "startHour": tasks.startHour,
+            "endHour": tasks.endHour,
+            "workId":work._id,
+            "workName": work.name,
+            "members": tasks.members,
+            "status": tasks.status,
+            "__v": 0
+        }
+        return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json(error)
     }
