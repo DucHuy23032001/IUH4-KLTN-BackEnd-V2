@@ -310,8 +310,18 @@
         }
     ]
     ```
-- getAllIdLeaderOfProject:
-    - Api: **GET**:   http://localhost:3000/api/teams/leader/6444d8568e1db702b44a3f8d
+- getLeadersOfMember:
+    - Api: **GET**:   http://localhost:3000/api/teams/leader-member/6444d8568e1db702b44a3f8d
+    - Reponse
+    ```json
+    [
+        "6444d8568e1db702b44a3f7b",
+        "6444d8568e1db702b44a3f83",
+        "6444d8568e1db702b44a3f7b"
+    ]
+    ```
+- getLeadersOfMember:
+    - Api: **GET**:   http://localhost:3000/api/teams/leader-team/6444d8568e1db702b44a3f8d
     - Reponse
     ```json
     [
@@ -541,6 +551,23 @@
         "createAt": "2023-04-02T09:02:22.306Z"
     }
     ```
+- removeTeamInProject
+    - Api: **DELETE**:    https://ptask.cyclic.app/api/teams/63f4806dc4ec61b3edc26f6e
+    - Reponse
+    ```json
+    {
+        "_id": "6429449e32e69be96008c59a",
+        "leaderId": "6429449d32e69be96008c58c",
+        "teamName": "Team 1",
+        "listMembers": [
+            "6429449e32e69be96008c59c",
+            "6429449d32e69be96008c58c",
+            "6429449e32e69be96008c590"
+        ],
+        "listTeams": [],
+        "createId": "6429449d32e69be96008c587",
+        "createAt": "2023-04-02T09:02:22.306Z"
+    }
 ## Project
 - getAllProject
     - Api: **GET**:    https://ptask.cyclic.app/api/projects
