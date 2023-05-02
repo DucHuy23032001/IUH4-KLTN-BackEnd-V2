@@ -128,8 +128,8 @@ exports.getAllMemberByIdProject = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-//
-exports.getAllIdLeaderOfProject = async (req, res) => {
+// test lại
+exports.getLeadersOfTeam = async (req, res) => {
     try {
         let members = []
         let id = req.params.id
@@ -138,7 +138,30 @@ exports.getAllIdLeaderOfProject = async (req, res) => {
         if (teamProject != null) {
             for (i of teamProject) {
                 let team = await TEAM.findById(i)
-                members.push(team.leaderId)
+                if ( team.listTeams.length > 0) {
+                    members.push(team.leaderId)
+                }      
+            }
+        }
+        return res.status(200).json(members)
+    } catch (error) {
+        return res.status(500).json({ msg: error })
+    }
+}
+
+// test đi
+exports.getLeadersOfMember = async (req, res) => {
+    try {
+        let members = []
+        let id = req.params.id
+        let project = await PROJECT.findById(id)
+        let teamProject = project.teamIds
+        if (teamProject != null) {
+            for (i of teamProject) {
+                let team = await TEAM.findById(i)
+                if ( team.listTeams.length == 0) {
+                    members.push(team.leaderId)
+                }      
             }
         }
         return res.status(200).json(members)
@@ -199,22 +222,6 @@ exports.getAllTeamByIdWork = async (req, res) => {
                     }
                     teams.push(data)
                 }
-                // if (team.listTeams.length > 0) {
-                //     for (i of team.listTeams) {
-                //         let team = await TEAM.findById(i)
-                //         let user = await USER.findById(team.leaderId)
-
-                //         if (team.listMembers.length > 0) {
-                //             let data = {
-                //                 _id: team.id,
-                //                 teamName: team.teamName,
-                //                 leaderName: user.fullName,
-                //                 listMembers: team.listMembers
-                //             }
-                //             teams.push(data)
-                //         }
-                //     }
-                // }
             }
         }
         return res.status(200).json(teams)
@@ -344,20 +351,27 @@ exports.changeName = async (req, res) => {
     }
 }
 
-//done
+//done ( test lại)
 exports.removeMember = async (req, res) => {
     try {
         let id = req.params.id
         let { memberId } = req.body
         let team = await TEAM.findById(id)
-        // if (team.createId != createId) {
-        //     return res.status(400).json({
-        //         message: "Only the creator can edit"
-        //     })
-        // }
         let members = team.listMembers
         members.pull(memberId)
         team.listMembers = members
+
+        let tasks = await TASK.find({
+            members: {
+                $in: memberId
+            }
+        })
+
+        for ( i of tasks) {
+            i.members.pull(memberId)
+            i.save()
+        }
+
         await team.save();
         let data = {
             _id: team.id,
@@ -474,6 +488,39 @@ exports.removeTeamInTeam = async (req, res) => {
             createAt: team.createdAt
         }
         return res.status(200).json(data)
+    } catch (error) {
+        return res.status(500).json({ msg: error })
+    }
+}
+
+// chưa test
+exports.removeTeamInProject = async (req, res) => {
+    try {
+        let id = req.params.id
+        let team = await TEAM.findById(id)
+        let members = team.listMembers
+        for ( j of members ){
+            let tasks = await TASK.find({
+                members: {
+                    $in: j
+                }
+            })
+            for ( t of tasks) {
+                t.members.pull(j)
+                t.save()
+            }
+        }
+        let works = await WORK.find({
+            teamId : id
+        })
+        for ( i of works) {
+            i.teamId = null
+            i.save()
+        }
+        await TEAM.deleteOne({ _id: id });
+        return res.status(200).json({
+            _id: id
+        })
     } catch (error) {
         return res.status(500).json({ msg: error })
     }

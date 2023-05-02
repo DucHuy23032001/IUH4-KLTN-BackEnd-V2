@@ -71,6 +71,15 @@ exports.getTaskById = async (req, res) => {
         let id = req.params.id
         let tasks = await TASK.findById(id)
         let work = await WORK.findById(tasks.workId)
+        let members = []
+        for( f of tasks.members) {
+            let user = await USER.findById(f)
+            let info = {
+                "name": user.fullName,
+                "avatar": user.avatar
+            }
+            members.push(info)
+        }
         let data = {
             "_id": tasks._id,
             "name": tasks.name,
@@ -80,9 +89,10 @@ exports.getTaskById = async (req, res) => {
             "endDay": tasks.endDay,
             "startHour": tasks.startHour,
             "endHour": tasks.endHour,
-            "workId":work._id,
+            "imageLink": tasks.imageLink,
+            "workId":work.id,
             "workName": work.name,
-            "members": tasks.members,
+            "members": members,
             "status": tasks.status,
             "__v": 0
         }
@@ -100,7 +110,7 @@ exports.getTaskByName = async (req, res) => {
         let workId = req.body.workId
         let datas = []
         let tasks = await TASK.find({
-            name: name
+            name: {'$regex': name,$options:'i'}
         })
         for ( i of tasks ) {
             let members = []
@@ -143,9 +153,10 @@ exports.getTaskByName = async (req, res) => {
 exports.createTask = async (req, res) => {
     try {
         let { name, startDay, endDay, startHour, endHour, workId, members , level, description } = req.body
-
         let work = await WORK.findById(workId)
+        console.log(work);
         let team = await TEAM.findById(work.teamId)
+        console.log(team);
         for ( i of members) {
             if (!team.listMembers.includes(i)) {
                 team.listMembers.push(i)
