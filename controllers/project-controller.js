@@ -56,7 +56,7 @@ exports.getProjectByName = async (req, res) => {
   try {
     let name = req.params.name
     let projects = await PROJECT.find({
-      name: name
+      name: {'$regex': name,$options:'i'}
     })
     return res.status(200).json(projects)
   } catch (error) {
@@ -143,14 +143,6 @@ exports.createProject = async (req, res) => {
       })
     }
 
-    // let team = await TEAM.create({
-    //   leaderId: mainProject,
-    //   teamName: "Project Owner",
-    //   members: [mainProject],
-    //   status:false,
-    //   createId: mainProject
-    // })
-
     let teams = []
     if ( teamIds != null) {
       if (Array.isArray(teamIds)) {
@@ -184,18 +176,7 @@ exports.addTeams = async (req, res) => {
   try {
     let { teamIds, mainProject } = req.body
     let id = req.params.id
-    let check = false
     let project = await PROJECT.findById(id)
-
-    // for (i of project.teamIds) {
-    //   let team = await TEAM.findById(i)
-    //   if (!team.status) {
-    //     console.log(team.leaderId == mainProject);
-    //     if (team.leaderId == mainProject) {
-    //       check = true
-    //     }
-    //   }
-    // }
 
     if (project.mainProject != mainProject) {
       return res.status(400).json({
@@ -228,13 +209,6 @@ exports.addTeams = async (req, res) => {
 exports.removeProject = async (req, res) => {
   try {
       let id = req.params.id
-      // let { mainProject } = req.body
-      // let project = await PROJECT.findById(id)
-      // if (project.mainProject != mainProject) {
-      //     return res.status(400).json({
-      //         message: "Only the creator can remove"
-      //     })
-      // }
       await PROJECT.deleteOne({ _id: id });
       let works = await WORK.find({projectId: id})
       for ( i of works) {

@@ -50,7 +50,7 @@ exports.getWorkByName = async (req, res) => {
         let name = req.params.name
         let id = req.body.projectId 
         let works = await WORK.find({
-            name: name,
+            name: {'$regex': name,$options:'i'},
             projectId: id 
         })
         return res.status(200).json(works)
@@ -217,17 +217,10 @@ exports.changeStatusWork = async (req, res) => {
     }
 }
 
-//done (Chưa test)
+//done 
 exports.removeWork = async (req, res) => {
     try {
         let id = req.params.id
-        // let { createId } = req.body
-        // let work = await WORK.findById(id)
-        // if (work.createId != createId) {
-        //     return res.status(400).json({
-        //         message: "Only the creator can edit"
-        //     })
-        // }
         await WORK.deleteOne({ _id: id });
         await TASK.deleteMany({workId : id});
         return res.status(200).json({
