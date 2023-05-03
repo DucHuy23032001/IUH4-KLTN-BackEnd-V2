@@ -24,6 +24,7 @@ exports.getProjectById = async (req, res) => {
     for (i of project.teamIds) {
       if (i != null) {
         let team = await TEAM.findById(i)
+        console.log(team);
         idLeaders.push(team.leaderId)
       }
     }

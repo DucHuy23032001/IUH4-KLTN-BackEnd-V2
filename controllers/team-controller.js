@@ -514,6 +514,8 @@ exports.removeTeamInProject = async (req, res) => {
             teamId : id
         })
         for ( i of works) {
+            let pro = await PROJECT.findById(i.projectId)
+            pro.teamIds.pull(id)
             i.teamId = null
             i.save()
         }
