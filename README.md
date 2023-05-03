@@ -123,6 +123,24 @@
             "accountId": "63f47b681e6c6175bf4ce69a"
     }
     ```
+- getUserByTaskId
+    - Api: **Get**:    https://ptask.cyclic.app/api/users/tasks/64527b07a9c0a95631ad3415
+    - Reponse
+    ```json
+    [
+        {
+            "_id": "64527b07a9c0a95631ad33fc",
+            "fullName": "Nguyễn Đức Huy",
+            "birthday": "2001-03-22T17:00:00.000Z",
+            "address": "247 Lê Đức Thọ, Gò Gấp, TP HCM",
+            "phoneNumber": "0879276284",
+            "gender": false,
+            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+            "status": true,
+            "accountId": "64527b07a9c0a95631ad33fa"
+        }
+    ]
+    ```
 - getUserByEmail
     - Api: **Get**:    https://ptask.cyclic.app/api/users/email/12345@gmail.com
     - Reponse
@@ -265,7 +283,8 @@
             "leaderName": "Nguyễn Đức Huy",
             "workName": [
                 "Work 1"
-            ]
+            ],
+            "leaderId" : "643278efa6fdbb3a058cabb90"
         },
         {
             "_id": "643278efa6fdbb3a058caa07",
@@ -273,13 +292,8 @@
             "leaderName": "Nguyễn Việt Hoàng",
             "workName": [
                 "Work 2"
-            ]
-        },
-        {
-            "_id": "643278efa6fdbb3a058caa09",
-            "teamName": "Project Owner",
-            "leaderName": "Võ Minh Phương",
-            "workName": []
+            ],
+            "leaderId" : "643278efa6fdbb3a058cabb90"
         }
     ]
     ```
@@ -320,7 +334,7 @@
         "6444d8568e1db702b44a3f7b"
     ]
     ```
-- getLeadersOfMember:
+- getLeadersOfTeam:
     - Api: **GET**:   http://localhost:3000/api/teams/leader-team/6444d8568e1db702b44a3f8d
     - Reponse
     ```json
@@ -746,31 +760,26 @@
     ]
     ```
 - getWorkByName:
-    - Api: **GET**:    https://ptask.cyclic.app/api/works/name/Nám 1
+    - Api: **GET**:    https://ptask.cyclic.app/api/works/name/6444d8568e1db702b44a3f8d
     - Request
     ```json
     {
-        "projectId" : "6444d8568e1db702b44a3f8d"
+        "name" : "Work 1"
     }
     ```
     - Reponse
     ```json
-    [
-        {
-            "_id": "6444d8568e1db702b44a3f8f",
-            "name": "Nám 1",
-            "status": false,
-            "startTime": "2010-03-22T17:00:00.000Z",
-            "endTime": "2011-03-22T17:00:00.000Z",
-            "teamId": "6444d8568e1db702b44a3f89",
-            "createId": "6444d8568e1db702b44a3f7b",
-            "leaderId": "6444d8568e1db702b44a3f7b",
-            "projectId": "6444d8568e1db702b44a3f8d",
-            "createdAt": "2023-04-23T07:03:50.582Z",
-            "updatedAt": "2023-04-23T07:03:50.582Z",
-            "__v": 0
-        }
-    ]
+    {
+        "_id": "64527b07a9c0a95631ad3411",
+        "name": "Work 1",
+        "status": false,
+        "startTime": "2010-03-22T17:00:00.000Z",
+        "endTime": "2011-03-22T17:00:00.000Z",
+        "teamId": "64527b07a9c0a95631ad340b",
+        "createId": "64527b07a9c0a95631ad33fc",
+        "projectId": "64527b07a9c0a95631ad340f",
+        "teamName": "Team 1"
+    }
     ```
 - getWorkById:
     - Api: **GET**:    https://ptask.cyclic.app/api/works/641eb80287c02b20789b3635
@@ -1057,8 +1066,7 @@
     - Request
     ```json
     {
-        "projectId": "6447c816a980f937d79eb973",
-        "workId": "6447cd7ae12c0a9a41b75626"
+        "projectId": "6447c816a980f937d79eb973"
     }
     ```
     - Reponse
