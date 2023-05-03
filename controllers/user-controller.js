@@ -1,5 +1,6 @@
 const USER = require('../models/user')
 const ACCOUNT = require('../models/account')
+const TASK = require('../models/task')
 const MOMENT = require('moment')
 const crypto = require('crypto')
 const awsService = require('../services/aws-service')
@@ -88,6 +89,29 @@ exports.getUserByPhone = async (req, res) => {
         return res.status(500).json({ msg: error });
     }
 };
+
+exports.getAllUserByTaskId = async (req, res) => {
+    try {
+        let id = req.params.id
+        let task = await TASK.findById(id)
+        let datas = []
+        for ( i of task.members ) {
+            let user = await USER.findById(i)
+            if (user) {
+                let data = {
+                    "_id": user.id, "fullName": user.fullName, "birthday": user.birthday,
+                    "address": user.address, "phoneNumber": user.phoneNumber, "gender": user.gender,
+                    "avatar": user.avatar, "status": user.status, "accountId": user.accountId
+                }
+                datas.push(data)
+            }
+        }
+        return res.status(200).json(datas);
+    } catch (error) {
+        return res.status(500).json({ msg: error });
+    }
+};
+
 
 //done
 exports.createUser = async (req, res, accountId) => {

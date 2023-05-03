@@ -47,13 +47,27 @@ exports.getAllWorkByProjectId = async (req, res) => {
 //done
 exports.getWorkByName = async (req, res) => {
     try {
-        let name = req.params.name
-        let id = req.body.projectId 
+        let id = req.params.projectId
+        let name = req.body.name 
         let works = await WORK.find({
             name: {'$regex': name,$options:'i'},
             projectId: id 
         })
-        return res.status(200).json(works)
+        console.log(works[0]);
+        let team = await TEAM.findById(works[0].teamId)
+        let data = {
+            _id: works[0]._id,
+            name: works[0].name,
+            status: works[0].status,
+            startTime: works[0].startTime,
+            endTime: works[0].endTime,
+            teamId: works[0].teamId,
+            createId: works[0].createId,
+            projectId: works[0].projectId,
+            teamName: team.teamName
+        }
+        console.log(data);
+        return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json(error)
     }
