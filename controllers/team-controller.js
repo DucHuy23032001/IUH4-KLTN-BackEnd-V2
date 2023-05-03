@@ -47,7 +47,8 @@ exports.getAllTeamByIdProject = async (req, res) => {
                 _id: item.id,
                 teamName: team.teamName,
                 leaderName: user.fullName,
-                workName: item.name
+                workName: item.name,
+                leaderId:team.leaderId
             }
             teams.push(data)
         }
@@ -59,13 +60,15 @@ exports.getAllTeamByIdProject = async (req, res) => {
 //done
 exports.getAllMemberByIdProject = async (req, res) => {
     try {
-        let members = []
-        let allTask = []
+        let datas = []
+        let allMembers = []
+        let allTasks = []
         let id = req.params.id
         let project = await PROJECT.findById(id)
         let works = await WORK.find({
             projectId: id
         })
+        console.log(datas);
         if (works.length > 0) {
             for (i of works) {
                 let tasks = await TASK.find({
@@ -73,57 +76,67 @@ exports.getAllMemberByIdProject = async (req, res) => {
                 })
                 if (tasks.length > 0) {
                     for (j of tasks) {
-                        allTask.push(j)
-                    }
-                }
-            }
-            let teamProject = project.teamIds
-            if (teamProject != null) {
-                for (i of teamProject) {
-                    let team = await TEAM.findById(i)
-                    let leader = await USER.findById(team.leaderId)
-                    let taskLeader = []
-                    for (k of allTask) {
-                        if (k.members.includes(team.leaderId)) {
-                            taskLeader.push(k.name)
-                        }
-                    }
-                    let item = {
-                        _id: leader.id,
-                        teamName: team.teamName,
-                        position: "Leader",
-                        name: leader.fullName,
-                        avatar: leader.avatar,
-                        task: taskLeader
-                    }
-                    if ( item != undefined) {
-                        members.push(item)
-                    }
-                    let listMembers = team.listMembers 
-                    for ( h of listMembers ){
-                        let user = await USER.findById(h)
-                        let taskMembers = []
-                        for (k of allTask) {
-                            if (k.members.includes(h)) {
-                                taskMembers.push(k.name)
-                            }
-                        }
-                        let item = {
-                            _id: user.id,
-                            teamName: team.teamName,
-                            position: "Member",
-                            name: user.fullName,
-                            avatar: user.avatar,
-                            task: taskMembers
-                        }
-                        if ( item != undefined) {
-                            members.push(item)
-                        }
+                        allTasks.push(j)
                     }
                 }
             }
         }
-        return res.status(200).json(members)
+        let teamProject = project.teamIds
+        if (teamProject != null) {
+            for (i of teamProject) {
+                let team = await TEAM.findById(i)
+                let leader = await USER.findById(team.leaderId)
+                let dt = {
+                    team: team,
+                    note: 1,
+                    data: leader
+                }
+                allMembers.push(dt)
+                let listMembers = team.listMembers
+                for (h of listMembers) {
+                    if (!team.leaderId.equals(h)) {
+                        let user = await USER.findById(h)
+                        let dt2 = {
+                            team: team,
+                            note: 2,
+                            data: user
+                        }
+                        allMembers.push(dt2)
+                    }
+                }
+            }
+        }
+        for (i of allMembers) {
+            let tasks = []
+            for (k of allTasks) {
+                if (k.members.includes(i.data._id)) {
+                    tasks.push(k.name)
+                }
+            }
+            if (i.note == 1) {
+                let item = {
+                    _id: i.data._id,
+                    teamName: i.team.teamName,
+                    position: "Leader",
+                    name: i.data.fullName,
+                    avatar: i.data.avatar,
+                    task: tasks
+                }
+                datas.push(item)
+            }
+            if (i.note == 2) {
+                let item = {
+                    _id: i.data._id,
+                    teamName: i.team.teamName,
+                    position: "Member",
+                    name: i.data.fullName,
+                    avatar: i.data.avatar,
+                    task: tasks
+                }
+                datas.push(item)
+            }
+        }
+        return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json({ msg: error })
     }
@@ -138,9 +151,9 @@ exports.getLeadersOfTeam = async (req, res) => {
         if (teamProject != null) {
             for (i of teamProject) {
                 let team = await TEAM.findById(i)
-                if ( team.listTeams.length > 0) {
+                if (team.listTeams.length > 0) {
                     members.push(team.leaderId)
-                }      
+                }
             }
         }
         return res.status(200).json(members)
@@ -159,9 +172,9 @@ exports.getLeadersOfMember = async (req, res) => {
         if (teamProject != null) {
             for (i of teamProject) {
                 let team = await TEAM.findById(i)
-                if ( team.listTeams.length == 0) {
+                if (team.listTeams.length == 0) {
                     members.push(team.leaderId)
-                }      
+                }
             }
         }
         return res.status(200).json(members)
@@ -367,7 +380,7 @@ exports.removeMember = async (req, res) => {
             }
         })
 
-        for ( i of tasks) {
+        for (i of tasks) {
             i.members.pull(memberId)
             i.save()
         }
@@ -499,21 +512,21 @@ exports.removeTeamInProject = async (req, res) => {
         let id = req.params.id
         let team = await TEAM.findById(id)
         let members = team.listMembers
-        for ( j of members ){
+        for (j of members) {
             let tasks = await TASK.find({
                 members: {
                     $in: j
                 }
             })
-            for ( t of tasks) {
+            for (t of tasks) {
                 t.members.pull(j)
                 t.save()
             }
         }
         let works = await WORK.find({
-            teamId : id
+            teamId: id
         })
-        for ( i of works) {
+        for (i of works) {
             let pro = await PROJECT.findById(i.projectId)
             pro.teamIds.pull(id)
             i.teamId = null

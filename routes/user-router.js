@@ -6,6 +6,7 @@ ROUTER.get("/:id",userController.getUserById)
 ROUTER.get("/name/:name",userController.getUserByName)
 ROUTER.get("/email/:email",userController.getUserByEmail)
 ROUTER.get("/phone/:phone",userController.getUserByPhone)
+ROUTER.get("/tasks/:id",userController.getAllUserByTaskId)
 
 ROUTER.patch("/update/:id",userController.updateUser)
 ROUTER.patch("/lock/:id",userController.lockUser)
