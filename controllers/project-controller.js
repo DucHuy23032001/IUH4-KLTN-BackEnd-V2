@@ -24,19 +24,17 @@ exports.getProjectById = async (req, res) => {
     for (i of project.teamIds) {
       if (i != null) {
         let team = await TEAM.findById(i)
-        console.log(team);
         idLeaders.push(team.leaderId)
       }
     }
 
     let user = await USER.findById(project.mainProject)
-
     let data = {
       _id: project.id,
       name: project.name,
       startTime: project.startTime,
       endTime: project.endTime,
-      status: false,
+      status: project.status,
       background: project.background,
       teamIds: project.teamIds,
       createdAt: project.createdAt,
@@ -87,10 +85,10 @@ exports.getProjectByIdUser = async (req, res) => {
 //done
 exports.updateProject = async (req, res) => {
   try {
+    let id = req.params.id
     let { name, startTime, endTime, status, teamIds, background, mainProject } = req.body
     let start = MOMENT(startTime, "MM-DD-YYYY")
     let end = MOMENT(endTime, "MM-DD-YYYY")
-    let id = req.params.id
 
     let projectCheck = await PROJECT.findById(id)
     if (projectCheck.mainProject != mainProject) {
@@ -124,24 +122,21 @@ exports.updateProject = async (req, res) => {
 exports.createProject = async (req, res) => {
   try {
     let { name, startTime, endTime, teamIds, mainProject } = req.body
+
     let start = MOMENT(startTime, "MM-DD-YYYY")
     let end = MOMENT(endTime, "MM-DD-YYYY")
+    if (end - start < 0) {
+      return res.status(400).json({
+        message: "endTime > startTime"
+      })
+    }
+
     let pathBackground 
     if (req.files == null) {
       pathBackground = "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png"
     }
     else {
       pathBackground = await awsService.uploadFileToS3(req, res, req.files.background)
-    }
-
-    if (!startTime) {
-      startTime = Date.now()
-    }
-
-    if (end - start < 0) {
-      return res.status(400).json({
-        message: "endTime > startTime"
-      })
     }
 
     let teams = []
@@ -206,7 +201,7 @@ exports.addTeams = async (req, res) => {
   }
 }
 
-//done (Chưa test)
+//done 
 exports.removeProject = async (req, res) => {
   try {
       let id = req.params.id
@@ -219,5 +214,36 @@ exports.removeProject = async (req, res) => {
       return res.status(200).json({_id:id})
   } catch (error) {
       return res.status(500).json({ msg: error })
+  }
+}
+
+// Chưa test
+exports.changeStatus = async (req, res) => {
+  try {
+      let mainProject = req.body.mainProject
+      let id = req.params.id
+
+      let project = await PROJECT.findById(id)
+      if (project.mainProject != mainProject) {
+          return res.status(400).json({
+              message: "Only the project owner can edit"
+          })
+      }
+
+      let works = await WORK.find({
+        projectId: id
+      })
+
+      for ( w of works){
+        w.status = true
+        await TASK.updateMany({ status: true }, { $set: { workId: w._id } });
+        w.save()
+      }
+      
+      project.status = true
+      project.save()
+      return res.status(200).json(work)
+  } catch (error) {
+      return res.status(500).json(error)
   }
 }

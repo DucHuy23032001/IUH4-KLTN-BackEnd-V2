@@ -24,7 +24,6 @@ exports.signUp = async (req, res) => {
     account.save()
     let token = accountService.createToken(user)
     return res.status(200).json({
-      // user: user,
       token: token
     })
   } catch (error) {
