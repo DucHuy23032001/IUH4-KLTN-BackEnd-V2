@@ -119,8 +119,16 @@ exports.createWork = async (req, res) => {
             })
         }
 
+        let team = await TEAM.create({
+            leaderId: leaderId,
+            teamName: name + " Team",
+            listMembers: [],
+            listTeams: [teamId],
+            createId: createId
+        })
+
         let work = await WORK.create({
-            teamId: teamId,
+            teamId: team.id,
             status: false,
             createId: createId,
             name: name,
