@@ -44,7 +44,6 @@ exports.getAllWorkByProjectId = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.getWorkByName = async (req, res) => {
     try {
@@ -142,7 +141,6 @@ exports.createWork = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.updateWork = async (req, res) => {
     try {
@@ -181,7 +179,6 @@ exports.updateWork = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.updateTimeWork = async (req, res) => {
     try {
@@ -222,7 +219,6 @@ exports.updateTimeWork = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.changeNameWork = async (req, res) => {
     try {
@@ -243,7 +239,6 @@ exports.changeNameWork = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 // done
 exports.changeStatusWork = async (req, res) => {
     try {
@@ -265,7 +260,6 @@ exports.changeStatusWork = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done 
 exports.removeWork = async (req, res) => {
     try {
