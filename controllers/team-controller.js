@@ -68,7 +68,6 @@ exports.getAllMemberByIdProject = async (req, res) => {
         let works = await WORK.find({
             projectId: id
         })
-        console.log(datas);
         if (works.length > 0) {
             for (i of works) {
                 let tasks = await TASK.find({
@@ -141,7 +140,7 @@ exports.getAllMemberByIdProject = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-// test lại
+// done
 exports.getLeadersOfTeam = async (req, res) => {
     try {
         let members = []
@@ -162,7 +161,7 @@ exports.getLeadersOfTeam = async (req, res) => {
     }
 }
 
-// test đi
+// done
 exports.getLeadersOfMember = async (req, res) => {
     try {
         let members = []
@@ -307,14 +306,13 @@ exports.getTeamById = async (req, res) => {
 //done
 exports.createTeam = async (req, res) => {
     try {
-        let { teamName, listMembers, listTeams, leaderId, createId, projectId, status } = req.body
+        let { teamName, listMembers, listTeams, leaderId, createId, projectId } = req.body
         let team = await TEAM.create({
             leaderId: leaderId,
             teamName: teamName,
             listMembers: listMembers,
             listTeams: listTeams,
-            createId: createId,
-            status: status
+            createId: createId
         })
         let project = await PROJECT.findById(projectId)
         project.teamIds.push(team.id)
@@ -327,7 +325,6 @@ exports.createTeam = async (req, res) => {
             listTeams: team.listTeams,
             createId: team.createId,
             createAt: team.createdAt,
-            status: team.status,
             projectId: projectId
         }
         return res.status(200).json(data)
@@ -364,7 +361,7 @@ exports.changeName = async (req, res) => {
     }
 }
 
-//done ( test lại)
+//done 
 exports.removeMember = async (req, res) => {
     try {
         let id = req.params.id

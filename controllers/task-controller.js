@@ -153,15 +153,26 @@ exports.createTask = async (req, res) => {
     try {
         let { name, startDay, endDay, startHour, endHour, workId, members , level, description } = req.body
         let work = await WORK.findById(workId)
-        let team = await TEAM.findById(work.teamId)
-        for ( i of members) {
-            if (!team.listMembers.includes(i)) {
-                team.listMembers.push(i)
-            }
-        }
-        team.save()
+
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
         let dateEnd = MOMENT(endDay, "MM-DD-YYYY")
+
+        if (dateStart > dateEnd) {
+            return res.status(409).json({
+                msg: "Thời gian bắt đầu phải trước thời gian kết thúc"
+            })
+        }
+        if (dateStart < work.startTime) {
+            return res.status(409).json({
+                msg: "Thời gian bắt đầu work phải phù hợp với thời gian bắt đầu của work"
+            })
+        }
+        if (dateEnd > work.endTime) {
+            return res.status(409).json({
+                msg: "Thời gian kết thúc work phải phù hợp với thời gian kết thúc của work"
+            })
+        }
+
         let task = await TASK.create({
             name: name,
             description: description,
@@ -173,6 +184,13 @@ exports.createTask = async (req, res) => {
             members: members,
             level:level
         })
+        let team = await TEAM.findById(work.teamId)
+        for ( i of members) {
+            if (!team.listMembers.includes(i)) {
+                team.listMembers.push(i)
+            }
+        }
+        team.save()
         return res.status(200).json(task)
     } catch (error) {
         return res.status(500).json(error)
@@ -188,6 +206,9 @@ exports.updateTask = async (req, res) => {
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
         let dateEnd = MOMENT(endDay, "MM-DD-YYYY")
         let task = await TASK.findById(id)
+        let work = await WORK.findById(task.workId)
+
+
         for (i of task.members) {
             if (userId == i) {
                 check = false
@@ -199,9 +220,20 @@ exports.updateTask = async (req, res) => {
             })
         }
 
-        if (dateEnd - dateStart < 0) {
-            return res.status(400).json({
-              message:"dateEnd > dateStart"
+
+        if (dateStart > dateEnd) {
+            return res.status(409).json({
+                msg: "Thời gian bắt đầu phải trước thời gian kết thúc"
+            })
+        }
+        if (dateStart < work.startTime) {
+            return res.status(409).json({
+                msg: "Thời gian bắt đầu work phải phù hợp với thời gian bắt đầu của work"
+            })
+        }
+        if (dateEnd > work.endTime) {
+            return res.status(409).json({
+                msg: "Thời gian kết thúc work phải phù hợp với thời gian kết thúc của work"
             })
         }
 
