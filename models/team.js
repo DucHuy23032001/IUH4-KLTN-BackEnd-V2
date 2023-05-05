@@ -27,10 +27,6 @@ let teamSchema = new SCHEMA(
                 require: [true, "Please fill listTeams of team!"]
             }
         ]
-        // status: {
-        //     type: Boolean,
-        //     require: [true, "Please fill status of team!"]
-        // }
     },
     {
         timestamps: true

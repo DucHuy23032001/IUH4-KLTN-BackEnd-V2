@@ -9,7 +9,6 @@ exports.getAllNote = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.getNoteByIdTask = async (req, res) => {
     try {
@@ -24,7 +23,6 @@ exports.getNoteByIdTask = async (req, res) => {
         return res.status(500).json({ msg: error });
     }
 };
-
 //done
 exports.getNoteById = async (req, res) => {
     try {
@@ -37,7 +35,6 @@ exports.getNoteById = async (req, res) => {
         return res.status(500).json({ msg: error });
     }
 };
-
 //done
 exports.createNote = async (req, res) => {
     try {
@@ -53,7 +50,6 @@ exports.createNote = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.removeNote = async (req, res) => {
     try {
@@ -66,7 +62,6 @@ exports.removeNote = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.updateNote = async (req, res) => {
     try {

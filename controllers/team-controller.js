@@ -160,7 +160,6 @@ exports.getLeadersOfTeam = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 // done
 exports.getLeadersOfMember = async (req, res) => {
     try {
@@ -181,7 +180,6 @@ exports.getLeadersOfMember = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.getAllTeamByIdWork = async (req, res) => {
     try {
@@ -241,7 +239,6 @@ exports.getAllTeamByIdWork = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.getAllMemberOfTeam = async (req, res) => {
     try {
@@ -332,7 +329,6 @@ exports.createTeam = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.changeName = async (req, res) => {
     try {
@@ -360,7 +356,6 @@ exports.changeName = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done 
 exports.removeMember = async (req, res) => {
     try {
@@ -397,7 +392,6 @@ exports.removeMember = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.addMember = async (req, res) => {
     try {
@@ -437,7 +431,6 @@ exports.addMember = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done 
 exports.addTeamInTeam = async (req, res) => {
     try {
@@ -477,7 +470,6 @@ exports.addTeamInTeam = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done (Chưa test)
 exports.removeTeamInTeam = async (req, res) => {
     try {
@@ -502,7 +494,6 @@ exports.removeTeamInTeam = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 // chưa test
 exports.removeTeamInProject = async (req, res) => {
     try {

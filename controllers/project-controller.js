@@ -5,6 +5,7 @@ const TEAM = require('../models/team')
 const USER = require('../models/user')
 const MOMENT = require('moment')
 const awsService = require('../services/aws-service')
+
 //done
 exports.getAllProject = async (req, res) => {
   try {
@@ -14,7 +15,6 @@ exports.getAllProject = async (req, res) => {
     return res.status(500).json(error)
   }
 }
-
 //done
 exports.getProjectById = async (req, res) => {
   try {
@@ -49,7 +49,6 @@ exports.getProjectById = async (req, res) => {
     return res.status(500).json(error)
   }
 }
-
 //done
 exports.getProjectByName = async (req, res) => {
   try {
@@ -62,7 +61,6 @@ exports.getProjectByName = async (req, res) => {
     return res.status(500).json(error)
   }
 }
-
 //done
 exports.getProjectByIdUser = async (req, res) => {
   try {
@@ -81,7 +79,6 @@ exports.getProjectByIdUser = async (req, res) => {
     return res.status(500).json(error)
   }
 }
-
 //done
 exports.updateProject = async (req, res) => {
   try {
@@ -117,7 +114,6 @@ exports.updateProject = async (req, res) => {
     return res.status(500).json(error)
   }
 }
-
 //done
 exports.createProject = async (req, res) => {
   try {
@@ -165,8 +161,6 @@ exports.createProject = async (req, res) => {
     return res.status(500).json(error)
   }
 }
-
-
 // Chưa test
 exports.addTeams = async (req, res) => {
   try {
@@ -200,7 +194,6 @@ exports.addTeams = async (req, res) => {
     return res.status(500).json(error)
   }
 }
-
 //done 
 exports.removeProject = async (req, res) => {
   try {
@@ -216,7 +209,6 @@ exports.removeProject = async (req, res) => {
       return res.status(500).json({ msg: error })
   }
 }
-
 // Chưa test
 exports.changeStatus = async (req, res) => {
   try {
