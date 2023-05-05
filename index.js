@@ -124,7 +124,6 @@ async function addData() {
         teamName: "Team 1",
         createId: u1.id,
         leaderId: u2.id,
-        status: true,
         listMembers:[u2.id, u3.id],
         listTeams: [],
     })
@@ -133,7 +132,6 @@ async function addData() {
         teamName: "Team 2",
         createId: u1.id,
         leaderId: u4.id,
-        status: true,
         listMembers: [u4.id, u5.id],
         listTeams: [],
     })
@@ -186,9 +184,22 @@ async function addData() {
         startHour: "9:00" ,
         endHour: "10:00",
         workId: work1.id,
+        members: [u1.id],
+        status: false,
+        level: 1
+    })
+
+    let task2 = await task.create({
+        name: "Task 2 Work 1",
+        startDay: startTimeW1,
+        endDay: endTimeW1,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work1.id,
         members: [u2.id],
         status: false,
         level: 1
     })
+
 
 }

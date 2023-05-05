@@ -1,6 +1,7 @@
 const WORK = require('../models/work')
 const TASK = require('../models/task')
 const TEAM = require('../models/team')
+const PROJECT = require('../models/project')
 const MOMENT = require('moment')
 
 //done
@@ -14,7 +15,7 @@ exports.getAllWorkByProjectId = async (req, res) => {
         for (i of works) {
             let team = await TEAM.findById(i.teamId)
             let nameTeam = []
-            if(team != null){
+            if (team != null) {
                 nameTeam.push(team.teamName)
                 let listTeam = team.listTeams
                 for (j of listTeam) {
@@ -48,10 +49,10 @@ exports.getAllWorkByProjectId = async (req, res) => {
 exports.getWorkByName = async (req, res) => {
     try {
         let id = req.params.projectId
-        let name = req.body.name 
+        let name = req.body.name
         let works = await WORK.find({
-            name: {'$regex': name,$options:'i'},
-            projectId: id 
+            name: { '$regex': name, $options: 'i' },
+            projectId: id
         })
         console.log(works[0]);
         let team = await TEAM.findById(works[0].teamId)
@@ -97,48 +98,37 @@ exports.getWorkById = async (req, res) => {
 //done
 exports.createWork = async (req, res) => {
     try {
-        let nameTeam = []
         let { name, projectId, startTime, endTime, createId, teamId, leaderId } = req.body
         let start = MOMENT(startTime, "MM-DD-YYYY")
         let end = MOMENT(endTime, "MM-DD-YYYY")
-        let team
-        if (leaderId != undefined || leaderId != null) {
-            team = await TEAM.create({
-                teamName: null,
-                createId: createId,
-                leaderId: leaderId,
-                status: false,
-                listTeams: teamId,
-            })
-        }
-        for (i of teamId) {
-            let team = await TEAM.findById(i)
-            nameTeam.push(team.teamName)
-        }
 
-        let work
-        if (teamId.length == 1) {
-            work = await WORK.create({
-                teamId: teamId,
-                status: false,
-                createId: createId,
-                name: name,
-                projectId: projectId,
-                startTime: start,
-                endTime: end
+        let project = await PROJECT.findById(projectId)
+        if (start > end) {
+            return res.status(409).json({
+                msg: "Thời gian bắt đầu phải trước thời gian kết thúc"
             })
-        } else if (teamId.length > 1) {
-            work = await WORK.create({
-                teamId: team.id,
-                status: false,
-                createId: createId,
-                name: name,
-                projectId: projectId,
-                startTime: start,
-                endTime: end
+        }
+        if (start < project.startTime) {
+            return res.status(409).json({
+                msg: "Thời gian bắt đầu work phải phù hợp với thời gian bắt đầu của project"
+            })
+        }
+        if (end > project.endTime) {
+            return res.status(409).json({
+                msg: "Thời gian kết thúc work phải phù hợp với thời gian kết thúc của project"
             })
         }
 
+        let work = await WORK.create({
+            teamId: teamId,
+            status: false,
+            createId: createId,
+            name: name,
+            leaderId: leaderId,
+            projectId: projectId,
+            startTime: start,
+            endTime: end
+        })
         return res.status(200).json(work)
     } catch (error) {
         return res.status(500).json(error)
@@ -150,15 +140,34 @@ exports.updateWork = async (req, res) => {
     try {
         let id = req.params.id
         let { name, startTime, endTime, teamId, leaderId } = req.body
+
+        let work = await WORK.findById(id)
+        let project = await PROJECT.findById(work.projectId)
+
         let start = MOMENT(startTime, "MM-DD-YYYY")
         let end = MOMENT(endTime, "MM-DD-YYYY")
-        let work = await WORK.findByIdAndUpdate(id, {
-            name : name,
-            startTime : start,
-            endTime: end,
-            teamId: teamId,
-            leaderId: leaderId
-        })
+
+        if (start > end) {
+            return res.status(409).json({
+                msg: "Thời gian bắt đầu phải trước thời gian kết thúc"
+            })
+        }
+        if (start < project.startTime) {
+            return res.status(409).json({
+                msg: "Thời gian bắt đầu work phải phù hợp với thời gian bắt đầu của project"
+            })
+        }
+        if (end > project.endTime) {
+            return res.status(409).json({
+                msg: "Thời gian kết thúc work phải phù hợp với thời gian kết thúc của project"
+            })
+        }
+        work.name = name
+        work.startTime = start
+        work.endTime = end
+        work.teamId = teamId
+        work.leaderId = leaderId
+        work.save()
         return res.status(200).json(work)
     } catch (error) {
         return res.status(500).json(error)
@@ -172,7 +181,25 @@ exports.updateTimeWork = async (req, res) => {
         let id = req.params.id
         let start = MOMENT(startTime, "MM-DD-YYYY")
         let end = MOMENT(endTime, "MM-DD-YYYY")
+
         let work = await WORK.findById(id)
+        let project = await PROJECT.findById(work.projectId)
+        if (start > end) {
+            return res.status(409).json({
+                msg: "Thời gian bắt đầu phải trước thời gian kết thúc"
+            })
+        }
+        if (start < project.startTime) {
+            return res.status(409).json({
+                msg: "Thời gian bắt đầu work phải phù hợp với thời gian bắt đầu của project"
+            })
+        }
+        if (end > project.endTime) {
+            return res.status(409).json({
+                msg: "Thời gian kết thúc work phải phù hợp với thời gian kết thúc của project"
+            })
+        }
+
         if (work.createId != createId) {
             return res.status(400).json({
                 message: "Only the project owner can edit"
@@ -222,7 +249,7 @@ exports.changeStatusWork = async (req, res) => {
             })
         }
 
-        await TASK.updateMany({ status: 0 }, { $set: { listId: id } });
+        await TASK.updateMany({ status: true }, { $set: { workId: id } });
         work.status = true
         work.save()
         return res.status(200).json(work)
@@ -236,9 +263,9 @@ exports.removeWork = async (req, res) => {
     try {
         let id = req.params.id
         await WORK.deleteOne({ _id: id });
-        await TASK.deleteMany({workId : id});
+        await TASK.deleteMany({ workId: id });
         return res.status(200).json({
-            _id:id
+            _id: id
         })
     } catch (error) {
         return res.status(500).json({ msg: error })
