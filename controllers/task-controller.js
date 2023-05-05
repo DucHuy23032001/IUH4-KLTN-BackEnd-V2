@@ -51,7 +51,6 @@ exports.getAllTaskByIdProject = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.getAllTaskInWork = async (req, res) => {
     try {
@@ -64,7 +63,6 @@ exports.getAllTaskInWork = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.getTaskById = async (req, res) => {
     try {
@@ -101,7 +99,6 @@ exports.getTaskById = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.getTaskByName = async (req, res) => {
     try {
@@ -147,7 +144,6 @@ exports.getTaskByName = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.createTask = async (req, res) => {
     try {
@@ -196,7 +192,6 @@ exports.createTask = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.updateTask = async (req, res) => {
     try {
@@ -252,7 +247,6 @@ exports.updateTask = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.updateDescription = async (req, res) => {
     try {
@@ -267,7 +261,6 @@ exports.updateDescription = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.changeName = async (req, res) => {
     try {
@@ -282,9 +275,8 @@ exports.changeName = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
-exports.deleteTask = async (req, res) => {
+exports.removeTask = async (req, res) => {
     try {
         let id = req.params.id
         await TASK.deleteOne({ _id: id });
@@ -294,8 +286,7 @@ exports.deleteTask = async (req, res) => {
     } catch (error) {
         return res.status(500).json(error)
     }
-}
-
+}   
 // done
 exports.updateStatusTask  = async (req, res) => {
     try {

@@ -13,6 +13,6 @@ ROUTER.patch("/update/:id",taskController.updateTask)
 ROUTER.patch("/update-status/:id",taskController.updateStatusTask )
 ROUTER.patch("/change-name/:id",taskController.changeName)
 
-ROUTER.delete("/:id",taskController.deleteTask)
+ROUTER.delete("/:id",taskController.removeTask)
 
 module.exports = ROUTER

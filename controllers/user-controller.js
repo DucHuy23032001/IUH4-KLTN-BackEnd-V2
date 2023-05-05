@@ -21,7 +21,6 @@ exports.getAllUser = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-
 //done
 exports.getUserById = async (req, res) => {
     try {
@@ -39,7 +38,6 @@ exports.getUserById = async (req, res) => {
         return res.status(500).json({ msg: error });
     }
 };
-
 //done
 exports.getUserByEmail = async (req, res) => {
     try {
@@ -58,7 +56,6 @@ exports.getUserByEmail = async (req, res) => {
         return res.status(500).json({ msg: error });
     }
 };
-
 //done
 exports.getUserByName = async (req, res) => {
     try {
@@ -71,7 +68,6 @@ exports.getUserByName = async (req, res) => {
         return res.status(500).json({ msg: error });
     }
 };
-
 //done
 exports.getUserByPhone = async (req, res) => {
     try {
@@ -89,7 +85,6 @@ exports.getUserByPhone = async (req, res) => {
         return res.status(500).json({ msg: error });
     }
 };
-
 exports.getAllUserByTaskId = async (req, res) => {
     try {
         let id = req.params.id
@@ -111,8 +106,6 @@ exports.getAllUserByTaskId = async (req, res) => {
         return res.status(500).json({ msg: error });
     }
 };
-
-
 //done
 exports.createUser = async (req, res, accountId) => {
     try {
@@ -144,7 +137,6 @@ exports.createUser = async (req, res, accountId) => {
         return res.status(500).json({ msg: error });
     }
 }
-
 //Chưa có readme ( chưa test)
 exports.updateAvatar = async (req, res) => {
     try {
@@ -159,7 +151,6 @@ exports.updateAvatar = async (req, res) => {
         return res.status(500).json({ msg: error });
     }
 }
-
 //done
 exports.updateUser = async (req, res) => {
     try {
@@ -182,7 +173,6 @@ exports.updateUser = async (req, res) => {
         return res.status(500).json({ msg: error });
     }
 }
-
 //done
 exports.lockUser = async (req, res) => {
     try {
