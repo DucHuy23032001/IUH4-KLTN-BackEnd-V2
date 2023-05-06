@@ -760,13 +760,7 @@
     ]
     ```
 - getWorkByName:
-    - Api: **GET**:    https://ptask.cyclic.app/api/works/name/6444d8568e1db702b44a3f8d
-    - Request
-    ```json
-    {
-        "name" : "Work 1"
-    }
-    ```
+    - Api: **GET**:    http://localhost:3000/api/works/name/6454aee55e2d29d9ec8bc8f9/work 1
     - Reponse
     ```json
     {
@@ -804,7 +798,7 @@
     - Request
     ```json
     {
-        "teamId":"6454aee55e2d29d9ec8bc8f5",
+        "teamId": ["6454aee55e2d29d9ec8bc8f5"],
         "createId":"6454aee45e2d29d9ec8bc8e2",
         "name":"Work Huy 1 ",
         "startTime": "03/23/2010",
@@ -1113,13 +1107,13 @@
         "name":"task test update",
         "startDay":"03-23-2001",
         "endDay":"03-23-20100",
-        "startTime":"9:00",
+        "startHour":"9:00",
         "description": "description",
-        "endTime":"16:00",
+        "endHour":"16:00",
         "userId":"641eb24fbb721b7cdd8cbf25",
         "level":2,
         "status": true,
-        "member":[ "641eb24fbb721b7cdd8cbf25"]
+        "members":[ "641eb24fbb721b7cdd8cbf25"]
     }
     ```
     - Reponse

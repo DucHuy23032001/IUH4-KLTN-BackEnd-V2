@@ -11,7 +11,9 @@ exports.getAllTeamByIdProject = async (req, res) => {
         let teams = []
         let id = req.params.id
         let project = await PROJECT.findById(id)
-        let teamProject = project.teamIds
+        console.log(project);
+
+        let teamProject = project.teamIds   
         let arrays = []
         for (i of teamProject) {
             let array = {
@@ -23,16 +25,19 @@ exports.getAllTeamByIdProject = async (req, res) => {
         let works = await WORK.find({
             projectId: project.id
         })
+
         for (i of works) {
             for (j of arrays) {
-                var team = await TEAM.findById(j.id)
-                if (i.teamId.equals(j.id)) {
-                    j.name.push(i.name)
-                    if (team.listTeams.length > 0) {
-                        for (k of team.listTeams) {
-                            for (m of arrays) {
-                                if (m.id.equals(k)) {
-                                    m.name.push(i.name)
+                if (j.teamId != null) {
+                    var team = await TEAM.findById(j.id)
+                    if (i.teamId.equals(j.id)) {
+                        j.name.push(i.name)
+                        if (team.listTeams.length > 0) {
+                            for (k of team.listTeams) {
+                                for (m of arrays) {
+                                    if (m.id.equals(k)) {
+                                        m.name.push(i.name)
+                                    }
                                 }
                             }
                         }
@@ -48,7 +53,7 @@ exports.getAllTeamByIdProject = async (req, res) => {
                 teamName: team.teamName,
                 leaderName: user.fullName,
                 workName: item.name,
-                leaderId:team.leaderId
+                leaderId: team.leaderId
             }
             teams.push(data)
         }
@@ -186,51 +191,54 @@ exports.getAllTeamByIdWork = async (req, res) => {
         let teams = []
         let id = req.params.id
         let work = await WORK.findById(id)
-        let teamId = work.teamId
-        let team = await TEAM.findById(teamId)
-        let user = await USER.findById(team.leaderId)
 
-        if (team.listMembers.length > 0) {
-            let listMembers = []
-            for (i of team.listMembers) {
-                let user = await USER.findById(i)
-                let data = {
-                    id: user.id,
-                    fullName: user.fullName
-                }
-                listMembers.push(data)
-            }
-            let data = {
-                _id: team.id,
-                teamName: team.teamName,
-                leaderName: user.fullName,
-                listMembers: listMembers
-            }
-            teams.push(data)
-        }
+        if (teamId != null) {
+            let teamId = work.teamId
+            let team = await TEAM.findById(teamId)
+            let user = await USER.findById(team.leaderId)
 
-        if (team.listTeams.length > 0) {
-            for (i of team.listTeams) {
-                let team = await TEAM.findById(i)
-                let user = await USER.findById(team.leaderId)
-
-                if (team.listMembers.length > 0) {
-                    let listMembers = []
-                    for (j of team.listMembers) {
-                        let user1 = await USER.findById(j)
-                        let data = {
-                            id: user1.id,
-                            fullName: user1.fullName
-                        }
-                        listMembers.push(data)
-                    }
+            if (team.listMembers.length > 0) {
+                let listMembers = []
+                for (i of team.listMembers) {
+                    let user = await USER.findById(i)
                     let data = {
-                        _id: team.id,
-                        teamName: team.teamName,
-                        leaderName: user.fullName,
-                        listMembers: listMembers
+                        id: user.id,
+                        fullName: user.fullName
                     }
-                    teams.push(data)
+                    listMembers.push(data)
+                }
+                let data = {
+                    _id: team.id,
+                    teamName: team.teamName,
+                    leaderName: user.fullName,
+                    listMembers: listMembers
+                }
+                teams.push(data)
+            }
+
+            if (team.listTeams.length > 0) {
+                for (i of team.listTeams) {
+                    let team = await TEAM.findById(i)
+                    let user = await USER.findById(team.leaderId)
+
+                    if (team.listMembers.length > 0) {
+                        let listMembers = []
+                        for (j of team.listMembers) {
+                            let user1 = await USER.findById(j)
+                            let data = {
+                                id: user1.id,
+                                fullName: user1.fullName
+                            }
+                            listMembers.push(data)
+                        }
+                        let data = {
+                            _id: team.id,
+                            teamName: team.teamName,
+                            leaderName: user.fullName,
+                            listMembers: listMembers
+                        }
+                        teams.push(data)
+                    }
                 }
             }
         }
