@@ -131,13 +131,33 @@ exports.createWork = async (req, res) => {
             })
         }
 
-        let team = await TEAM.create({
-            leaderId: leaderId,
-            teamName: name + " Team",
-            listMembers: [],
-            listTeams: [teamId],
-            createId: createId
-        })
+        let team
+        if (Array.isArray(teamId)) {
+            team = await TEAM.create({
+                leaderId: leaderId,
+                teamName: name + " Team",
+                listMembers: [],
+                listTeams: teamId,
+                createId: createId
+            })
+        }
+        else if (!Array.isArray(teamId)) {
+            team = await TEAM.create({
+                leaderId: leaderId,
+                teamName: name + " Team",
+                listMembers: [],
+                listTeams: [teamId],
+                createId: createId
+            })
+        } else if ( teamId == null) {
+            team = await TEAM.create({
+                leaderId: leaderId,
+                teamName: name + " Team",
+                listMembers: [],
+                listTeams: [],
+                createId: createId
+            })
+        }
 
         let work = await WORK.create({
             teamId: team.id,
