@@ -54,7 +54,7 @@ exports.getProjectByName = async (req, res) => {
   try {
     let name = req.params.name
     let projects = await PROJECT.find({
-      name: {'$regex': name,$options:'i'}
+      name: { '$regex': name, $options: 'i' }
     })
     return res.status(200).json(projects)
   } catch (error) {
@@ -65,16 +65,34 @@ exports.getProjectByName = async (req, res) => {
 exports.getProjectByIdUser = async (req, res) => {
   try {
     let id = req.params.id
-    let project
+    let projects = []
     let team = await TEAM.find({
       members: { $in: [id] },
     })
-    for (let i of team) {
-      project = await PROJECT.find({
-        teamIds: { $in: [i.id] }
-      })
+    if (team != undefined) {
+      for (let i of team) {
+        let project = await PROJECT.find({
+          teamIds: { $in: i.id }
+        })
+        if (project != undefined) {
+          for (i of project) {
+            projects.push(i)
+          }
+        }
+      }
     }
-    return res.status(200).json(project)
+
+    let project = await PROJECT.find({
+      mainProject: id
+    })
+
+    if (project != undefined) {
+      for (i of project) {
+        projects.push(i)
+      }
+    }
+
+    return res.status(200).json(projects)
   } catch (error) {
     return res.status(500).json(error)
   }
@@ -127,7 +145,7 @@ exports.createProject = async (req, res) => {
       })
     }
 
-    let pathBackground 
+    let pathBackground
     if (req.files == null) {
       pathBackground = "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png"
     }
@@ -136,15 +154,15 @@ exports.createProject = async (req, res) => {
     }
 
     let teams = []
-    if ( teamIds != null) {
+    if (teamIds != null) {
       if (Array.isArray(teamIds)) {
         teams = teamIds
       }
       else {
         teams.push(teamIds)
       }
-    } 
-    if( teamIds == '') {
+    }
+    if (teamIds == '') {
       teams = []
     }
     let project = await PROJECT.create({
@@ -197,45 +215,45 @@ exports.addTeams = async (req, res) => {
 //done 
 exports.removeProject = async (req, res) => {
   try {
-      let id = req.params.id
-      await PROJECT.deleteOne({ _id: id });
-      let works = await WORK.find({projectId: id})
-      for ( i of works) {
-        await WORK.deleteOne({ _id: i.id });
-        await TASK.deleteMany({workId : i.id});
-      }
-      return res.status(200).json({_id:id})
+    let id = req.params.id
+    await PROJECT.deleteOne({ _id: id });
+    let works = await WORK.find({ projectId: id })
+    for (i of works) {
+      await WORK.deleteOne({ _id: i.id });
+      await TASK.deleteMany({ workId: i.id });
+    }
+    return res.status(200).json({ _id: id })
   } catch (error) {
-      return res.status(500).json({ msg: error })
+    return res.status(500).json({ msg: error })
   }
 }
 // Chưa test
 exports.changeStatus = async (req, res) => {
   try {
-      let mainProject = req.body.mainProject
-      let id = req.params.id
+    let mainProject = req.body.mainProject
+    let id = req.params.id
 
-      let project = await PROJECT.findById(id)
-      if (project.mainProject != mainProject) {
-          return res.status(400).json({
-              message: "Only the project owner can edit"
-          })
-      }
-
-      let works = await WORK.find({
-        projectId: id
+    let project = await PROJECT.findById(id)
+    if (project.mainProject != mainProject) {
+      return res.status(400).json({
+        message: "Only the project owner can edit"
       })
+    }
 
-      for ( w of works){
-        w.status = true
-        await TASK.updateMany({ status: true }, { $set: { workId: w._id } });
-        w.save()
-      }
-      
-      project.status = true
-      project.save()
-      return res.status(200).json(work)
+    let works = await WORK.find({
+      projectId: id
+    })
+
+    for (w of works) {
+      w.status = true
+      await TASK.updateMany({ status: true }, { $set: { workId: w._id } });
+      w.save()
+    }
+
+    project.status = true
+    project.save()
+    return res.status(200).json(work)
   } catch (error) {
-      return res.status(500).json(error)
+    return res.status(500).json(error)
   }
 }

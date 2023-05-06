@@ -470,7 +470,7 @@ exports.addTeamInTeam = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-//done (Chưa test)
+//done 
 exports.removeTeamInTeam = async (req, res) => {
     try {
         let id = req.params.id
@@ -494,7 +494,7 @@ exports.removeTeamInTeam = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
-// chưa test
+// done
 exports.removeTeamInProject = async (req, res) => {
     try {
         let id = req.params.id
@@ -518,6 +518,7 @@ exports.removeTeamInProject = async (req, res) => {
             let pro = await PROJECT.findById(i.projectId)
             pro.teamIds.pull(id)
             i.teamId = null
+            pro.save()
             i.save()
         }
         await TEAM.deleteOne({ _id: id });

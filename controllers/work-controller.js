@@ -53,8 +53,22 @@ exports.getWorkByName = async (req, res) => {
             name: { '$regex': name, $options: 'i' },
             projectId: id
         })
-        console.log(works[0]);
+
         let team = await TEAM.findById(works[0].teamId)
+        let nameTeam = []
+        if (team != null) {
+            nameTeam.push(team.teamName)
+            let listTeam = team.listTeams
+            if (listTeam.length > 0) {
+                for (j of listTeam) {
+                    if (j != null) {
+                        let itemTeam = await TEAM.findById(j)
+                        nameTeam.push(itemTeam.teamName)
+                    }
+                }
+            }
+        }
+
         let data = {
             _id: works[0]._id,
             name: works[0].name,
@@ -64,9 +78,8 @@ exports.getWorkByName = async (req, res) => {
             teamId: works[0].teamId,
             createId: works[0].createId,
             projectId: works[0].projectId,
-            teamName: team.teamName
+            teamName: nameTeam
         }
-        console.log(data);
         return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json(error)
