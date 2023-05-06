@@ -770,15 +770,17 @@
     - Reponse
     ```json
     {
-        "_id": "64527b07a9c0a95631ad3411",
+        "_id": "6454aee55e2d29d9ec8bc8fb",
         "name": "Work 1",
         "status": false,
         "startTime": "2010-03-22T17:00:00.000Z",
         "endTime": "2011-03-22T17:00:00.000Z",
-        "teamId": "64527b07a9c0a95631ad340b",
-        "createId": "64527b07a9c0a95631ad33fc",
-        "projectId": "64527b07a9c0a95631ad340f",
-        "teamName": "Team 1"
+        "teamId": "6454aee55e2d29d9ec8bc8f5",
+        "createId": "6454aee45e2d29d9ec8bc8e7",
+        "projectId": "6454aee55e2d29d9ec8bc8f9",
+        "teamName": [
+            "Team 1"
+        ]
     }
     ```
 - getWorkById:

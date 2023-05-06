@@ -102,8 +102,8 @@ exports.getTaskById = async (req, res) => {
 //done
 exports.getTaskByName = async (req, res) => {
     try {
-        let name = req.params.name
-        let projectId = req.body.projectId
+        let projectId = req.params.projectId
+        let name = req.body.name
         let datas = []
         let tasks = await TASK.find({
             name: {'$regex': name,$options:'i'}
@@ -148,7 +148,6 @@ exports.getTaskByName = async (req, res) => {
 exports.createTask = async (req, res) => {
     try {
         let { name, startDay, endDay, startHour, endHour, workId, members , level, description } = req.body
-        let work = await WORK.findById(workId)
 
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
         let dateEnd = MOMENT(endDay, "MM-DD-YYYY")
@@ -158,6 +157,9 @@ exports.createTask = async (req, res) => {
                 msg: "Thời gian bắt đầu phải trước thời gian kết thúc"
             })
         }
+
+        let work = await WORK.findById(workId)
+
         if (dateStart < work.startTime) {
             return res.status(409).json({
                 msg: "Thời gian bắt đầu work phải phù hợp với thời gian bắt đầu của work"
@@ -168,6 +170,14 @@ exports.createTask = async (req, res) => {
                 msg: "Thời gian kết thúc work phải phù hợp với thời gian kết thúc của work"
             })
         }
+
+        let team = await TEAM.findById(work.teamId)
+        for ( i of members) {
+            if (!team.listMembers.includes(i)) {
+                team.listMembers.push(i)
+            }
+        }
+        team.save()
 
         let task = await TASK.create({
             name: name,
@@ -180,13 +190,6 @@ exports.createTask = async (req, res) => {
             members: members,
             level:level
         })
-        let team = await TEAM.findById(work.teamId)
-        for ( i of members) {
-            if (!team.listMembers.includes(i)) {
-                team.listMembers.push(i)
-            }
-        }
-        team.save()
         return res.status(200).json(task)
     } catch (error) {
         return res.status(500).json(error)
