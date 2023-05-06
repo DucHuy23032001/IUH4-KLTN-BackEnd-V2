@@ -67,7 +67,7 @@ exports.getProjectByIdUser = async (req, res) => {
     let id = req.params.id
     let projects = []
     let team = await TEAM.find({
-      members: { $in: [id] },
+      listMembers: { $in: id },
     })
     if (team != undefined) {
       for (let i of team) {

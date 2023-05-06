@@ -47,8 +47,8 @@ exports.getAllWorkByProjectId = async (req, res) => {
 //done
 exports.getWorkByName = async (req, res) => {
     try {
-        let id = req.params.projectId
-        let name = req.body.name
+        let id = req.params.id
+        let name = req.params.name
         let works = await WORK.find({
             name: { '$regex': name, $options: 'i' },
             projectId: id
