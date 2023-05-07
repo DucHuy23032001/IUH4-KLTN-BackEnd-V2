@@ -426,7 +426,6 @@
         "listMembers":["64280789e4fa172184218593","64280789e4fa172184218597"],
         "listTeams":[],
         "projectId":"6428078ae4fa1721842185ab",
-        "status": true
     }
     ```
     - Reponse
@@ -792,6 +791,30 @@
         "projectId": "6444d8568e1db702b44a3f8d",
         "teamName": "Team 1"
     }
+    ```
+- getWorkByIdUser:
+    - Api: **GET**:    http://localhost:3000/api/works/id-user/645673277b539bdc79a198fc (id project)
+    = Request 
+    ```json
+    {
+        "userId" : "645673267b539bdc79a198f2"
+    }
+    ```
+    - Reponse
+    ```json
+    [
+        {
+            "_id": "645673277b539bdc79a19900",
+            "name": "Work 2",
+            "status": false,
+            "startTime": "2011-03-22T17:00:00.000Z",
+            "endTime": "2012-03-22T17:00:00.000Z",
+            "teamId": "645673267b539bdc79a198fa",
+            "createId": "645673267b539bdc79a198f2",
+            "projectId": "645673277b539bdc79a198fc",
+            "teamName": "Team 2"
+        }
+    ]
     ```
 - createWork
     - Api: **POST**:    https://ptask.cyclic.app/api/works/
