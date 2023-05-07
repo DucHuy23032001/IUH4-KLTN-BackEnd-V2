@@ -169,7 +169,7 @@ exports.createProject = async (req, res) => {
       name: name,
       startTime: start,
       endTime: end,
-      status: 1,
+      status: false,
       background: pathBackground,
       mainProject: mainProject,
       teamIds: teams
