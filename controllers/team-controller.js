@@ -505,6 +505,7 @@ exports.removeTeamInTeam = async (req, res) => {
 exports.removeTeamInProject = async (req, res) => {
     try {
         let id = req.params.id
+        let projectId = req.params.projectId
         let team = await TEAM.findById(id)
         let members = team.listMembers
         for (j of members) {
@@ -522,13 +523,14 @@ exports.removeTeamInProject = async (req, res) => {
             teamId: id
         })
         for (i of works) {
-            let pro = await PROJECT.findById(i.projectId)
-            pro.teamIds.pull(id)
-            i.teamId = null
-            pro.save()
-            i.save()
+            if (i.projectId == projectId) {
+                i.teamId = null
+                i.save()
+            }
         }
-        await TEAM.deleteOne({ _id: id });
+        let pro = await PROJECT.findById(projectId)
+        pro.teamIds.pull(id)
+        pro.save()
         return res.status(200).json({
             _id: id
         })

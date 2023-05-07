@@ -565,7 +565,7 @@
     }
     ```
 - removeTeamInProject
-    - Api: **DELETE**:    https://ptask.cyclic.app/api/teams/63f4806dc4ec61b3edc26f6e
+    - Api: **DELETE**:    https://ptask.cyclic.app/api/teams/63f4806dc4ec61b3edc26f6e/:projectId
     - Reponse
     ```json
     {
