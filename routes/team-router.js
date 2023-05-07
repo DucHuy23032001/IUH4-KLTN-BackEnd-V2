@@ -20,6 +20,6 @@ ROUTER.patch('/remove-member/:id',teamController.removeMember)
 ROUTER.patch('/add-team/:id',teamController.addTeamInTeam)
 ROUTER.patch('/remove-team/:id',teamController.removeTeamInTeam)
 
-ROUTER.delete('/:id',teamController.removeTeamInProject)
+ROUTER.delete('/:id/:projectId',teamController.removeTeamInProject)
 
 module.exports = ROUTER
