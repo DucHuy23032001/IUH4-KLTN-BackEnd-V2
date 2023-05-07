@@ -44,6 +44,48 @@ exports.getAllWorkByProjectId = async (req, res) => {
         return res.status(500).json(error)
     }
 }
+
+//done
+exports.getWorkByIdUser = async (req, res) => {
+    try {
+        let datas = []
+        let projectId = req.params.id
+        let userId = req.body.userId
+        let team = await TEAM.find({
+            listMembers: { $in: userId }
+        })
+        for (i of team) {
+            let work = await WORK.find({
+                projectId: projectId
+            })
+            if (work.length > 0) {
+                for (j of work) {
+                    {
+                        if(j.teamId != null) {
+                            let team = await TEAM.findById(j.teamId)
+                            let data = {
+                                _id: j._id,
+                                name: j.name,
+                                status: j.status,
+                                startTime: j.startTime,
+                                endTime: j.endTime,
+                                teamId: j.teamId,
+                                createId: j.createId,
+                                projectId: j.projectId,
+                                teamName: team.teamName
+                            }
+                            datas.push(data)
+                        }
+                    }
+
+                }
+            }
+        }
+        return res.status(200).json(datas)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+}
 //done
 exports.getWorkByName = async (req, res) => {
     try {
@@ -138,7 +180,7 @@ exports.createWork = async (req, res) => {
             listTeams: teamId,
             createId: createId
         })
-        
+
         let work = await WORK.create({
             teamId: team.id,
             status: false,

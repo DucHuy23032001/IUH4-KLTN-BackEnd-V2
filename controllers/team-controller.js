@@ -11,7 +11,6 @@ exports.getAllTeamByIdProject = async (req, res) => {
         let teams = []
         let id = req.params.id
         let project = await PROJECT.findById(id)
-        console.log(project);
 
         let teamProject = project.teamIds   
         let arrays = []
