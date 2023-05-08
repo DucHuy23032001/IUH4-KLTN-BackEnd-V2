@@ -565,7 +565,7 @@
     }
     ```
 - removeTeamInProject
-    - Api: **DELETE**:    https://ptask.cyclic.app/api/teams/63f4806dc4ec61b3edc26f6e
+    - Api: **DELETE**:    https://ptask.cyclic.app/api/teams/63f4806dc4ec61b3edc26f6e/:projectId
     - Reponse
     ```json
     {
@@ -762,19 +762,21 @@
     - Api: **GET**:    http://localhost:3000/api/works/name/6454aee55e2d29d9ec8bc8f9/work 1
     - Reponse
     ```json
-    {
-        "_id": "6454aee55e2d29d9ec8bc8fb",
-        "name": "Work 1",
-        "status": false,
-        "startTime": "2010-03-22T17:00:00.000Z",
-        "endTime": "2011-03-22T17:00:00.000Z",
-        "teamId": "6454aee55e2d29d9ec8bc8f5",
-        "createId": "6454aee45e2d29d9ec8bc8e7",
-        "projectId": "6454aee55e2d29d9ec8bc8f9",
-        "teamName": [
-            "Team 1"
-        ]
-    }
+    [
+        {
+            "_id": "64577269803a4b3ab6166b44",
+            "name": "1",
+            "status": false,
+            "startTime": "2023-04-29T17:00:00.000Z",
+            "endTime": "2023-05-31T17:00:00.000Z",
+            "teamId": "64577269803a4b3ab6166b42",
+            "createId": "64573c83acce53ef4dab9507",
+            "projectId": "64577242803a4b3ab6166b14",
+            "teamName": [
+                "1 Team"
+            ]
+        }
+    ]
     ```
 - getWorkById:
     - Api: **GET**:    https://ptask.cyclic.app/api/works/641eb80287c02b20789b3635
