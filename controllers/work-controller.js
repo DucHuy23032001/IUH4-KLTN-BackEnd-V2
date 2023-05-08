@@ -16,12 +16,15 @@ exports.getAllWorkByProjectId = async (req, res) => {
             let team = await TEAM.findById(i.teamId)
             let nameTeam = []
             if (team != null) {
-                nameTeam.push(team.teamName)
-                let listTeam = team.listTeams
-                for (j of listTeam) {
-                    if (j != null) {
-                        let itemTeam = await TEAM.findById(j)
-                        nameTeam.push(itemTeam.teamName)
+                if( team.listTeams.length == 0) {
+                    nameTeam.push(team.teamName)
+                } else {
+                    let listTeam = team.listTeams
+                    for (j of listTeam) {
+                        if (j != null) {
+                            let itemTeam = await TEAM.findById(j)
+                            nameTeam.push(itemTeam.teamName)
+                        }
                     }
                 }
             }
@@ -89,6 +92,7 @@ exports.getWorkByIdUser = async (req, res) => {
 //done
 exports.getWorkByName = async (req, res) => {
     try {
+        let datas = []
         let id = req.params.id
         let name = req.params.name
         let works = await WORK.find({
@@ -96,33 +100,35 @@ exports.getWorkByName = async (req, res) => {
             projectId: id
         })
 
-        let team = await TEAM.findById(works[0].teamId)
-        let nameTeam = []
-        if (team != null) {
-            nameTeam.push(team.teamName)
-            let listTeam = team.listTeams
-            if (listTeam.length > 0) {
-                for (j of listTeam) {
-                    if (j != null) {
-                        let itemTeam = await TEAM.findById(j)
-                        nameTeam.push(itemTeam.teamName)
+        for ( i of works) {
+            let team = await TEAM.findById(i.teamId)
+            let nameTeam = []
+            if (team != null) {
+                nameTeam.push(team.teamName)
+                let listTeam = team.listTeams
+                if (listTeam.length > 0) {
+                    for (j of listTeam) {
+                        if (j != null) {
+                            let itemTeam = await TEAM.findById(j)
+                            nameTeam.push(itemTeam.teamName)
+                        }
                     }
                 }
             }
+            let data = {
+                _id: i._id,
+                name: i.name,
+                status: i.status,
+                startTime: i.startTime,
+                endTime: i.endTime,
+                teamId: i.teamId,
+                createId: i.createId,
+                projectId: i.projectId,
+                teamName: nameTeam
+            }
+            datas.push(data)
         }
-
-        let data = {
-            _id: works[0]._id,
-            name: works[0].name,
-            status: works[0].status,
-            startTime: works[0].startTime,
-            endTime: works[0].endTime,
-            teamId: works[0].teamId,
-            createId: works[0].createId,
-            projectId: works[0].projectId,
-            teamName: nameTeam
-        }
-        return res.status(200).json(data)
+        return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json(error)
     }
