@@ -190,6 +190,7 @@ exports.getAllTeamByIdWork = async (req, res) => {
         let teams = []
         let id = req.params.id
         let work = await WORK.findById(id)
+        let teamId = work.teamId
 
         if (teamId != null) {
             let teamId = work.teamId
