@@ -104,7 +104,6 @@ exports.getWorkByName = async (req, res) => {
             let team = await TEAM.findById(i.teamId)
             let nameTeam = []
             if (team != null) {
-                nameTeam.push(team.teamName)
                 let listTeam = team.listTeams
                 if (listTeam.length > 0) {
                     for (j of listTeam) {
