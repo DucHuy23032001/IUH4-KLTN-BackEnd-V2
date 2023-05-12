@@ -3,7 +3,7 @@ const taskController = require("../controllers/task-controller")
 
 ROUTER.get("/:id",taskController.getTaskById)
 ROUTER.get("/name/:projectId",taskController.getTaskByName)
-ROUTER.get("/get-task-in-list/:id",taskController.getAllTaskInWork)
+ROUTER.get("/get-task-in-work/:id",taskController.getAllTaskInWork)
 ROUTER.get("/get-task-in-project/:id",taskController.getAllTaskByIdProject)
 
 

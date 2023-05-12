@@ -55,10 +55,43 @@ exports.getAllTaskByIdProject = async (req, res) => {
 exports.getAllTaskInWork = async (req, res) => {
     try {
         let id = req.params.id
+        let datas = []
+        let work = await WORK.findById(id)
         let tasks = await TASK.find({
             workId: id
         })
-        return res.status(200).json(tasks)
+        console.log(work);
+        console.log(tasks);
+        for ( j of tasks) {
+            console.log(j);
+            let members = []
+            for( f of j.members) {
+                let user = await USER.findById(f)
+                let info = {
+                    "name": user.fullName,
+                    "avatar": user.avatar
+                }
+                members.push(info)
+            }
+            let item = {
+                "_id": j._id,
+                "name": j.name,
+                "description": j.description,
+                "level": j.level,
+                "startDay": j.startDay,
+                "endDay": j.endDay,
+                "startHour": j.startHour,
+                "endHour": j.endHour,
+                "workId": id,
+                "workName": work.name,
+                "members": members,
+                "status": j.status,
+                "__v": 0
+            }
+            console.log(item);
+            datas.push(item)
+        }
+        return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json(error)
     }

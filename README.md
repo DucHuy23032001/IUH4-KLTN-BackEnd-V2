@@ -297,6 +297,20 @@
         }
     ]
     ```
+- getTeamByName:
+    - Api: **GET**:    http://localhost:3000/api/teams/name/64574176803a4b3ab6165a43/Nhóm 123
+    - Reponse
+    ```json
+    [
+        {
+            "_id": "64578e65803a4b3ab616793c",
+            "teamName": "Nhóm 123",
+            "leaderName": "Nguyễn Đức Huy",
+            "workName": [],
+            "leaderId": "64573c83acce53ef4dab950b"
+        }
+    ]
+    ```
 - getAllMemberOfIdProject:
     - Api: **GET**:    https://ptask.cyclic.app/api/teams/members-project/641ba3f0efd24fc581820aba
     - Reponse
@@ -418,6 +432,36 @@
 - createTeam:
     - Api: **POST**:    https://ptask.cyclic.app/api/teams/create
     - Request **status true(nhóm), false(đơn)**
+    ```json
+    {
+        "createId":"64280789e4fa172184218593",
+        "teamName":"Team Test",
+        "leaderId":"64280789e4fa172184218593",
+        "listMembers":["64280789e4fa172184218593","64280789e4fa172184218597"],
+        "listTeams":[],
+        "projectId":"6428078ae4fa1721842185ab",
+    }
+    ```
+    - Reponse
+    ```json
+    {
+        "_id": "6427f648e35d083e95b84c07",
+        "leaderId": "642687fbd58ad6becd0fa95b",
+        "teamName": "Team 1",
+        "listMembers": [
+            "642687fbd58ad6becd0fa95b",
+            "642687fbd58ad6becd0fa95f"
+        ],
+        "listTeams":[],
+        "createId": "642687fbd58ad6becd0fa95b",
+        "createAt": "2023-04-01T09:15:52.389Z",
+        "projectId": "6426a65e8b1cc3b37eb1221f",
+        "status": true
+    }
+    ```
+- updateTeam:
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/teams
+    - Request 
     ```json
     {
         "createId":"64280789e4fa172184218593",
@@ -1017,42 +1061,28 @@
     ]
     ```
 - getAllTaskInWork 
-    - Api: **GET**:    https://ptask.cyclic.app/api/tasks/get-task-in-list/63f48728f071ef7be2a9e9bd
+    - Api: **GET**:    http://localhost:3000/api/tasks/get-task-in-work/645bb9e2fb4144361c7698a6
     - Reponse
     ```json
     [
         {
-            "status": 3,
-            "_id": "63f48c86c765a223ecb74b8e",
-            "name": "name",
-            "description": "description",
-            "level": 1,
-            "startDay": "2001-03-22T17:00:00.000Z",
-            "endDay": "2010-03-22T17:00:00.000Z",
-            "startHour": "9:00",
-            "endHour": "16:00",
-            "listId": "63f48728f071ef7be2a9e9bd",
+            "_id": "645d0cc85d50058b05aff56d",
+            "name": "ddd",
+            "description": "123",
+            "level": 2,
+            "startDay": "2023-05-10T17:00:00.000Z",
+            "endDay": "2023-05-14T17:00:00.000Z",
+            "startHour": "22:41",
+            "endHour": "10:41",
+            "workId": "645bb9e2fb4144361c7698a6",
+            "workName": "RedMiu",
             "members": [
-                "63f47b681e6c6175bf4ce69c",
-                "63f481f55f6bee2a60d910eb"
+                {
+                    "name": "Nguyễn Việt Nam",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
+                }
             ],
-            "__v": 0
-        },
-        {
-            "_id": "640745aa372921bca42eae22",
-            "name": "name",
-            "description": "description",
-            "level": 1,
-            "startDay": "2001-03-22T17:00:00.000Z",
-            "endDay": "2010-03-22T17:00:00.000Z",
-            "startHour": "9:00",
-            "endHour": "16:00",
-            "listId": "63f48728f071ef7be2a9e9bd",
-            "members": [
-                "63f47b681e6c6175bf4ce69c",
-                "63f481f55f6bee2a60d910eb"
-            ],
-            "status": 3,
+            "status": false,
             "__v": 0
         }
     ]
