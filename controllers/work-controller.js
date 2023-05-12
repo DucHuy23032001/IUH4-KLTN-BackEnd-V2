@@ -47,7 +47,6 @@ exports.getAllWorkByProjectId = async (req, res) => {
         return res.status(500).json(error)
     }
 }
-
 //done
 exports.getWorkByIdUser = async (req, res) => {
     try {
@@ -147,7 +146,7 @@ exports.getWorkById = async (req, res) => {
             teamId: works.teamId,
             createId: works.createId,
             projectId: works.projectId,
-            teamName: team.teamName
+            teamName: [team.teamName]
         }
         return res.status(200).json(data)
     } catch (error) {
