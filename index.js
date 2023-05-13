@@ -124,7 +124,7 @@ async function addData() {
         teamName: "Team 1",
         createId: u1.id,
         leaderId: u2.id,
-        listMembers:[u2.id, u3.id],
+        listMembers:[u3.id],
         listTeams: [],
     })
 
@@ -132,7 +132,7 @@ async function addData() {
         teamName: "Team 2",
         createId: u1.id,
         leaderId: u4.id,
-        listMembers: [u4.id, u5.id],
+        listMembers: [u5.id],
         listTeams: [],
     })
 

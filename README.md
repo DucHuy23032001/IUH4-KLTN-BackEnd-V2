@@ -311,6 +311,23 @@
         }
     ]
     ```
+- getMemberByName:
+    - Api: **GET**:    http://localhost:3000/api/teams/member-project/645f50b1cad5045a9011bd78/Nguyễn Đức Huy
+    - Reponse
+    ```json
+    [
+        {
+            "_id": "645f50b0cad5045a9011bd66",
+            "teamName": [
+                "Team 1"
+            ],
+            "position": "Leader",
+            "name": "Nguyễn Đức Huy",
+            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+            "task": []
+        }
+    ]
+    ```
 - getAllMemberOfIdProject:
     - Api: **GET**:    https://ptask.cyclic.app/api/teams/members-project/641ba3f0efd24fc581820aba
     - Reponse
@@ -894,7 +911,7 @@
     }
     ```
 - updateWork
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/works/
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/works/645f50b1cad5045a9011bd7a
     - Request
     ```json
     {
@@ -1112,14 +1129,7 @@
     }
     ```
 - getTaskByName:
-    - Api: **GET**:    https://ptask.cyclic.app/api/tasks/name/Task 1 Work 1 ***(:name)***
-
-    - Request
-    ```json
-    {
-        "projectId": "6447c816a980f937d79eb973"
-    }
-    ```
+    - Api: **GET**:    https://ptask.cyclic.app/api/tasks/name/:projectId/Task 1 Work 1 ***(:name)***
     - Reponse
     ```json
     [
