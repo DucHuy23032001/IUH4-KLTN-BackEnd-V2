@@ -4,6 +4,8 @@ const TASK = require('../models/task')
 const MOMENT = require('moment')
 const crypto = require('crypto')
 const awsService = require('../services/aws-service')
+const PROJECT = require('../models/project')
+const TEAM = require('../models/user')
 
 // done
 exports.getAllUser = async (req, res) => {

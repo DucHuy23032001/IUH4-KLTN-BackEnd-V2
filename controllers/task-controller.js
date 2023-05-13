@@ -136,7 +136,7 @@ exports.getTaskById = async (req, res) => {
 exports.getTaskByName = async (req, res) => {
     try {
         let projectId = req.params.projectId
-        let name = req.body.name
+        let name = req.params.name
         let datas = []
         let tasks = await TASK.find({
             name: {'$regex': name,$options:'i'}
