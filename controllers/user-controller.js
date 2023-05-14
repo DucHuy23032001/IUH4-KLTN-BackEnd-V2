@@ -61,10 +61,16 @@ exports.getUserByEmail = async (req, res) => {
 //done
 exports.getUserByName = async (req, res) => {
     try {
-        let name = req.params.name
-        let user = await USER.find({ fullName: name })
+        let datas = []
+        let name = req.params.name.toLowerCase()
+        let user = await USER.find()
+        for ( u of user) {
+            if(u.fullName.toLowerCase().inclues(name)) {
+                datas.push(u)
+            }
+        }
         if (user) {
-            return res.status(200).json(user);
+            return res.status(200).json(datas);
         }
     } catch (error) {
         return res.status(500).json({ msg: error });

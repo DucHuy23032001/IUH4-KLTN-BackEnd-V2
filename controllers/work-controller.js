@@ -110,39 +110,40 @@ exports.getWorkByName = async (req, res) => {
     try {
         let datas = []
         let id = req.params.id
-        let name = req.params.name
+        let name = req.params.name.toLowerCase()
         let works = await WORK.find({
-            name: { '$regex': name, $options: 'i' },
             projectId: id
         })
 
         for (i of works) {
-            let team = await TEAM.findById(i.teamId)
-            let nameTeam = []
-            if (team != null) {
-                let listTeam = team.listTeams
-                if (listTeam.length > 0) {
-                    for (j of listTeam) {
-                        if (j != null) {
-                            let itemTeam = await TEAM.findById(j)
-                            nameTeam.push(itemTeam.teamName)
+            if ( i.name.toLowerCase().inclues(name)) {
+                let team = await TEAM.findById(i.teamId)
+                let nameTeam = []
+                if (team != null) {
+                    let listTeam = team.listTeams
+                    if (listTeam.length > 0) {
+                        for (j of listTeam) {
+                            if (j != null) {
+                                let itemTeam = await TEAM.findById(j)
+                                nameTeam.push(itemTeam.teamName)
+                            }
                         }
                     }
                 }
+                let data = {
+                    _id: i._id,
+                    name: i.name,
+                    status: i.status,
+                    startTime: i.startTime,
+                    endTime: i.endTime,
+                    teamId: i.teamId,
+                    createId: i.createId,
+                    projectId: i.projectId,
+                    leaderId: team.leaderId,
+                    teamName: nameTeam
+                }
+                datas.push(data)
             }
-            let data = {
-                _id: i._id,
-                name: i.name,
-                status: i.status,
-                startTime: i.startTime,
-                endTime: i.endTime,
-                teamId: i.teamId,
-                createId: i.createId,
-                projectId: i.projectId,
-                leaderId: team.leaderId,
-                teamName: nameTeam
-            }
-            datas.push(data)
         }
         return res.status(200).json(datas)
     } catch (error) {
