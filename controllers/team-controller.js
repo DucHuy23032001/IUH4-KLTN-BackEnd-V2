@@ -5,7 +5,7 @@ const TASK = require('../models/task')
 const WORK = require('../models/work')
 
 //done
-exports.getAllTeamByIdProject = async (req, res) => {
+exports.getAllTeamByIdProject = async (req, res) => {               
     try {
         let teams = []
         let id = req.params.id

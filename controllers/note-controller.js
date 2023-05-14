@@ -50,14 +50,27 @@ exports.getNoteById = async (req, res) => {
     }
 };
 //done
-exports.createNote = async (req, res) => {
+exports.createNoteTask = async (req, res) => {
     try {
-        let { createId, taskId, text, workId} = req.body
+        let { createId, taskId, text} = req.body
         let note = await NOTE.create({
             text:text ,
             taskId:taskId ,
             createId: createId,
-            workId: workId
+        })
+        return res.status(200).json(note);
+    } catch (error) {
+        return res.status(500).json({ msg: error })
+    }
+}
+//done
+exports.createNoteWork = async (req, res) => {
+    try {
+        let { workId, createId, text} = req.body
+        let note = await NOTE.create({
+            text:text ,
+            workId:workId ,
+            createId: createId,
         })
         return res.status(200).json(note);
     } catch (error) {
