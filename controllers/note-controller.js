@@ -24,6 +24,20 @@ exports.getNoteByIdTask = async (req, res) => {
     }
 };
 //done
+exports.getNoteByIdWork = async (req, res) => {
+    try {
+        let id = req.params.id
+        let note = await NOTE.find({
+            workId:id
+        })
+        if (note) {
+            return res.status(200).json(note);
+        }
+    } catch (error) {
+        return res.status(500).json({ msg: error });
+    }
+};
+//done
 exports.getNoteById = async (req, res) => {
     try {
         let id = req.params.id
@@ -38,12 +52,12 @@ exports.getNoteById = async (req, res) => {
 //done
 exports.createNote = async (req, res) => {
     try {
-        let { createId, taskId, text, links} = req.body
+        let { createId, taskId, text, workId} = req.body
         let note = await NOTE.create({
             text:text ,
-            links: links,
             taskId:taskId ,
-            createId: createId
+            createId: createId,
+            workId: workId
         })
         return res.status(200).json(note);
     } catch (error) {
@@ -66,10 +80,9 @@ exports.removeNote = async (req, res) => {
 exports.updateNote = async (req, res) => {
     try {
         let id = req.params.id
-        let { createId, text, links} = req.body
+        let { createId, text} = req.body
         let note = await NOTE.findByIdAndUpdate(id, {
             text:text ,
-            links: links,
             createId: createId
         })
         return res.status(200).json(note);

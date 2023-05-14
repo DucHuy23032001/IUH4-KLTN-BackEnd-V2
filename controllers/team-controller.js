@@ -96,11 +96,10 @@ exports.getAllMemberByIdProject = async (req, res) => {
                             if (m.data.id == u) {
                                 check = true
                                 m.team.push(team)
+                                console.log(u);
                             }
                         }
-                        if (check) {
-                            m.team.push(team)
-                        } else {
+                        if (check == false) {
                             if (team.leaderId.equals(u)) {
                                 let user = await USER.findById(team.leaderId)
                                 let dt = {
@@ -142,8 +141,7 @@ exports.getAllMemberByIdProject = async (req, res) => {
             }
         }
 
-        // console.log(allMembers);
-
+        console.log(allMembers);
         for (i of allMembers) {
             let tasks = []
             for (k of allTasks) {
@@ -152,7 +150,6 @@ exports.getAllMemberByIdProject = async (req, res) => {
                 }
             }
             let teamName = []
-            console.log(i.team);
             for (k of i.team) {
                 teamName.push(k.teamName)
             }
