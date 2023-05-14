@@ -6,7 +6,8 @@ ROUTER.get("/:id",noteController.getNoteById)
 ROUTER.get("/task/:id",noteController.getNoteByIdTask)
 ROUTER.get("/work/:id",noteController.getNoteByIdWork)
 
-ROUTER.post("/",noteController.createNote)
+ROUTER.post("/task",noteController.createNoteTask)
+ROUTER.post("/work",noteController.createNoteWork)
 
 ROUTER.patch("/:id",noteController.updateNote)
 
