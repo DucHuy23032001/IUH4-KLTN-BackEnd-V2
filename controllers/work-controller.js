@@ -14,10 +14,10 @@ exports.getAllWorkByProjectId = async (req, res) => {
         })
         for (i of works) {
             let nameTeam = []
-            if(i.teamId != null) {
+            if (i.teamId != null) {
                 let team = await TEAM.findById(i.teamId)
                 if (team != null) {
-                    if( team.listTeams.length == 0) {
+                    if (team.listTeams.length == 0) {
                         nameTeam.push(team.teamName)
                     } else {
                         let listTeam = team.listTeams
@@ -29,22 +29,34 @@ exports.getAllWorkByProjectId = async (req, res) => {
                         }
                     }
                 }
+                let data = {
+                    _id: i._id,
+                    name: i.name,
+                    status: i.status,
+                    startTime: i.startTime,
+                    endTime: i.endTime,
+                    teamId: i.teamId,
+                    createId: i.createId,
+                    projectId: i.projectId,
+                    leaderId: team.leaderId,
+                    teamName: nameTeam
+                }
+                datas.push(data)
+            } else {
+                let data = {
+                    _id: i._id,
+                    name: i.name,
+                    status: i.status,
+                    startTime: i.startTime,
+                    endTime: i.endTime,
+                    teamId: i.teamId,
+                    createId: i.createId,
+                    projectId: i.projectId,
+                    leaderId: null,
+                    teamName: nameTeam
+                }
+                datas.push(data)
             }
-
-            let data = {
-                _id: i._id,
-                name: i.name,
-                status: i.status,
-                startTime: i.startTime,
-                endTime: i.endTime,
-                teamId: i.teamId,
-                createId: i.createId,
-                projectId: i.projectId,
-                leaderId: null,
-                teamName: nameTeam
-            }
-            console.log(data);
-            datas.push(data)
         }
         return res.status(200).json(datas)
     } catch (error) {
@@ -67,7 +79,7 @@ exports.getWorkByIdUser = async (req, res) => {
             if (work.length > 0) {
                 for (j of work) {
                     {
-                        if(j.teamId != null) {
+                        if (j.teamId != null) {
                             let team = await TEAM.findById(j.teamId)
                             let data = {
                                 _id: j._id,
@@ -104,7 +116,7 @@ exports.getWorkByName = async (req, res) => {
             projectId: id
         })
 
-        for ( i of works) {
+        for (i of works) {
             let team = await TEAM.findById(i.teamId)
             let nameTeam = []
             if (team != null) {
@@ -234,7 +246,7 @@ exports.updateWork = async (req, res) => {
             })
         }
 
-        if (teamId.length > 0){
+        if (teamId.length > 0) {
             let team = await TEAM.create({
                 leaderId: leaderId,
                 teamName: name + " Team",
@@ -250,7 +262,7 @@ exports.updateWork = async (req, res) => {
         work.name = name
         work.startTime = start
         work.endTime = end
-        
+
         work.leaderId = leaderId
         work.save()
         return res.status(200).json(work)
