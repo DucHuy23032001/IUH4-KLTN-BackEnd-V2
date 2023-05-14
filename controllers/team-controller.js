@@ -15,7 +15,7 @@ exports.getAllTeamByIdProject = async (req, res) => {
         let arrays = []
         for (i of teamProject) {
             let array = {
-                id: i,
+                _id: i,
                 name: []
             }
             arrays.push(array)
@@ -23,31 +23,35 @@ exports.getAllTeamByIdProject = async (req, res) => {
         let works = await WORK.find({
             projectId: project.id
         })
-
         for (i of works) {
             for (j of arrays) {
-                if (j.teamId != null) {
-                    var team = await TEAM.findById(j.id)
-                    if (i.teamId.equals(j.id)) {
-                        j.name.push(i.name)
-                        if (team.listTeams.length > 0) {
-                            for (k of team.listTeams) {
-                                for (m of arrays) {
-                                    if (m.id.equals(k)) {
-                                        m.name.push(i.name)
-                                    }
-                                }
+                if (i.teamId.equals(j.id)) {
+                    j.name.push(i.name)
+                }
+                var team = await TEAM.findById(j._id)
+                if (team.listTeams.length > 0) {
+                    for (k of team.listTeams) {
+                            if (j.id.equals(k)) {
+                                j.name.push(i.name)
                             }
-                        }
                     }
+                }
+            }
+            let teamMain = await TEAM.findById(i.teamId)
+            if (teamMain.listTeams.length > 0) {
+                for (k of teamMain.listTeams) {
+                    console.log(k);
+                        if (j._id.equals(k)) {
+                            j.name.push(i.name)
+                        }
                 }
             }
         }
         for (item of arrays) {
-            var team = await TEAM.findById(item.id)
+            var team = await TEAM.findById(item._id)
             var user = await USER.findById(team.leaderId)
             let data = {
-                _id: item.id,
+                _id: item._id,
                 teamName: team.teamName,
                 leaderName: user.fullName,
                 workName: item.name,
