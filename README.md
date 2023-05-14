@@ -1319,7 +1319,7 @@
     ]
     ```
 - getNoteById 
-    - Api: **GET**:    https://ptask.cyclic.app/api/notes/6448a35c0d4b2e5c5edb0e1f
+    - Api: **GETT**:    https://ptask.cyclic.app/api/notes/6448a35c0d4b2e5c5edb0e1f
     - Reponse
     ```json
     {
@@ -1332,8 +1332,8 @@
         "__v": 0
     }
     ```
-- createNote
-    - Api: **POST**:    https://ptask.cyclic.app/api/notes/
+- createNoteTask
+    - Api: **POST**:    https://ptask.cyclic.app/api/notes/task
     - Request
     ```json
     {
@@ -1346,7 +1346,31 @@
     ```json
     {
         "text": "Note 1",
+        "workId": null,
         "taskId": "6447cdb779b011741ccca4ac",
+        "createId": "6444d8568e1db702b44a3f7f",
+        "_id": "6448a35c0d4b2e5c5edb0e1f",
+        "createdAt": "2023-04-26T04:06:52.732Z",
+        "updatedAt": "2023-04-26T04:06:52.732Z",
+        "__v": 0
+    }
+    ```
+- createNoteWork
+    - Api: **POST**:    https://ptask.cyclic.app/api/notes/work
+    - Request
+    ```json
+    {
+        "text": "Note 1" ,
+        "workId": "6447cdb779b011741ccca4ac" ,
+        "createId": "6444d8568e1db702b44a3f7f"
+    }
+    ```
+    - Reponse
+    ```json
+    {
+        "text": "Note 1",
+        "taskId": null,
+        "workId": "6447cdb779b011741ccca4ac",
         "createId": "6444d8568e1db702b44a3f7f",
         "_id": "6448a35c0d4b2e5c5edb0e1f",
         "createdAt": "2023-04-26T04:06:52.732Z",
