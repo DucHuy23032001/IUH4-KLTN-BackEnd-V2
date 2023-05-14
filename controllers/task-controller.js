@@ -22,6 +22,7 @@ exports.getAllTaskByIdProject = async (req, res) => {
                 for( f of j.members) {
                     let user = await USER.findById(f)
                     let info = {
+                        "_id": user.id,
                         "name": user.fullName,
                         "avatar": user.avatar
                     }
@@ -60,8 +61,6 @@ exports.getAllTaskInWork = async (req, res) => {
         let tasks = await TASK.find({
             workId: id
         })
-        console.log(work);
-        console.log(tasks);
         for ( j of tasks) {
             console.log(j);
             let members = []

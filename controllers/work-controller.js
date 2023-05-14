@@ -12,8 +12,10 @@ exports.getAllWorkByProjectId = async (req, res) => {
         let works = await WORK.find({
             projectId: id
         })
+        // console.log(works);
         for (i of works) {
             let team = await TEAM.findById(i.teamId)
+            // console.log(team);
             let nameTeam = []
             if (team != null) {
                 if( team.listTeams.length == 0) {
@@ -40,8 +42,12 @@ exports.getAllWorkByProjectId = async (req, res) => {
                 projectId: i.projectId,
                 teamName: nameTeam
             }
+
+            console.log(data);
+
             datas.push(data)
         }
+        console.log("123");
         return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json(error)
@@ -207,8 +213,9 @@ exports.updateWork = async (req, res) => {
         let { name, startTime, endTime, teamId, leaderId } = req.body
 
         let work = await WORK.findById(id)
+        console.log(work);
         let project = await PROJECT.findById(work.projectId)
-
+        console.log(project);
         let start = MOMENT(startTime, "MM-DD-YYYY")
         let end = MOMENT(endTime, "MM-DD-YYYY")
 
@@ -227,10 +234,22 @@ exports.updateWork = async (req, res) => {
                 msg: "Thời gian kết thúc work phải phù hợp với thời gian kết thúc của project"
             })
         }
+
+        if (teamId.length > 0){
+            let team = await TEAM.create({
+                leaderId: leaderId,
+                teamName: name + " Team",
+                listMembers: [],
+                listTeams: teamId,
+                createId: createId
+            })
+            work.teamId = team.id
+        }
+
         work.name = name
         work.startTime = start
         work.endTime = end
-        work.teamId = teamId
+        
         work.leaderId = leaderId
         work.save()
         return res.status(200).json(work)

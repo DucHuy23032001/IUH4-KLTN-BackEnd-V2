@@ -8,14 +8,13 @@ let noteSchema = new SCHEMA(
             default: "",
             require: [true, "Please fill text of note!"]
         },
-        links: [
-           {
-             type: String
-           }
-        ],
         taskId: {
             type: SCHEMA.Types.ObjectId,
-            require: [true, "Please fill taskId of note!"]
+            default: null
+        },
+        workId: {
+            type: SCHEMA.Types.ObjectId,
+            default: null
         },
         createId: {
             type: SCHEMA.Types.ObjectId,

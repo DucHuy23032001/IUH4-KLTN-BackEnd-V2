@@ -82,6 +82,22 @@ exports.getProjectByIdUser = async (req, res) => {
       }
     }
 
+    let teams = await TEAM.find({
+        leaderId: id
+    })
+    if (teams != undefined) {
+      for (let i of teams) {
+        let project = await PROJECT.find({
+          teamIds: { $in: i.id }
+        })
+        if (project != undefined) {
+          for (i of project) {
+            projects.push(i)
+          }
+        }
+      }
+    }
+
     let project = await PROJECT.find({
       mainProject: id
     })
