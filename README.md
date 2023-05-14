@@ -792,29 +792,46 @@
     ```json
     [
         {
-            "_id": "643278efa6fdbb3a058caa0d",
-            "name": "Work 1",
-            "status": false,
-            "startTime": "2010-03-22T17:00:00.000Z",
-            "endTime": "2011-03-22T17:00:00.000Z",
-            "teamId": "643278efa6fdbb3a058caa05",
-            "createId": "643278eea6fdbb3a058ca9f7",
-            "projectId": "643278efa6fdbb3a058caa0b",
+            "_id": "645f538716546fb84d14d088",
+            "name": "Update test 1 ",
+            "status": true,
+            "startTime": "2023-04-30T17:00:00.000Z",
+            "endTime": "2023-05-28T17:00:00.000Z",
+            "teamId": "645f538616546fb84d14d086",
+            "createId": "645f50b0cad5045a9011bd61",
+            "projectId": "645f534516546fb84d14d058",
+            "leaderId": "645f50b0cad5045a9011bd66",
             "teamName": [
-                "Team 1"
+                "Nhóm 1"
             ]
         },
         {
-            "_id": "643278efa6fdbb3a058caa0f",
-            "name": "Work 2",
-            "status": false,
-            "startTime": "2011-03-22T17:00:00.000Z",
-            "endTime": "2012-03-22T17:00:00.000Z",
-            "teamId": "643278efa6fdbb3a058caa07",
-            "createId": "643278efa6fdbb3a058ca9ff",
-            "projectId": "643278efa6fdbb3a058caa0b",
+            "_id": "645f5c9e16546fb84d14d2ff",
+            "name": "Công việc 2",
+            "status": true,
+            "startTime": "2023-04-30T17:00:00.000Z",
+            "endTime": "2023-05-30T17:00:00.000Z",
+            "teamId": "645f5c9d16546fb84d14d2fd",
+            "createId": "645f50b0cad5045a9011bd61",
+            "projectId": "645f534516546fb84d14d058",
+            "leaderId": "645f50b0cad5045a9011bd66",
             "teamName": [
-                "Team 2"
+                "Nhóm 2"
+            ]
+        },
+        {
+            "_id": "646057bc8d4e5b250fc4fc97",
+            "name": "Công việc nhìu nhóm",
+            "status": false,
+            "startTime": "2023-04-30T17:00:00.000Z",
+            "endTime": "2023-05-23T17:00:00.000Z",
+            "teamId": "646057bc8d4e5b250fc4fc95",
+            "createId": "645f50b0cad5045a9011bd61",
+            "projectId": "645f534516546fb84d14d058",
+            "leaderId": "645f50b0cad5045a9011bd66",
+            "teamName": [
+                "Nhóm 1",
+                "Nhóm 2"
             ]
         }
     ]
@@ -844,15 +861,18 @@
     - Reponse
     ```json
     {
-        "_id": "6444d8568e1db702b44a3f8f",
-        "name": "Nám 1",
-        "status": false,
-        "startTime": "2010-03-22T17:00:00.000Z",
-        "endTime": "2011-03-22T17:00:00.000Z",
-        "teamId": "6444d8568e1db702b44a3f89",
-        "createId": "6444d8568e1db702b44a3f7b",
-        "projectId": "6444d8568e1db702b44a3f8d",
-        "teamName": "Team 1"
+        "_id": "645f538716546fb84d14d088",
+        "name": "Update test 1 ",
+        "status": true,
+        "startTime": "2023-04-30T17:00:00.000Z",
+        "endTime": "2023-05-28T17:00:00.000Z",
+        "teamId": "645f538616546fb84d14d086",
+        "createId": "645f50b0cad5045a9011bd61",
+        "projectId": "645f534516546fb84d14d058",
+        "leaderId": "645f50b0cad5045a9011bd66",
+        "teamName": [
+            "Công việc 1 Team"
+        ]
     }
     ```
 - getWorkByIdUser:
