@@ -213,9 +213,7 @@ exports.updateWork = async (req, res) => {
         let { name, startTime, endTime, teamId, leaderId } = req.body
 
         let work = await WORK.findById(id)
-        console.log(work);
         let project = await PROJECT.findById(work.projectId)
-        console.log(project);
         let start = MOMENT(startTime, "MM-DD-YYYY")
         let end = MOMENT(endTime, "MM-DD-YYYY")
 
@@ -244,6 +242,8 @@ exports.updateWork = async (req, res) => {
                 createId: createId
             })
             work.teamId = team.id
+        } else {
+            work.teamId = null
         }
 
         work.name = name
