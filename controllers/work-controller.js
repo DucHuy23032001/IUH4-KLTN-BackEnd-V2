@@ -12,10 +12,8 @@ exports.getAllWorkByProjectId = async (req, res) => {
         let works = await WORK.find({
             projectId: id
         })
-        // console.log(works);
         for (i of works) {
             let team = await TEAM.findById(i.teamId)
-            // console.log(team);
             let nameTeam = []
             if (team != null) {
                 if( team.listTeams.length == 0) {
@@ -40,14 +38,11 @@ exports.getAllWorkByProjectId = async (req, res) => {
                 teamId: i.teamId,
                 createId: i.createId,
                 projectId: i.projectId,
+                leaderId: team.leaderId,
                 teamName: nameTeam
             }
-
-            console.log(data);
-
             datas.push(data)
         }
-        console.log("123");
         return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json(error)
@@ -80,6 +75,7 @@ exports.getWorkByIdUser = async (req, res) => {
                                 teamId: j.teamId,
                                 createId: j.createId,
                                 projectId: j.projectId,
+                                leaderId: team.leaderId,
                                 teamName: team.teamName
                             }
                             datas.push(data)
@@ -128,6 +124,7 @@ exports.getWorkByName = async (req, res) => {
                 teamId: i.teamId,
                 createId: i.createId,
                 projectId: i.projectId,
+                leaderId: team.leaderId,
                 teamName: nameTeam
             }
             datas.push(data)
@@ -152,6 +149,7 @@ exports.getWorkById = async (req, res) => {
             teamId: works.teamId,
             createId: works.createId,
             projectId: works.projectId,
+            leaderId: team.leaderId,
             teamName: [team.teamName]
         }
         return res.status(200).json(data)
