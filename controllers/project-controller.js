@@ -52,10 +52,17 @@ exports.getProjectById = async (req, res) => {
 //done
 exports.getProjectByName = async (req, res) => {
   try {
-    let name = req.params.name
-    let projects = await PROJECT.find({
-      name: { '$regex': name, $options: 'i' }
-    })
+    let name = req.params.name.toLowerCase()
+    let datas = []
+    // let projects = await PROJECT.find({
+    //   name: { '$regex': name, $options: 'i' }
+    // })
+    let projects = await PROJECT.find()
+    for (p of projects) {
+      if(p.name.toLowerCase().includes(name)) {
+        datas.push(p)
+      }
+    }
     return res.status(200).json(projects)
   } catch (error) {
     return res.status(500).json(error)
