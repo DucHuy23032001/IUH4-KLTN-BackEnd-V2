@@ -13,17 +13,19 @@ exports.getAllWorkByProjectId = async (req, res) => {
             projectId: id
         })
         for (i of works) {
-            let team = await TEAM.findById(i.teamId)
             let nameTeam = []
-            if (team != null) {
-                if( team.listTeams.length == 0) {
-                    nameTeam.push(team.teamName)
-                } else {
-                    let listTeam = team.listTeams
-                    for (j of listTeam) {
-                        if (j != null) {
-                            let itemTeam = await TEAM.findById(j)
-                            nameTeam.push(itemTeam.teamName)
+            if(i.teamId != null) {
+                let team = await TEAM.findById(i.teamId)
+                if (team != null) {
+                    if( team.listTeams.length == 0) {
+                        nameTeam.push(team.teamName)
+                    } else {
+                        let listTeam = team.listTeams
+                        for (j of listTeam) {
+                            if (j != null) {
+                                let itemTeam = await TEAM.findById(j)
+                                nameTeam.push(itemTeam.teamName)
+                            }
                         }
                     }
                 }
@@ -38,9 +40,10 @@ exports.getAllWorkByProjectId = async (req, res) => {
                 teamId: i.teamId,
                 createId: i.createId,
                 projectId: i.projectId,
-                leaderId: team.leaderId,
+                leaderId: null,
                 teamName: nameTeam
             }
+            console.log(data);
             datas.push(data)
         }
         return res.status(200).json(datas)
