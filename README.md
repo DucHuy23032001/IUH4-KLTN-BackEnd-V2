@@ -1036,43 +1036,24 @@
     ```json
     [
         {
-            "_id": "641f0759e0289a292bde5e1c",
-            "name": "task 1",
-            "description": "description",
-            "startDay": "2001-03-22T17:00:00.000Z",
-            "endDay": "2010-03-22T17:00:00.000Z",
-            "startHour": "9:00",
-            "endHour": "16:00",
-            "workId": "641eb80287c02b20789b3635",
-            "workName": "Work 2",
+            "_id": "645f5e0d6cc2f8ee9a40b886",
+            "name": "ssss",
+            "description": "dđ",
+            "level": 1,
+            "startDay": "2023-05-07T17:00:00.000Z",
+            "endDay": "2023-05-23T17:00:00.000Z",
+            "startHour": "04:53",
+            "endHour": "04:53",
+            "workId": "645f5c9e16546fb84d14d2ff",
+            "workName": "Công việc 2",
             "members": [
                 {
-                    "name": "Nguyễn Đức Hung",
+                    "_id": "645f50b0cad5045a9011bd6a",
+                    "name": "Nguyễn Đức Hùng",
                     "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
                 }
             ],
-            "level" : 1,
-            "status": 3,
-            "__v": 0
-        },
-        {
-            "_id": "641f075fe0289a292bde5e1e",
-            "name": "task 2",
-            "description": "description",
-            "startDay": "2001-03-22T17:00:00.000Z",
-            "endDay": "2010-03-22T17:00:00.000Z",
-            "startHour": "9:00",
-            "endHour": "16:00",
-            "workId": "641eb80287c02b20789b3635",
-            "workName": "Work 2",
-            "members": [
-                {
-                    "name": "Nguyễn Đức Hung",
-                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
-                }
-            ],
-            "level":1,
-            "status": 3,
+            "status": true,
             "__v": 0
         }
     ]
@@ -1238,9 +1219,6 @@
         {
             "_id": "6448a35c0d4b2e5c5edb0e1f",
             "text": "Note 1",
-            "links": [
-                "ABC"
-            ],
             "taskId": "6447cdb779b011741ccca4ac",
             "createId": "6444d8568e1db702b44a3f7f",
             "createdAt": "2023-04-26T04:06:52.732Z",
@@ -1257,9 +1235,6 @@
         {
             "_id": "6448a6fb6ae435d66e655b58",
             "text": "Note 1",
-            "links": [
-                "ABC"
-            ],
             "taskId": "6447cdb779b011741ccca4ac",
             "createId": "6444d8568e1db702b44a3f7f",
             "createdAt": "2023-04-26T04:22:19.277Z",
@@ -1269,9 +1244,6 @@
         {
             "_id": "6448a6fd6ae435d66e655b5a",
             "text": "Note 2",
-            "links": [
-                "ABC"
-            ],
             "taskId": "6447cdb779b011741ccca4ac",
             "createId": "6444d8568e1db702b44a3f7f",
             "createdAt": "2023-04-26T04:22:21.997Z",
@@ -1281,10 +1253,44 @@
         {
             "_id": "6448a7016ae435d66e655b5c",
             "text": "Note 3",
-            "links": [
-                "ABC"
-            ],
             "taskId": "6447cdb779b011741ccca4ac",
+            "createId": "6444d8568e1db702b44a3f7f",
+            "createdAt": "2023-04-26T04:22:25.560Z",
+            "updatedAt": "2023-04-26T04:22:25.560Z",
+            "__v": 0
+        }
+    ]
+    ```
+- getAllNoteByIdTask 
+    - Api: **GET**:    http://localhost:3000/api/notes/work/6447cdb779b011741ccca4ac
+    - Reponse
+    ```json
+    [
+        {
+            "_id": "6448a6fb6ae435d66e655b58",
+            "text": "Note 1",
+            "taskId": null,
+            "workId": "6447cdb779b011741ccca4ac",
+            "createId": "6444d8568e1db702b44a3f7f",
+            "createdAt": "2023-04-26T04:22:19.277Z",
+            "updatedAt": "2023-04-26T04:22:19.277Z",
+            "__v": 0
+        },
+        {
+            "_id": "6448a6fd6ae435d66e655b5a",
+            "text": "Note 2",
+            "taskId": null,
+            "workId": "6447cdb779b011741ccca4ac",
+            "createId": "6444d8568e1db702b44a3f7f",
+            "createdAt": "2023-04-26T04:22:21.997Z",
+            "updatedAt": "2023-04-26T04:22:21.997Z",
+            "__v": 0
+        },
+        {
+            "_id": "6448a7016ae435d66e655b5c",
+            "text": "Note 3",
+            "taskId": null,
+            "workId": "6447cdb779b011741ccca4ac",
             "createId": "6444d8568e1db702b44a3f7f",
             "createdAt": "2023-04-26T04:22:25.560Z",
             "updatedAt": "2023-04-26T04:22:25.560Z",
@@ -1299,9 +1305,6 @@
     {
         "_id": "6448a35c0d4b2e5c5edb0e1f",
         "text": "Note 1",
-        "links": [
-            "ABC"
-        ],
         "taskId": "6447cdb779b011741ccca4ac",
         "createId": "6444d8568e1db702b44a3f7f",
         "createdAt": "2023-04-26T04:06:52.732Z",
@@ -1315,7 +1318,6 @@
     ```json
     {
         "text": "Note 1" ,
-        "links": ["ABC"],
         "taskId": "6447cdb779b011741ccca4ac" ,
         "createId": "6444d8568e1db702b44a3f7f"
     }
@@ -1324,9 +1326,6 @@
     ```json
     {
         "text": "Note 1",
-        "links": [
-            "ABC"
-        ],
         "taskId": "6447cdb779b011741ccca4ac",
         "createId": "6444d8568e1db702b44a3f7f",
         "_id": "6448a35c0d4b2e5c5edb0e1f",
@@ -1349,7 +1348,6 @@
     ```json
     {
         "text": "Note 1",
-        "links": ["ABC"],
         "createId": "6444d8568e1db702b44a3f7f"
     }
     ```
@@ -1357,9 +1355,6 @@
     ```json
     {
         "text": "Note 1",
-        "links": [
-            "ABC"
-        ],
         "taskId": "6447cdb779b011741ccca4ac",
         "createId": "6444d8568e1db702b44a3f7f",
         "_id": "6448a35c0d4b2e5c5edb0e1f",
