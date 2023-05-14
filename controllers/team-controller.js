@@ -76,12 +76,35 @@ exports.getAllMemberByIdProject = async (req, res) => {
         let allMembers = []
         let allTasks = []
         let id = req.params.id
+
         let project = await PROJECT.findById(id)
         let works = await WORK.find({
             projectId: id
         })
         if (works.length > 0) {
             for (i of works) {
+                if( i.teamId != null) {
+                    console.log(i.teamId);
+                    let team = await TEAM.findById(i.teamId)
+                    let user = await USER.findById(team.leaderId)
+                    let dt = {
+                        team: [],
+                        note: 1,
+                        data: user
+                    }
+                    allMembers.push(dt)
+                    if ( team.listMembers.length > 0) {
+                        for (h of team.listMembers) {
+                            let user = await USER.findById(h)
+                            let dt = {
+                                team: [],
+                                note: 2,
+                                data: user
+                            }
+                            allMembers.push(dt)
+                        }
+                    }
+                }
                 let tasks = await TASK.find({
                     workId: i._id
                 })
@@ -90,6 +113,7 @@ exports.getAllMemberByIdProject = async (req, res) => {
                         allTasks.push(j)
                     }
                 }
+                console.log("123");
             }
         }
         let teamProject = project.teamIds
@@ -151,6 +175,8 @@ exports.getAllMemberByIdProject = async (req, res) => {
         }
 
         console.log(allMembers);
+
+
         for (i of allMembers) {
             let tasks = []
             for (k of allTasks) {
@@ -359,7 +385,7 @@ exports.getTeamByName = async (req, res) => {
     try {
         let datas = []
         let id = req.params.id
-        let name = req.params.name
+        let name = req.params.name.toLowerCase()
 
         let project = await PROJECT.findById(id)
         let works = await WORK.find({
@@ -367,7 +393,7 @@ exports.getTeamByName = async (req, res) => {
         })
         for (t of project.teamIds) {
             let team = await TEAM.findById(t)
-            if (team.teamName == name) {
+            if (team.teamName.toLowerCase().includes(name)) {
                 let leader = await USER.findById(team.leaderId)
                 for (w of works) {
                     let workNames = []
@@ -403,7 +429,7 @@ exports.getTeamByName = async (req, res) => {
 //done
 exports.getMemberByName = async (req, res) => {
     try {
-        let name = req.params.name
+        let name = req.params.name.toLowerCase()
 
         let datas = []
         let allMembers = []
@@ -445,7 +471,7 @@ exports.getMemberByName = async (req, res) => {
                         } else {
                             if (team.leaderId.equals(u)) {
                                 let user = await USER.findById(u)
-                                if (user.fullName == name) {
+                                if (user.fullName.toLowerCase().includes(name)) {
                                     let dt = {
                                         team: [team],
                                         note: 1,
@@ -455,7 +481,7 @@ exports.getMemberByName = async (req, res) => {
                                 }
                             } else {
                                 let user = await USER.findById(u)
-                                if (user.fullName == name) {
+                                if (user.fullName.toLowerCase().includes(name)) {
                                     let dt = {
                                         team: [team],
                                         note: 1,
@@ -469,7 +495,7 @@ exports.getMemberByName = async (req, res) => {
                 }
                 else {
                     let leader = await USER.findById(team.leaderId)
-                    if (leader.fullName == name) {
+                    if (leader.fullName.toLowerCase().includes(name)) {
                         let dt = {
                             team: [team],
                             note: 1,
@@ -479,7 +505,7 @@ exports.getMemberByName = async (req, res) => {
                     }
                     for (h of team.listMembers) {
                         let user = await USER.findById(h)
-                        if (user.fullName == name) {
+                        if (user.fullName.toLowerCase().includes(name)) {
                             let dt2 = {
                                 team: [team],
                                 note: 2,

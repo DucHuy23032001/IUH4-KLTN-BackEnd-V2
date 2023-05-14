@@ -1,6 +1,6 @@
 const TASK = require('../models/task')
 const WORK = require('../models/work')
-const USER  = require('../models/user')
+const USER = require('../models/user')
 const TEAM = require('../models/team')
 const MOMENT = require('moment')
 
@@ -19,7 +19,7 @@ exports.getAllTaskByIdProject = async (req, res) => {
             for (j of tasks) {
                 let work = await WORK.findById(j.workId)
                 let members = []
-                for( f of j.members) {
+                for (f of j.members) {
                     let user = await USER.findById(f)
                     let info = {
                         "_id": user.id,
@@ -38,7 +38,7 @@ exports.getAllTaskByIdProject = async (req, res) => {
                     "startHour": j.startHour,
                     "endHour": j.endHour,
                     "imageLink": j.imageLink,
-                    "workId":work.id,
+                    "workId": work.id,
                     "workName": work.name,
                     "members": members,
                     "status": j.status,
@@ -61,10 +61,10 @@ exports.getAllTaskInWork = async (req, res) => {
         let tasks = await TASK.find({
             workId: id
         })
-        for ( j of tasks) {
+        for (j of tasks) {
             console.log(j);
             let members = []
-            for( f of j.members) {
+            for (f of j.members) {
                 let user = await USER.findById(f)
                 let info = {
                     "name": user.fullName,
@@ -102,7 +102,7 @@ exports.getTaskById = async (req, res) => {
         let tasks = await TASK.findById(id)
         let work = await WORK.findById(tasks.workId)
         let members = []
-        for( f of tasks.members) {
+        for (f of tasks.members) {
             let user = await USER.findById(f)
             let info = {
                 "name": user.fullName,
@@ -120,7 +120,7 @@ exports.getTaskById = async (req, res) => {
             "startHour": tasks.startHour,
             "endHour": tasks.endHour,
             "imageLink": tasks.imageLink,
-            "workId":work.id,
+            "workId": work.id,
             "workName": work.name,
             "members": members,
             "status": tasks.status,
@@ -135,42 +135,59 @@ exports.getTaskById = async (req, res) => {
 exports.getTaskByName = async (req, res) => {
     try {
         let projectId = req.params.projectId
-        let name = req.params.name
+        let name = req.params.name.toLowerCase()
         let datas = []
-        let tasks = await TASK.find({
-            name: {'$regex': name,$options:'i'}
+        let allTask = []
+
+        let works = await WORK.find({
+            projectId: projectId
         })
-        for ( i of tasks ) {
-            let members = []
-            let work = await WORK.findById(i.workId)
-            if (work.projectId == projectId ) {
-                for ( j of i.members) {
-                    let user = await USER.findById(j)
-                    let item = {
-                        name : user.fullName,
-                        avatar : user.avatar
-                    }
-                    members.push(item)
-                }
-                let data = {
-                    _id: i.id,
-                    name: i.name,
-                    startDay: i.startDay,
-                    endDay: i.endDay,
-                    startHour: i.startHour,
-                    endHour: i.endHour,
-                    workId: i.workId,
-                    workName: work.name,
-                    members: members,
-                    status: i.status,
-                    level: i.level,
-                    createdAt: i.createdAt,
-                    updatedAt: i.updatedAt,
-                    __v: i.__v
-                }
-                datas.push(data)
+
+        for (w of works) {
+            let tasks = await TASK.find({
+                workId: w.id
+            })
+            for (t of tasks) {
+                allTask.push(t)
             }
         }
+
+        for (i of allTask) {
+            if (i.name.toLowerCase().includes(name)) {
+                let members = []
+                let work = await WORK.findById(i.workId)
+                if (work.projectId == projectId) {
+                    for (j of i.members) {
+                        let user = await USER.findById(j)
+                        let item = {
+                            name: user.fullName,
+                            avatar: user.avatar
+                        }
+                        members.push(item)
+                    }
+                    let data = {
+                        _id: i.id,
+                        name: i.name,
+                        startDay: i.startDay,
+                        endDay: i.endDay,
+                        startHour: i.startHour,
+                        endHour: i.endHour,
+                        workId: i.workId,
+                        workName: work.name,
+                        members: members,
+                        status: i.status,
+                        level: i.level,
+                        createdAt: i.createdAt,
+                        updatedAt: i.updatedAt,
+                        __v: i.__v
+                    }
+                    datas.push(data)
+                }
+            }
+        }
+        // let tasks = await TASK.find({
+        //     name: { '$regex': name, $options: 'i' }
+        // })
         return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json(error)
@@ -179,7 +196,7 @@ exports.getTaskByName = async (req, res) => {
 //done
 exports.createTask = async (req, res) => {
     try {
-        let { name, startDay, endDay, startHour, endHour, workId, members , level, description } = req.body
+        let { name, startDay, endDay, startHour, endHour, workId, members, level, description } = req.body
 
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
         let dateEnd = MOMENT(endDay, "MM-DD-YYYY")
@@ -204,7 +221,7 @@ exports.createTask = async (req, res) => {
         }
 
         let team = await TEAM.findById(work.teamId)
-        for ( i of members) {
+        for (i of members) {
             if (!team.listMembers.includes(i)) {
                 team.listMembers.push(i)
             }
@@ -220,7 +237,7 @@ exports.createTask = async (req, res) => {
             endHour: endHour,
             workId: workId,
             members: members,
-            level:level
+            level: level
         })
         return res.status(200).json(task)
     } catch (error) {
@@ -231,7 +248,7 @@ exports.createTask = async (req, res) => {
 exports.updateTask = async (req, res) => {
     try {
 
-        let { name, startDay, endDay, startHour, endHour, userId, description, level, status , members } = req.body
+        let { name, startDay, endDay, startHour, endHour, userId, description, level, status, members } = req.body
         let id = req.params.id
         let check = true
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
@@ -322,9 +339,9 @@ exports.removeTask = async (req, res) => {
     } catch (error) {
         return res.status(500).json(error)
     }
-}   
+}
 // done
-exports.updateStatusTask  = async (req, res) => {
+exports.updateStatusTask = async (req, res) => {
     try {
 
         let id = req.params.id
