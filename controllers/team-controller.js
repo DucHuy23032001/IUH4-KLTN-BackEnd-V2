@@ -23,7 +23,7 @@ exports.getAllTeamByIdProject = async (req, res) => {
         let works = await WORK.find({
             projectId: project.id
         })
-        console.log(arrays);
+        // console.log(arrays);
         for (i of works) {
             for (j of arrays) {
                 if( i.teamId != null) {

@@ -256,19 +256,6 @@ exports.updateTask = async (req, res) => {
         let task = await TASK.findById(id)
         let work = await WORK.findById(task.workId)
 
-
-        for (i of task.members) {
-            if (userId == i) {
-                check = false
-            }
-        }
-        if (check) {
-            return res.status(400).json({
-                message: "Only member can edit"
-            })
-        }
-
-
         if (dateStart > dateEnd) {
             return res.status(409).json({
                 msg: "Thời gian bắt đầu phải trước thời gian kết thúc"
