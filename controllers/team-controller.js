@@ -85,28 +85,27 @@ exports.getAllMemberByIdProject = async (req, res) => {
         })
         if (works.length > 0) {
             for (i of works) {
-                if( i.teamId != null) {
-                    console.log(i.teamId);
-                    let team = await TEAM.findById(i.teamId)
-                    let user = await USER.findById(team.leaderId)
-                    let dt = {
-                        team: [],
-                        note: 1,
-                        data: user
-                    }
-                    allMembers.push(dt)
-                    if ( team.listMembers.length > 0) {
-                        for (h of team.listMembers) {
-                            let user = await USER.findById(h)
-                            let dt = {
-                                team: [],
-                                note: 2,
-                                data: user
-                            }
-                            allMembers.push(dt)
-                        }
-                    }
-                }
+                // if( i.teamId != null) {
+                //     let team = await TEAM.findById(i.teamId)
+                //     let user = await USER.findById(team.leaderId)
+                //     let dt = {
+                //         team: [],
+                //         note: 1,
+                //         data: user
+                //     }
+                //     allMembers.push(dt)
+                //     if ( team.listMembers.length > 0) {
+                //         for (h of team.listMembers) {
+                //             let user = await USER.findById(h)
+                //             let dt = {
+                //                 team: [],
+                //                 note: 2,
+                //                 data: user
+                //             }
+                //             allMembers.push(dt)
+                //         }
+                //     }
+                // }
                 let tasks = await TASK.find({
                     workId: i._id
                 })
@@ -115,11 +114,10 @@ exports.getAllMemberByIdProject = async (req, res) => {
                         allTasks.push(j)
                     }
                 }
-                console.log("123");
             }
         }
         let teamProject = project.teamIds
-        if (teamProject != null) {
+        if (teamProject.length > 0) {
             for (i of teamProject) {
                 let team = await TEAM.findById(i)
                 let listMembers = team.listMembers
@@ -176,7 +174,6 @@ exports.getAllMemberByIdProject = async (req, res) => {
             }
         }
 
-        console.log(allMembers);
 
 
         for (i of allMembers) {
