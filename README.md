@@ -1281,7 +1281,7 @@
         }
     ]
     ```
-- getAllNoteByIdTask 
+- getAllNoteByIdWork 
     - Api: **GET**:    http://localhost:3000/api/notes/work/6447cdb779b011741ccca4ac
     - Reponse
     ```json
