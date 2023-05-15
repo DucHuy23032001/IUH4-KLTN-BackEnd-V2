@@ -23,11 +23,11 @@ exports.getAllTeamByIdProject = async (req, res) => {
         let works = await WORK.find({
             projectId: project.id
         })
-        console.log(works);
+        console.log(arrays);
         for (i of works) {
             for (j of arrays) {
-                if( j.teamId != null) {
-                    if (i.teamId.equals(j.id)) {
+                if( i.teamId != null) {
+                    if (i.teamId.equals(j._id)) {
                         j.name.push(i.name)
                     }
                     var team = await TEAM.findById(j._id)
@@ -37,20 +37,22 @@ exports.getAllTeamByIdProject = async (req, res) => {
                                     j.name.push(i.name)
                                 }
                         }
-                    }
+                    } 
                 }
             }
-            if( i.teamId != null ){
-                let teamMain = await TEAM.findById(i.teamId)
-                if (teamMain.listTeams.length > 0) {
-                    for (k of teamMain.listTeams) {
-                        console.log(k);
-                            if (j._id.equals(k)) {
-                                j.name.push(i.name)
-                            }
-                    }
-                }
-            }
+            // if( i.teamId != null ){
+            //     let teamMain = await TEAM.findById(i.teamId)
+            //     if (teamMain.listTeams.length > 0) {
+            //         for (k of teamMain.listTeams) {
+            //             console.log(k);
+            //                 if (j._id.equals(k)) {
+            //                     j.name.push(i.name)
+            //                 }
+            //         }
+            //     } else {
+            //         j.name.push(i.name)
+            //     }
+            // }
         }
         for (item of arrays) {
             var team = await TEAM.findById(item._id)
