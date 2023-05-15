@@ -6,7 +6,7 @@ const BCRYPT = require("bcrypt");
 const user = require("./models/user")
 const account = require("./models/account")
 const team = require("./models/team")
-const project = require("./models/project")
+const project = require('./models/project')
 const work = require("./models/work")
 const task = require("./models/task")
 const note = require("./models/note")
@@ -45,161 +45,303 @@ process.on("unhandledRejection", (err) => {
 // addData()
 async function addData() {
     let hash = await BCRYPT.hash("123456", 10);
-    let a1 = await account.create({
-        email: "phuong@gmail.com",
+
+    // User Main
+    let aMainProject = await account.create({
+        email: "main@gmail.com",
         password: hash,
     })
-    let u1 = await user.create({
+    let uMainProject = await user.create({
+        fullName: "Fernando Torres",
+        birthday: "03/20/1984",
+        address: "12 Lê Văn Thọ, Gò Gấp, TP HCM",
+        phoneNumber: "0879276281",
+        gender: 0,
+        status: true,
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+        accountId: aMainProject.id
+    })
+
+    // Team Âm nhạc
+    let aLeaderTeamAN = await account.create({
+        email: "aLeaderTeamAN@gmail.com",
+        password: hash,
+    })
+    let uLeaderTeamAN = await user.create({
         fullName: "Võ Minh Phương",
         birthday: "02/02/2001",
         address: "12 Lê Văn Thọ, Gò Gấp, TP HCM",
-        phoneNumber: "0987654321",
+        phoneNumber: "0879276260",
         gender: 0,
         status: true,
         avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
-        accountId: a1.id
+        accountId: aLeaderTeamAN.id
     })
 
-    let a2 = await account.create({
-        email: "huy@gmail.com",
+    let aAN1 = await account.create({
+        email: "aAN1@gmail.com",
         password: hash,
     })
-    let u2 = await user.create({
+    let uAN1 = await user.create({
         fullName: "Nguyễn Đức Huy",
-        birthday: "03/23/2001",
+        birthday: "03/23/1990",
         address: "247 Lê Đức Thọ, Gò Gấp, TP HCM",
-        phoneNumber: "0879276284",
+        phoneNumber: "0879276261",
         gender: 0,
         status: true,
         avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
-        accountId: a2.id
+        accountId: aAN1.id
     })
 
-    let a3 = await account.create({
-        email: "hung@gmail.com",
+    let aAN2 = await account.create({
+        email: "aAN2@gmail.com",
         password: hash,
     })
-    let u3 = await user.create({
+    let uAN2 = await user.create({
         fullName: "Nguyễn Đức Hùng",
-        birthday: "09/13/2004",
+        birthday: "09/13/1989",
         address: "247 Lê Đức Thọ, Gò Gấp, TP HCM",
-        phoneNumber: "0879276333",
+        phoneNumber: "0879276262",
         gender: 0,
         status: true,
         avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
-        accountId: a3.id
+        accountId: aAN2.id
     })
 
-    let a4 = await account.create({
-        email: "hoang@gmail.com",
+    let aAN3 = await account.create({
+        email: "aAN3@gmail.com",
         password: hash,
     })
-    let u4 = await user.create({
+    let uAN3 = await user.create({
         fullName: "Nguyễn Việt Hoàng",
-        birthday: "02/12/2001",
+        birthday: "02/09/1987",
         address: "Nghĩa trang liệt sỹ Thủ Đức, TP HCM",
-        phoneNumber: "0879276285",
+        phoneNumber: "0879276263",
         gender: 0,
         status: true,
         avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
-        accountId: a4.id
+        accountId: aAN3.id
     })
 
-    let a5 = await account.create({
-        email: "nam@gmail.com",
+    let aAN4 = await account.create({
+        email: "aAN4@gmail.com",
         password: hash,
     })
-    let u5 = await user.create({
+    let uAN4 = await user.create({
         fullName: "Nguyễn Việt Nam",
-        birthday: "02/12/2003",
+        birthday: "02/12/1988",
         address: "Nghĩa trang liệt sỹ Thủ Đức, TP HCM",
-        phoneNumber: "0879276222",
+        phoneNumber: "0879276264",
         gender: 0,
         status: true,
         avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
-        accountId: a5.id
+        accountId: aAN4.id
     })
 
-    let team1 = await team.create({
-        teamName: "Team 1",
-        createId: u1.id,
-        leaderId: u2.id,
-        listMembers:[u3.id],
+    let teamAmNhac = await team.create({
+        teamName: "Âm nhạc",
+        createId: uMainProject.id,
+        leaderId: uLeaderTeamAN.id,
+        listMembers: [uAN1.id , uAN2.id, uAN3.id, uAN4.id],
         listTeams: [],
     })
 
-    let team2 = await team.create({
-        teamName: "Team 2",
-        createId: u1.id,
-        leaderId: u4.id,
-        listMembers: [u5.id],
-        listTeams: [],
-    })
+    let start = MOMENT("06/05/2023", "MM-DD-YYYY")
+    let end = MOMENT("09/05/2023", "MM-DD-YYYY")
 
-    let start = MOMENT("03/23/2010", "MM-DD-YYYY")
-    let end = MOMENT("03/23/2012", "MM-DD-YYYY")
-
-    let p1 = await project.create({
-        name: "Project 1",
+    let p = await project.create({
+        name: "Khai giảng năm học",
         startTime: start,
         endTime: end,
         status: false,
         background: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
-        teamIds: [team1.id, team2.id],
-        mainProject: u1.id
+        teamIds: [teamAmNhac.id],
+        mainProject: uMainProject.id
     })
+//, teamAmThanhAnhSang.id , teamAnNinh.id, teamCTSV.id, teamHCQT.id, teamKeToan.id, teamSanKhau.id, teamTruyenThong.id, teamVanPhongDoan.id
+    let startTimeW1 = MOMENT("06/05/2023", "MM-DD-YYYY")
+    let endTimeW1 = MOMENT("06/15/2023", "MM-DD-YYYY")
 
-    let startTimeW1 = MOMENT("03/23/2010", "MM-DD-YYYY")
-    let endTimeW1 = MOMENT("03/23/2011", "MM-DD-YYYY")
+    let startTimeW2 = MOMENT("06/16/2023", "MM-DD-YYYY")
+    let endTimeW2 = MOMENT("08/31/2023", "MM-DD-YYYY")
 
-    let work1 = await work.create({
-        name: "Work 1",
+    let startTimeW3 = MOMENT("09/01/2023", "MM-DD-YYYY")
+    let endTimeW3 = MOMENT("09/05/2023", "MM-DD-YYYY")
+
+    let work1AmNhac = await work.create({
+        name: "Chuẩn bị",
         status: false,
         startTime: startTimeW1,
         endTime: endTimeW1,
-        teamId: team1.id,
-        createId: u2.id,
-        leaderId: u2.id,
-        projectId: p1.id
+        teamId: teamAmNhac.id,
+        createId: uMainProject.id,
+        leaderId: uLeaderTeamAN.id,
+        projectId: p.id
     })
 
-    let startTimeW2 = MOMENT("03/23/2011", "MM-DD-YYYY")
-    let endTimeW2 = MOMENT("03/23/2012", "MM-DD-YYYY")
-
-    let work2 = await work.create({
-        name: "Work 2",
+    let work2AmNhac = await work.create({
+        name: "Tập luyện",
         status: false,
-        startTime: startTimeW2,
-        endTime: endTimeW2,
-        teamId: team2.id,
-        leaderId: u4.id,
-        createId: u4.id,
-        projectId: p1.id
+        startTime: startTimeW1,
+        endTime: endTimeW1,
+        teamId: teamAmNhac.id,
+        createId: uMainProject.id,
+        leaderId: uLeaderTeamAN.id,
+        projectId: p.id
     })
 
-    let task1 = await task.create({
-        name: "Task 1 Work 1",
+    let work3AmNhac = await work.create({
+        name: "Trình diễn",
+        status: false,
+        startTime: startTimeW1,
+        endTime: endTimeW1,
+        teamId: teamAmNhac.id,
+        createId: uMainProject.id,
+        leaderId: uLeaderTeamAN.id,
+        projectId: p.id
+    })
+
+    let task1Work1AmNhac = await task.create({
+        name: "Tuyển chọn các thành viên tham gia",
         startDay: startTimeW1,
         endDay: endTimeW1,
         startHour: "9:00" ,
         endHour: "10:00",
-        workId: work1.id,
-        members: [u1.id],
+        workId: work1AmNhac.id,
+        members: [uAN1.id, uAN2.id],
         status: false,
         level: 1
     })
 
-    let task2 = await task.create({
-        name: "Task 2 Work 1",
+    let task2Work1AmNhac = await task.create({
+        name: "Lựa chọn tiết mục để tập luyện",
         startDay: startTimeW1,
         endDay: endTimeW1,
         startHour: "9:00" ,
         endHour: "10:00",
-        workId: work1.id,
-        members: [u2.id],
+        workId: work1AmNhac.id,
+        members: [uAN3.id, uAN4.id],
         status: false,
         level: 1
     })
 
+    let task3Work1AmNhac = await task.create({
+        name: "Lựa chọn địa điểm tập luyện",
+        startDay: startTimeW1,
+        endDay: endTimeW1,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work1AmNhac.id,
+        members: [uAN3.id, uAN4.id],
+        status: false,
+        level: 1
+    })
 
+    let task4Work1AmNhac = await task.create({
+        name: "Lên kế hoạch thời gian tập luyện",
+        startDay: startTimeW1,
+        endDay: endTimeW1,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work1AmNhac.id,
+        members: [uAN1.id, uAN2.id],
+        status: false,
+        level: 1
+    })
+
+    let task1Work2AmNhac = await task.create({
+        name: "Phân chia các thành viên thành những nhóm nhỏ hơn",
+        startDay: startTimeW2,
+        endDay: endTimeW2,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work2AmNhac.id,
+        members: [uAN1.id, uAN2.id],
+        status: false,
+        level: 1
+    })
+
+    let task2Work2AmNhac = await task.create({
+        name: "Phân chia tiết mục tập luyện cho các nhóm",
+        startDay: startTimeW2,
+        endDay: endTimeW2,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work2AmNhac.id,
+        members: [uAN3.id, uAN4.id],
+        status: false,
+        level: 1
+    })
+
+    let task3Work2AmNhac = await task.create({
+        name: "Lựa chọn lịch tập phù hợp cho các nhóm",
+        startDay: startTimeW2,
+        endDay: endTimeW2,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work2AmNhac.id,
+        members: [uAN3.id, uAN4.id],
+        status: false,
+        level: 1
+    })
+
+    let task4Work2AmNhac = await task.create({
+        name: "Phân chia lịch tập cho các nhóm",
+        startDay: startTimeW2,
+        endDay: endTimeW2,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work2AmNhac.id,
+        members: [uAN1.id, uAN2.id],
+        status: false,
+        level: 1
+    })
+
+    let task5Work2AmNhac = await task.create({
+        name: "Đảm bảo tiến trình tập luyện, báo cáo liên tục qua từng buổi tập",
+        startDay: startTimeW2,
+        endDay: endTimeW2,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work2AmNhac.id,
+        members: [uAN1.id, uAN2.id, uAN3.id, uAN4.id],
+        status: false,
+        level: 1
+    })
+
+    let task1Work3AmNhac = await task.create({
+        name: "Triển khai kế hoạch tập trung và duyệt thử",
+        startDay: startTimeW3,
+        endDay: endTimeW3,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work3AmNhac.id,
+        members: [uAN1.id, uAN2.id],
+        status: false,
+        level: 1
+    })
+
+    let task2Work3AmNhac = await task.create({
+        name: "Tiến thành thuê đồ diễn, tính toán chi phí và báo cáo lại",
+        startDay: startTimeW3,
+        endDay: endTimeW3,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work3AmNhac.id,
+        members: [uAN3.id, uAN4.id],
+        status: false,
+        level: 1
+    })
+
+    let task3Work3AmNhac = await task.create({
+        name: "Tiến thành thuê đồ diễn, tính toán chi phí và báo cáo lại",
+        startDay: startTimeW3,
+        endDay: endTimeW3,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work3AmNhac.id,
+        members: [uAN1.id, uAN2.id],
+        status: false,
+        level: 1
+    })
 }
