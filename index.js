@@ -52,13 +52,13 @@ async function addData() {
         password: hash,
     })
     let uMainProject = await user.create({
-        fullName: "Fernando Torres",
+        fullName: "Nguyễn Văn Nghĩa",
         birthday: "03/20/1984",
         address: "12 Lê Văn Thọ, Gò Gấp, TP HCM",
         phoneNumber: "0879276281",
         gender: 0,
         status: true,
-        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/4.jpg",
         accountId: aMainProject.id
     })
 
@@ -74,7 +74,7 @@ async function addData() {
         phoneNumber: "0879276260",
         gender: 0,
         status: true,
-        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/3.jpg",
         accountId: aLeaderTeamAN.id
     })
 
@@ -89,7 +89,7 @@ async function addData() {
         phoneNumber: "0879276261",
         gender: 0,
         status: true,
-        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/Huy.jpg",
         accountId: aAN1.id
     })
 
@@ -104,7 +104,7 @@ async function addData() {
         phoneNumber: "0879276262",
         gender: 0,
         status: true,
-        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/5.jpg",
         accountId: aAN2.id
     })
 
@@ -119,7 +119,7 @@ async function addData() {
         phoneNumber: "0879276263",
         gender: 0,
         status: true,
-        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/2.jpg",
         accountId: aAN3.id
     })
 

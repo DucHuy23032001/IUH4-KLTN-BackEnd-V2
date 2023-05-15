@@ -248,9 +248,8 @@ exports.createTask = async (req, res) => {
 exports.updateTask = async (req, res) => {
     try {
 
-        let { name, startDay, endDay, startHour, endHour, userId, description, level, status, members } = req.body
+        let { name, startDay, endDay, startHour, endHour, description, level, status, members } = req.body
         let id = req.params.id
-        let check = true
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
         let dateEnd = MOMENT(endDay, "MM-DD-YYYY")
         let task = await TASK.findById(id)
