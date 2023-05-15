@@ -114,9 +114,9 @@ exports.getWorkByName = async (req, res) => {
         let works = await WORK.find({
             projectId: id
         })
-
         for (i of works) {
-            if ( i.name.toLowerCase().inclues(name)) {
+            let names = i.name.toLowerCase()
+            if (names.includes(name)) {
                 let team = await TEAM.findById(i.teamId)
                 let nameTeam = []
                 if (team != null) {
