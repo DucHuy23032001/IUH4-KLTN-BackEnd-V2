@@ -247,7 +247,15 @@ exports.updateWork = async (req, res) => {
             })
         }
 
-        if (teamId.length > 0) {
+
+        let idTeam 
+        console.log(teamId[0]);
+        if (teamId.length == 1){
+            if(teamId[0]  == work.teamId)
+            {
+                idTeam = teamId[0]
+            }
+        } else if (teamId.length > 0) {
             let team = await TEAM.create({
                 leaderId: leaderId,
                 teamName: name + " Team",
@@ -255,15 +263,17 @@ exports.updateWork = async (req, res) => {
                 listTeams: teamId,
                 createId: createId
             })
-            work.teamId = team.id
+            idTeam = team.id
         } else {
-            work.teamId = null
+            idTeam = null
         }
+
+        // console.log(idTeam);
 
         work.name = name
         work.startTime = start
         work.endTime = end
-
+        work.teamId = idTeam
         work.leaderId = leaderId
         work.save()
         return res.status(200).json(work)
