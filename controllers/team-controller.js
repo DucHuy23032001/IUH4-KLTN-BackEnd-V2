@@ -111,7 +111,7 @@ exports.getAllMemberByIdProject = async (req, res) => {
                 if (u.id == 0) {
                     let item = {
                         _id: u.user._id,
-                        teamName: u.teamName,
+                        teamName: [u.teamName],
                         position: "Leader",
                         name: u.user.fullName,
                         avatar: u.user.avatar,
@@ -121,7 +121,7 @@ exports.getAllMemberByIdProject = async (req, res) => {
                 } else if (u.id == 1) {
                     let item = {
                         _id: u.user._id,
-                        teamName: u.teamName,
+                        teamName: [u.teamName],
                         position: "Member",
                         name: u.user.fullName,
                         avatar: u.user.avatar,
@@ -135,7 +135,7 @@ exports.getAllMemberByIdProject = async (req, res) => {
                 if (u.id == 0) {
                     let item = {
                         _id: u.user._id,
-                        teamName: u.teamName,
+                        teamName: [u.teamName],
                         position: "Leader",
                         name: u.user.fullName,
                         avatar: u.user.avatar,
@@ -145,7 +145,7 @@ exports.getAllMemberByIdProject = async (req, res) => {
                 } else if (u.id == 1) {
                     let item = {
                         _id: u.user._id,
-                        teamName: u.teamName,
+                        teamName: [u.teamName],
                         position: "Member",
                         name: u.user.fullName,
                         avatar: u.user.avatar,
