@@ -38,39 +38,42 @@ exports.getProjectById = async (req, res) => {
   try {
     let id = req.params.id
     let project = await PROJECT.findById(id)
-    let idLeaders = []
-    let idTeams = []
-
-    let teams = await TEAM.find({
-      projectId: id
-    })
-    for (i of teams) {
-      if (i != null) {
-        let members = await MEMBER.find({
-          teamId: i.id
-        })
-        for (m of members) {
-          if (m.number == 0) {
-            idLeaders.push(m.id)
+    if ( project != undefined) {
+      let idLeaders = []
+      let idTeams = []
+  
+      let teams = await TEAM.find({
+        projectId: id
+      })
+      for (i of teams) {
+        if (i != null) {
+          let members = await MEMBER.find({
+            teamId: i.id
+          })
+          for (m of members) {
+            if (m.number == 0) {
+              idLeaders.push(m.id)
+            }
           }
         }
+        idTeams.push(i.id)
       }
-      idTeams.push(i.id)
+  
+      let user = await USER.findById(project.mainProject)
+      let data = {
+        _id: project.id,
+        name: project.name,
+        startTime: project.startTime,
+        endTime: project.endTime,
+        status: project.status,
+        background: project.background,
+        teamIds: idTeams,
+        mainProject: project.mainProject,
+        mainName: user.fullName
+      }
+      return res.status(200).json(data)
     }
-
-    let user = await USER.findById(project.mainProject)
-    let data = {
-      _id: project.id,
-      name: project.name,
-      startTime: project.startTime,
-      endTime: project.endTime,
-      status: project.status,
-      background: project.background,
-      teamIds: idTeams,
-      mainProject: project.mainProject,
-      mainName: user.fullName
-    }
-    return res.status(200).json(data)
+    return res.status(200).json([])
   } catch (error) {
     return res.status(500).json(error)
   }
