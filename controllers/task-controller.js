@@ -2,6 +2,8 @@ const TASK = require('../models/task')
 const WORK = require('../models/work')
 const USER = require('../models/user')
 const TEAM = require('../models/team')
+const MEMBER = require('../models/member')
+const PARTITIONTABLE = require('../models/partitionTable')
 const MOMENT = require('moment')
 
 //done
@@ -16,11 +18,14 @@ exports.getAllTaskByIdProject = async (req, res) => {
             let tasks = await TASK.find({
                 workId: i._id
             })
-            for (j of tasks) {
-                let work = await WORK.findById(j.workId)
+            for (t of tasks) {
                 let members = []
-                for (f of j.members) {
-                    let user = await USER.findById(f)
+                let work = await WORK.findById(j.workId)
+                let partitions = await PARTITIONTABLE.find({
+                    taskId : t.id
+                }) 
+                for (p of partitions) {
+                    let user = await USER.findById(p.userId)
                     let info = {
                         "_id": user.id,
                         "name": user.fullName,
@@ -29,19 +34,19 @@ exports.getAllTaskByIdProject = async (req, res) => {
                     members.push(info)
                 }
                 let item = {
-                    "_id": j._id,
-                    "name": j.name,
-                    "description": j.description,
-                    "level": j.level,
-                    "startDay": j.startDay,
-                    "endDay": j.endDay,
-                    "startHour": j.startHour,
-                    "endHour": j.endHour,
-                    "imageLink": j.imageLink,
+                    "_id": t._id,
+                    "name": t.name,
+                    "description": t.description,
+                    "level": t.level,
+                    "startDay": t.startDay,
+                    "endDay": t.endDay,
+                    "startHour": t.startHour,
+                    "endHour": t.endHour,
+                    "imageLink": t.imageLink,
                     "workId": work.id,
                     "workName": work.name,
                     "members": members,
-                    "status": j.status,
+                    "status": t.status,
                     "__v": 0
                 }
                 data.push(item)
@@ -62,11 +67,14 @@ exports.getAllTaskInWork = async (req, res) => {
             workId: id
         })
         for (j of tasks) {
-            console.log(j);
             let members = []
-            for (f of j.members) {
-                let user = await USER.findById(f)
+            let partitions = await PARTITIONTABLE.find({
+                taskId : j.id
+            }) 
+            for (p of partitions) {
+                let user = await USER.findById(p.userId)
                 let info = {
+                    "_id": user.id,
                     "name": user.fullName,
                     "avatar": user.avatar
                 }
@@ -87,7 +95,6 @@ exports.getAllTaskInWork = async (req, res) => {
                 "status": j.status,
                 "__v": 0
             }
-            console.log(item);
             datas.push(item)
         }
         return res.status(200).json(datas)
@@ -102,9 +109,13 @@ exports.getTaskById = async (req, res) => {
         let tasks = await TASK.findById(id)
         let work = await WORK.findById(tasks.workId)
         let members = []
-        for (f of tasks.members) {
-            let user = await USER.findById(f)
+        let partitions = await PARTITIONTABLE.find({
+            taskId : id
+        }) 
+        for (p of partitions) {
+            let user = await USER.findById(p.userId)
             let info = {
+                "_id": user.id,
                 "name": user.fullName,
                 "avatar": user.avatar
             }
@@ -155,16 +166,19 @@ exports.getTaskByName = async (req, res) => {
         for (i of allTask) {
             if (i.name.toLowerCase().includes(name)) {
                 let members = []
-                let work = await WORK.findById(i.workId)
-                if (work.projectId == projectId) {
-                    for (j of i.members) {
-                        let user = await USER.findById(j)
-                        let item = {
-                            name: user.fullName,
-                            avatar: user.avatar
-                        }
-                        members.push(item)
+                let partitions = await PARTITIONTABLE.find({
+                    taskId : id
+                }) 
+                for (p of partitions) {
+                    let user = await USER.findById(p.userId)
+                    let info = {
+                        "_id": user.id,
+                        "name": user.fullName,
+                        "avatar": user.avatar
                     }
+                    members.push(info)
+                }
+                let work = await WORK.findById(i.workId)
                     let data = {
                         _id: i.id,
                         name: i.name,
@@ -182,12 +196,8 @@ exports.getTaskByName = async (req, res) => {
                         __v: i.__v
                     }
                     datas.push(data)
-                }
             }
         }
-        // let tasks = await TASK.find({
-        //     name: { '$regex': name, $options: 'i' }
-        // })
         return res.status(200).json(datas)
     } catch (error) {
         return res.status(500).json(error)
@@ -196,7 +206,7 @@ exports.getTaskByName = async (req, res) => {
 //done
 exports.createTask = async (req, res) => {
     try {
-        let { name, startDay, endDay, startHour, endHour, workId, members, level, description } = req.body
+        let { name, startDay, endDay, startHour, endHour, workId , members , level, description } = req.body
 
         let dateStart = MOMENT(startDay, "MM-DD-YYYY")
         let dateEnd = MOMENT(endDay, "MM-DD-YYYY")
@@ -220,14 +230,6 @@ exports.createTask = async (req, res) => {
             })
         }
 
-        let team = await TEAM.findById(work.teamId)
-        for (i of members) {
-            if (!team.listMembers.includes(i)) {
-                team.listMembers.push(i)
-            }
-        }
-        team.save()
-
         let task = await TASK.create({
             name: name,
             description: description,
@@ -235,11 +237,46 @@ exports.createTask = async (req, res) => {
             endDay: dateEnd,
             startHour: startHour,
             endHour: endHour,
-            workId: workId,
-            members: members,
             level: level
         })
-        return res.status(200).json(task)
+
+        let memberOfTeam = await MEMBER.find({
+            teamId : work.teamId
+        })
+        let partitions = await PARTITIONTABLE.find({
+            taskId : id
+        })
+
+        for ( m of members ){
+            for ( p of partitions ){
+                if(p.userId != m){
+                    await PARTITIONTABLE.create({
+                        userId: m,
+                        taskId: id
+                    })
+                }
+            }
+            for ( mOT of memberOfTeam ) {
+                if(m != mOT.userId) {
+                    await MEMBER.create({
+                        userId: m,
+                        teamId:  mOT.teamId,
+                        number: 1
+                    })
+                }
+            }
+        }
+        let data = {
+            name: task.name,
+            description: task.description,
+            startDay: task.dateStart,
+            endDay: task.dateEnd,
+            members: members,
+            startHour: task.startHour,
+            endHour: task.endHour,
+            level: task.level
+        }
+        return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json(error)
     }
@@ -271,6 +308,41 @@ exports.updateTask = async (req, res) => {
             })
         }
 
+        let memberOfTeam = await MEMBER.find({
+            teamId : work.teamId
+        })
+        let partitions = await PARTITIONTABLE.find({
+            taskId : id
+        })
+
+        for ( m of members ){
+            for ( p of partitions ){
+                if(p.userId != m){
+                    await PARTITIONTABLE.create({
+                        userId: m,
+                        taskId: id
+                    })
+                }
+            }
+            for ( mOT of memberOfTeam ) {
+                if(m != mOT.userId) {
+                    await MEMBER.create({
+                        userId: m,
+                        teamId:  mOT.teamId,
+                        number: 1
+                    })
+                }
+            }
+        }
+
+        let partitions2 = await PARTITIONTABLE.find({
+            taskId : id
+        })
+        let membersRes = []
+        for ( p of partitions2 ){
+            membersRes.push(p.userId)
+        }
+
         task.name = name
         task.startDay = dateStart
         task.endDay = dateEnd
@@ -279,9 +351,19 @@ exports.updateTask = async (req, res) => {
         task.description = description
         task.level = level
         task.status = status
-        task.members = members
         task.save()
-        return res.status(200).json(task)
+
+        let data = {
+            name: task.name,
+            description: task.description,
+            startDay: task.dateStart,
+            endDay: task.dateEnd,
+            members: membersRes,
+            startHour: task.startHour,
+            endHour: task.endHour,
+            level: task.level
+        }
+        return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json(error)
     }
@@ -295,7 +377,27 @@ exports.updateDescription = async (req, res) => {
 
         task.description = description
         task.save()
-        return res.status(200).json(task)
+
+        let partitions = await PARTITIONTABLE.find({
+            taskId : id
+        })
+        let membersRes = []
+        for ( p of partitions ){
+            membersRes.push(p.userId)
+        }
+
+        let data = {
+            name: task.name,
+            description: task.description,
+            startDay: task.dateStart,
+            endDay: task.dateEnd,
+            members: membersRes,
+            startHour: task.startHour,
+            endHour: task.endHour,
+            level: task.level
+        }
+
+        return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json(error)
     }
@@ -305,11 +407,30 @@ exports.changeName = async (req, res) => {
     try {
         let name = req.body.name
         let id = req.params.id
-        await TASK.findByIdAndUpdate(id, {
-            name: name
-        })
         let task = await TASK.findById(id)
-        return res.status(200).json(task)
+        task.name = name
+        task.save()
+        
+        let partitions = await PARTITIONTABLE.find({
+            taskId : id
+        })
+        let membersRes = []
+        for ( p of partitions ){
+            membersRes.push(p.userId)
+        }
+
+        let data = {
+            name: task.name,
+            description: task.description,
+            startDay: task.dateStart,
+            endDay: task.dateEnd,
+            members: membersRes,
+            startHour: task.startHour,
+            endHour: task.endHour,
+            level: task.level
+        }
+
+        return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json(error)
     }
@@ -319,6 +440,7 @@ exports.removeTask = async (req, res) => {
     try {
         let id = req.params.id
         await TASK.deleteOne({ _id: id });
+        await PARTITIONTABLE.deleteMany({ taskId: id });
         return res.status(200).json({
             _id: id,
         })
@@ -334,7 +456,99 @@ exports.updateStatusTask = async (req, res) => {
         let task = await TASK.findById(id)
         task.status = true
         task.save()
-        return res.status(200).json(task)
+
+        let partitions = await PARTITIONTABLE.find({
+            taskId : id
+        })
+        let membersRes = []
+        for ( p of partitions ){
+            membersRes.push(p.userId)
+        }
+
+        let data = {
+            name: task.name,
+            description: task.description,
+            startDay: task.dateStart,
+            endDay: task.dateEnd,
+            members: membersRes,
+            startHour: task.startHour,
+            endHour: task.endHour,
+            level: task.level
+        }
+
+        return res.status(200).json(data)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+}
+
+/////////////// chưa có router
+
+//done
+exports.removeMember = async (req, res) => {
+    try {
+
+        let { member } = req.body
+        let id = req.params.id
+        let task = await TASK.findById(id)
+        await PARTITIONTABLE.deleteOne({
+            userId: member,
+            taskId: id
+        })
+        let partitions2 = await PARTITIONTABLE.find({
+            taskId : id
+        })
+        let membersRes = []
+        for ( p of partitions2 ){
+            membersRes.push(p.userId)
+        }
+
+        let data = {
+            name: task.name,
+            description: task.description,
+            startDay: task.dateStart,
+            endDay: task.dateEnd,
+            members: membersRes,
+            startHour: task.startHour,
+            endHour: task.endHour,
+            level: task.level
+        }
+        return res.status(200).json(data)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+}
+
+//done
+exports.addMember = async (req, res) => {
+    try {
+
+        let { member } = req.body
+        let id = req.params.id
+        let task = await TASK.findById(id)
+        await PARTITIONTABLE.create({
+            userId: member,
+            taskId: id
+        })
+        let partitions2 = await PARTITIONTABLE.find({
+            taskId : id
+        })
+        let membersRes = []
+        for ( p of partitions2 ){
+            membersRes.push(p.userId)
+        }
+
+        let data = {
+            name: task.name,
+            description: task.description,
+            startDay: task.dateStart,
+            endDay: task.dateEnd,
+            members: membersRes,
+            startHour: task.startHour,
+            endHour: task.endHour,
+            level: task.level
+        }
+        return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json(error)
     }

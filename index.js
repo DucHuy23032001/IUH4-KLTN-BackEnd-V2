@@ -9,7 +9,7 @@ const team = require("./models/team")
 const project = require('./models/project')
 const work = require("./models/work")
 const task = require("./models/task")
-const note = require("./models/note")
+const member = require("./models/member")
 
 DOTENV.config({
     path: "./config.env",
@@ -138,14 +138,6 @@ async function addData() {
         accountId: aAN4.id
     })
 
-    let teamAmNhac = await team.create({
-        teamName: "Âm nhạc",
-        createId: uMainProject.id,
-        leaderId: uLeaderTeamAN.id,
-        listMembers: [uAN1.id , uAN2.id, uAN3.id, uAN4.id],
-        listTeams: [],
-    })
-
     let start = MOMENT("06/05/2023", "MM-DD-YYYY")
     let end = MOMENT("09/05/2023", "MM-DD-YYYY")
 
@@ -155,9 +147,45 @@ async function addData() {
         endTime: end,
         status: false,
         background: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
-        teamIds: [teamAmNhac.id],
         mainProject: uMainProject.id
     })
+
+    let teamAmNhac = await team.create({
+       teamName: "Âm nhạc",
+       projectId: p.id,
+       createId: uMainProject.id
+    })
+
+    let memberLeader1 = await member.create({
+        number: 0,
+        userId: uLeaderTeamAN.id,
+        teamId : teamAmNhac.id
+    })
+
+    let memberAN1 = await member.create({
+        number: 1,
+        userId: uAN1.id,
+        teamId : teamAmNhac.id
+    })
+
+    let memberAN2 = await member.create({
+        number: 1,
+        userId: uAN2.id,
+        teamId : teamAmNhac.id
+    })
+
+    let memberAN3 = await member.create({
+        number: 1,
+        userId: uAN3.id,
+        teamId : teamAmNhac.id
+    })
+
+    let memberAN4 = await member.create({
+        number: 1,
+        userId: uAN4.id,
+        teamId : teamAmNhac.id
+    })
+
 //, teamAmThanhAnhSang.id , teamAnNinh.id, teamCTSV.id, teamHCQT.id, teamKeToan.id, teamSanKhau.id, teamTruyenThong.id, teamVanPhongDoan.id
     let startTimeW1 = MOMENT("06/05/2023", "MM-DD-YYYY")
     let endTimeW1 = MOMENT("06/15/2023", "MM-DD-YYYY")
@@ -175,7 +203,6 @@ async function addData() {
         endTime: endTimeW1,
         teamId: teamAmNhac.id,
         createId: uMainProject.id,
-        leaderId: uLeaderTeamAN.id,
         projectId: p.id
     })
 
@@ -186,7 +213,6 @@ async function addData() {
         endTime: endTimeW1,
         teamId: teamAmNhac.id,
         createId: uMainProject.id,
-        leaderId: uLeaderTeamAN.id,
         projectId: p.id
     })
 
@@ -201,147 +227,137 @@ async function addData() {
         projectId: p.id
     })
 
-    let task1Work1AmNhac = await task.create({
-        name: "Tuyển chọn các thành viên tham gia",
-        startDay: startTimeW1,
-        endDay: endTimeW1,
-        startHour: "9:00" ,
-        endHour: "10:00",
-        workId: work1AmNhac.id,
-        members: [uAN1.id, uAN2.id],
-        status: false,
-        level: 1
-    })
+    // let task1Work1AmNhac = await task("Tuyển chọn các thành viên tham gia",startTimeW1,endTimeW1,"9:00" ,"10:00",work1AmNhac.id,[uAN1.id, uAN2.id],false,1)
 
-    let task2Work1AmNhac = await task.create({
-        name: "Lựa chọn tiết mục để tập luyện",
-        startDay: startTimeW1,
-        endDay: endTimeW1,
-        startHour: "9:00" ,
-        endHour: "10:00",
-        workId: work1AmNhac.id,
-        members: [uAN3.id, uAN4.id],
-        status: false,
-        level: 1
-    })
+    // let task2Work1AmNhac = await task.create({
+    //     name: "Lựa chọn tiết mục để tập luyện",
+    //     startDay: startTimeW1,
+    //     endDay: endTimeW1,
+    //     startHour: "9:00" ,
+    //     endHour: "10:00",
+    //     workId: work1AmNhac.id,
+    //     members: [uAN3.id, uAN4.id],
+    //     status: false,
+    //     level: 1
+    // })
 
-    let task3Work1AmNhac = await task.create({
-        name: "Lựa chọn địa điểm tập luyện",
-        startDay: startTimeW1,
-        endDay: endTimeW1,
-        startHour: "9:00" ,
-        endHour: "10:00",
-        workId: work1AmNhac.id,
-        members: [uAN3.id, uAN4.id],
-        status: false,
-        level: 1
-    })
+    // let task3Work1AmNhac = await task.create({
+    //     name: "Lựa chọn địa điểm tập luyện",
+    //     startDay: startTimeW1,
+    //     endDay: endTimeW1,
+    //     startHour: "9:00" ,
+    //     endHour: "10:00",
+    //     workId: work1AmNhac.id,
+    //     members: [uAN3.id, uAN4.id],
+    //     status: false,
+    //     level: 1
+    // })
 
-    let task4Work1AmNhac = await task.create({
-        name: "Lên kế hoạch thời gian tập luyện",
-        startDay: startTimeW1,
-        endDay: endTimeW1,
-        startHour: "9:00" ,
-        endHour: "10:00",
-        workId: work1AmNhac.id,
-        members: [uAN1.id, uAN2.id],
-        status: false,
-        level: 1
-    })
+    // let task4Work1AmNhac = await task.create({
+    //     name: "Lên kế hoạch thời gian tập luyện",
+    //     startDay: startTimeW1,
+    //     endDay: endTimeW1,
+    //     startHour: "9:00" ,
+    //     endHour: "10:00",
+    //     workId: work1AmNhac.id,
+    //     members: [uAN1.id, uAN2.id],
+    //     status: false,
+    //     level: 1
+    // })
 
-    let task1Work2AmNhac = await task.create({
-        name: "Phân chia các thành viên thành những nhóm nhỏ hơn",
-        startDay: startTimeW2,
-        endDay: endTimeW2,
-        startHour: "9:00" ,
-        endHour: "10:00",
-        workId: work2AmNhac.id,
-        members: [uAN1.id, uAN2.id],
-        status: false,
-        level: 1
-    })
+    // let task1Work2AmNhac = await task.create({
+    //     name: "Phân chia các thành viên thành những nhóm nhỏ hơn",
+    //     startDay: startTimeW2,
+    //     endDay: endTimeW2,
+    //     startHour: "9:00" ,
+    //     endHour: "10:00",
+    //     workId: work2AmNhac.id,
+    //     members: [uAN1.id, uAN2.id],
+    //     status: false,
+    //     level: 1
+    // })
 
-    let task2Work2AmNhac = await task.create({
-        name: "Phân chia tiết mục tập luyện cho các nhóm",
-        startDay: startTimeW2,
-        endDay: endTimeW2,
-        startHour: "9:00" ,
-        endHour: "10:00",
-        workId: work2AmNhac.id,
-        members: [uAN3.id, uAN4.id],
-        status: false,
-        level: 1
-    })
+    // let task2Work2AmNhac = await task.create({
+    //     name: "Phân chia tiết mục tập luyện cho các nhóm",
+    //     startDay: startTimeW2,
+    //     endDay: endTimeW2,
+    //     startHour: "9:00" ,
+    //     endHour: "10:00",
+    //     workId: work2AmNhac.id,
+    //     members: [uAN3.id, uAN4.id],
+    //     status: false,
+    //     level: 1
+    // })
 
-    let task3Work2AmNhac = await task.create({
-        name: "Lựa chọn lịch tập phù hợp cho các nhóm",
-        startDay: startTimeW2,
-        endDay: endTimeW2,
-        startHour: "9:00" ,
-        endHour: "10:00",
-        workId: work2AmNhac.id,
-        members: [uAN3.id, uAN4.id],
-        status: false,
-        level: 1
-    })
+    // let task3Work2AmNhac = await task.create({
+    //     name: "Lựa chọn lịch tập phù hợp cho các nhóm",
+    //     startDay: startTimeW2,
+    //     endDay: endTimeW2,
+    //     startHour: "9:00" ,
+    //     endHour: "10:00",
+    //     workId: work2AmNhac.id,
+    //     members: [uAN3.id, uAN4.id],
+    //     status: false,
+    //     level: 1
+    // })
 
-    let task4Work2AmNhac = await task.create({
-        name: "Phân chia lịch tập cho các nhóm",
-        startDay: startTimeW2,
-        endDay: endTimeW2,
-        startHour: "9:00" ,
-        endHour: "10:00",
-        workId: work2AmNhac.id,
-        members: [uAN1.id, uAN2.id],
-        status: false,
-        level: 1
-    })
+    // let task4Work2AmNhac = await task.create({
+    //     name: "Phân chia lịch tập cho các nhóm",
+    //     startDay: startTimeW2,
+    //     endDay: endTimeW2,
+    //     startHour: "9:00" ,
+    //     endHour: "10:00",
+    //     workId: work2AmNhac.id,
+    //     members: [uAN1.id, uAN2.id],
+    //     status: false,
+    //     level: 1
+    // })
 
-    let task5Work2AmNhac = await task.create({
-        name: "Đảm bảo tiến trình tập luyện, báo cáo liên tục qua từng buổi tập",
-        startDay: startTimeW2,
-        endDay: endTimeW2,
-        startHour: "9:00" ,
-        endHour: "10:00",
-        workId: work2AmNhac.id,
-        members: [uAN1.id, uAN2.id, uAN3.id, uAN4.id],
-        status: false,
-        level: 1
-    })
+    // let task5Work2AmNhac = await task.create({
+    //     name: "Đảm bảo tiến trình tập luyện, báo cáo liên tục qua từng buổi tập",
+    //     startDay: startTimeW2,
+    //     endDay: endTimeW2,
+    //     startHour: "9:00" ,
+    //     endHour: "10:00",
+    //     workId: work2AmNhac.id,
+    //     members: [uAN1.id, uAN2.id, uAN3.id, uAN4.id],
+    //     status: false,
+    //     level: 1
+    // })
 
-    let task1Work3AmNhac = await task.create({
-        name: "Triển khai kế hoạch tập trung và duyệt thử",
-        startDay: startTimeW3,
-        endDay: endTimeW3,
-        startHour: "9:00" ,
-        endHour: "10:00",
-        workId: work3AmNhac.id,
-        members: [uAN1.id, uAN2.id],
-        status: false,
-        level: 1
-    })
+    // let task1Work3AmNhac = await task.create({
+    //     name: "Triển khai kế hoạch tập trung và duyệt thử",
+    //     startDay: startTimeW3,
+    //     endDay: endTimeW3,
+    //     startHour: "9:00" ,
+    //     endHour: "10:00",
+    //     workId: work3AmNhac.id,
+    //     members: [uAN1.id, uAN2.id],
+    //     status: false,
+    //     level: 1
+    // })
 
-    let task2Work3AmNhac = await task.create({
-        name: "Tiến thành thuê đồ diễn, tính toán chi phí và báo cáo lại",
-        startDay: startTimeW3,
-        endDay: endTimeW3,
-        startHour: "9:00" ,
-        endHour: "10:00",
-        workId: work3AmNhac.id,
-        members: [uAN3.id, uAN4.id],
-        status: false,
-        level: 1
-    })
+    // let task2Work3AmNhac = await task.create({
+    //     name: "Tiến thành thuê đồ diễn, tính toán chi phí và báo cáo lại",
+    //     startDay: startTimeW3,
+    //     endDay: endTimeW3,
+    //     startHour: "9:00" ,
+    //     endHour: "10:00",
+    //     workId: work3AmNhac.id,
+    //     members: [uAN3.id, uAN4.id],
+    //     status: false,
+    //     level: 1
+    // })
 
-    let task3Work3AmNhac = await task.create({
-        name: "Tiến thành thuê đồ diễn, tính toán chi phí và báo cáo lại",
-        startDay: startTimeW3,
-        endDay: endTimeW3,
-        startHour: "9:00" ,
-        endHour: "10:00",
-        workId: work3AmNhac.id,
-        members: [uAN1.id, uAN2.id],
-        status: false,
-        level: 1
-    })
+    // let task3Work3AmNhac = await task.create({
+    //     name: "Tiến thành thuê đồ diễn, tính toán chi phí và báo cáo lại",
+    //     startDay: startTimeW3,
+    //     endDay: endTimeW3,
+    //     startHour: "9:00" ,
+    //     endHour: "10:00",
+    //     workId: work3AmNhac.id,
+    //     members: [uAN1.id, uAN2.id],
+    //     status: false,
+    //     level: 1
+    // })
 }
