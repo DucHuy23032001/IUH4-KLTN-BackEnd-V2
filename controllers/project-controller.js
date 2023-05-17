@@ -11,6 +11,23 @@ const awsService = require('../services/aws-service')
 exports.getAllProject = async (req, res) => {
   try {
     let projects = await PROJECT.find()
+
+    // for (p of projects) {
+    //   let teams = await TEAM.find({
+    //     projectId: p.id
+    //   })
+
+    //   for ( t of teams)
+    // }
+
+    let teamIds = []
+    for (t of teams) {
+      teamIds.push(t.id)
+    }
+
+
+    let user = await PROJECT.findById()
+
     return res.status(200).json(projects)
   } catch (error) {
     return res.status(500).json(error)
@@ -30,9 +47,9 @@ exports.getProjectById = async (req, res) => {
     for (i of teams) {
       if (i != null) {
         let members = await MEMBER.find({
-          teamId : i.id
+          teamId: i.id
         })
-        for ( m of members) {
+        for (m of members) {
           if (m.number == 0) {
             idLeaders.push(m.id)
           }
@@ -50,10 +67,6 @@ exports.getProjectById = async (req, res) => {
       status: project.status,
       background: project.background,
       teamIds: idTeams,
-      createdAt: project.createdAt,
-      updatedAt: project.updatedAt,
-      __v: 0,
-      leaders: idLeaders,
       mainProject: project.mainProject,
       mainName: user.fullName
     }
@@ -89,11 +102,38 @@ exports.getProjectByIdUser = async (req, res) => {
     for (i of members) {
       let team = await TEAM.findById(i.teamId)
       let project = await PROJECT.findById(team.projectId)
-      if (project != undefined) {
-          projects.push(project)
+
+      let idTeams = []
+      let teams = await TEAM.find({
+        projectId: id
+      })
+      for (i of teams) {
+        if (i != null) {
+          let members = await MEMBER.find({
+            teamId: i.id
+          })
+          for (m of members) {
+            if (m.number == 0) {
+              idLeaders.push(m.id)
+            }
+          }
+        }
+        idTeams.push(i.id)
       }
-      return res.status(200).json(projects)
+
+      // let user = await USER.findById(project.mainProject)
+      let data = {
+        _id: project.id,
+        name: project.name,
+        startTime: project.startTime,
+        endTime: project.endTime,
+        status: project.status,
+        background: project.background,
+        mainProject: project.mainProject,
+      }
+      projects.push(data)
     }
+    return res.status(200).json(projects)
   } catch (error) {
     return res.status(500).json(error)
   }
