@@ -35,7 +35,7 @@ exports.getAllWorkByProjectId = async (req, res) => {
                         teamId: i.teamId,
                         createId: i.createId,
                         projectId: i.projectId,
-                        leaderId: leaderId,
+                        leaderId: [leaderId],
                         teamName: [team.teamName]
                     }
                     datas.push(data)
@@ -49,8 +49,8 @@ exports.getAllWorkByProjectId = async (req, res) => {
                         teamId: i.teamId,
                         createId: i.createId,
                         projectId: i.projectId,
-                        leaderId: null,
-                        teamName: null
+                        leaderId: [],
+                        teamName: []
                     }
                     datas.push(data)
                 }
@@ -88,7 +88,7 @@ exports.getWorkByIdUser = async (req, res) => {
                                 teamId: j.teamId,
                                 createId: j.createId,
                                 projectId: j.projectId,
-                                leaderId: team.leaderId,
+                                leaderId: [leaderId],
                                 teamName: [team.teamName]
                             }
                             datas.push(data)
@@ -125,7 +125,7 @@ exports.getWorkByName = async (req, res) => {
                     teamId: i.teamId,
                     createId: i.createId,
                     projectId: i.projectId,
-                    leaderId: team.leaderId,
+                    leaderId: [leaderId],
                     teamName: [team.teamName]
                 }
                 datas.push(data)
@@ -151,7 +151,7 @@ exports.getWorkById = async (req, res) => {
             teamId: works.teamId,
             createId: works.createId,
             projectId: works.projectId,
-            leaderId: team.leaderId,
+            leaderId: [leaderId],
             teamName: [team.teamName]
         }
         return res.status(200).json(data)
@@ -244,8 +244,6 @@ exports.updateWork = async (req, res) => {
             let team = await TEAM.create({
                 leaderId: leaderId,
                 teamName: name + " Team",
-                listMembers: [],
-                listTeams: teamId,
                 createId: createId
             })
             idTeam = team.id
@@ -257,7 +255,6 @@ exports.updateWork = async (req, res) => {
         work.startTime = start
         work.endTime = end
         work.teamId = idTeam
-        work.leaderId = leaderId
         work.save()
         return res.status(200).json(work)
     } catch (error) {
