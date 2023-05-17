@@ -249,6 +249,7 @@ exports.updateWork = async (req, res) => {
 
 
         let idTeam 
+        console.log(teamId[0]);
         if (teamId.length == 1){
             if(teamId[0]  == work.teamId)
             {
@@ -266,6 +267,8 @@ exports.updateWork = async (req, res) => {
         } else {
             idTeam = null
         }
+
+        // console.log(idTeam);
 
         work.name = name
         work.startTime = start

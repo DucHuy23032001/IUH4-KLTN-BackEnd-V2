@@ -30,6 +30,10 @@ const taskSchema = new SCHEMA(
             type: SCHEMA.Types.ObjectId,
             require: [true, "Please fill Word of task!"]
         },
+        members: [{
+            type: SCHEMA.Types.ObjectId,
+            require: [true, "Please fill Members of task!"]
+        }],
         status: {
             type: Boolean,
             default: false

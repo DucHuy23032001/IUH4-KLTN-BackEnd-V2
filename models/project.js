@@ -26,7 +26,12 @@ let projectSchema = new SCHEMA(
         mainProject:{
             type: SCHEMA.Types.ObjectId,
             require: [true, "Please fill id main project!"]
-        }
+        },
+        teamIds: [
+            {
+                type: SCHEMA.Types.ObjectId,
+            }
+        ]
     },
     {
         timestamps: true

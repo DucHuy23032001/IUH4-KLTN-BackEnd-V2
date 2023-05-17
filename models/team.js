@@ -7,14 +7,26 @@ let teamSchema = new SCHEMA(
             type: String,
             require: [true, "Please fill name of team!"]
         },
-        projectId: {
+        createId: {
+            type: SCHEMA.Types.ObjectId,
+            require: [true, "Please fill createId of team!"]
+        },
+        leaderId: {
             type: SCHEMA.Types.ObjectId,
             require: [true, "Please fill leaderId of team!"]
         },
-        createId: {
-            type: SCHEMA.Types.ObjectId,
-            require: [true, "Please fill leaderId of team!"]
-        }
+        listMembers: [
+            {
+                type: SCHEMA.Types.ObjectId,
+                require: [true, "Please fill listMembers of team!"]
+            }
+        ],
+        listTeams: [
+            {
+                type: SCHEMA.Types.ObjectId,
+                require: [true, "Please fill listTeams of team!"]
+            }
+        ]
     },
     {
         timestamps: true

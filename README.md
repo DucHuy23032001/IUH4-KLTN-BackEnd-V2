@@ -278,14 +278,22 @@
     ```json
     [
         {
-            "_id": "64645a393fe439e250f7f734",
-            "teamName": "Âm nhạc",
+            "_id": "643278efa6fdbb3a058caa05",
+            "teamName": "Team 1",
+            "leaderName": "Nguyễn Đức Huy",
             "workName": [
-                "Chuẩn bị",
-                "Tập luyện",
-                "Trình diễn"
+                "Work 1"
             ],
-            "leaderId": "64645a393fe439e250f7f736"
+            "leaderId" : "643278efa6fdbb3a058cabb90"
+        },
+        {
+            "_id": "643278efa6fdbb3a058caa07",
+            "teamName": "Team 2",
+            "leaderName": "Nguyễn Việt Hoàng",
+            "workName": [
+                "Work 2"
+            ],
+            "leaderId" : "643278efa6fdbb3a058cabb90"
         }
     ]
     ```
@@ -440,11 +448,14 @@
     ```
 - createTeam:
     - Api: **POST**:    https://ptask.cyclic.app/api/teams/create
-    - Request 
+    - Request **status true(nhóm), false(đơn)**
     ```json
     {
         "createId":"64280789e4fa172184218593",
         "teamName":"Team Test",
+        "leaderId":"64280789e4fa172184218593",
+        "listMembers":["64280789e4fa172184218593","64280789e4fa172184218597"],
+        "listTeams":[],
         "projectId":"6428078ae4fa1721842185ab",
     }
     ```
@@ -452,10 +463,17 @@
     ```json
     {
         "_id": "6427f648e35d083e95b84c07",
+        "leaderId": "642687fbd58ad6becd0fa95b",
         "teamName": "Team 1",
+        "listMembers": [
+            "642687fbd58ad6becd0fa95b",
+            "642687fbd58ad6becd0fa95f"
+        ],
+        "listTeams":[],
         "createId": "642687fbd58ad6becd0fa95b",
         "createAt": "2023-04-01T09:15:52.389Z",
-        "projectId": "6426a65e8b1cc3b37eb1221f"
+        "projectId": "6426a65e8b1cc3b37eb1221f",
+        "status": true
     }
     ```
 - updateTeam:
@@ -465,6 +483,9 @@
     {
         "createId":"64280789e4fa172184218593",
         "teamName":"Team Test",
+        "leaderId":"64280789e4fa172184218593",
+        "listMembers":["64280789e4fa172184218593","64280789e4fa172184218597"],
+        "listTeams":[],
         "projectId":"6428078ae4fa1721842185ab",
     }
     ```
@@ -472,10 +493,17 @@
     ```json
     {
         "_id": "6427f648e35d083e95b84c07",
+        "leaderId": "642687fbd58ad6becd0fa95b",
         "teamName": "Team 1",
+        "listMembers": [
+            "642687fbd58ad6becd0fa95b",
+            "642687fbd58ad6becd0fa95f"
+        ],
+        "listTeams":[],
         "createId": "642687fbd58ad6becd0fa95b",
         "createAt": "2023-04-01T09:15:52.389Z",
         "projectId": "6426a65e8b1cc3b37eb1221f",
+        "status": true
     }
     ```
 - changeNameTeam:
@@ -495,6 +523,7 @@
             "642687fbd58ad6becd0fa95b",
             "642687fbd58ad6becd0fa95f"
         ],
+        "listTeams":[],
         "__v": 2
     }
 - addMember: 
@@ -545,7 +574,34 @@
         "createAt": "2023-04-02T09:02:22.306Z"
     }
     ```
-
+- addTeamInTeam: 
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/add-team/63f4806dc4ec61b3edc26f6e
+    - Request
+    ```json
+    {
+        "createId":"6429449d32e69be96008c587",
+        "teamIds": ["6429449e32e69be96008c59c"]
+    }
+    ```
+    - Reponse
+    ```json
+    {
+        "_id": "6429449e32e69be96008c59a",
+        "leaderId": "6429449d32e69be96008c58c",
+        "teamName": "Team 1",
+        "listMembers": [
+            "6429449e32e69be96008c59c",
+            "6429449d32e69be96008c58c",
+            "6429449e32e69be96008c590"
+        ],
+        "listTeams": [
+            "6429449e32e69be96008c59c"
+        ],
+        "createId": "6429449d32e69be96008c587",
+        "createAt": "2023-04-02T09:02:22.306Z"
+    }
+    ```
+- removeTeamInTeam: 
     - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/remove-team/63f4806dc4ec61b3edc26f6e
     - Request
     ```json
@@ -570,7 +626,7 @@
     }
     ```
 - removeTeamInProject
-    - Api: **DELETE**:    https://ptask.cyclic.app/api/teams/6429449e32e69be96008c59a
+    - Api: **DELETE**:    https://ptask.cyclic.app/api/teams/63f4806dc4ec61b3edc26f6e/:projectId
     - Reponse
     ```json
     {
@@ -624,6 +680,11 @@
         "endTime": "2001-03-23T17:00:00.000Z",
         "status": true,
         "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
+        "teamIds": [
+            "641ba36e87b485c176a160bc",
+            "641ba3a387b485c176a160be",
+            "641ba3f0efd24fc581820ab8"
+        ],
         "_id": "641ba3f0efd24fc581820aba",
         "__v": 0
     }
@@ -633,23 +694,27 @@
     - Reponse
     ```json
     {
-        "_id": "64645a393fe439e250f7f732",
-        "name": "Khai giảng năm học",
-        "startTime": "2023-06-04T17:00:00.000Z",
-        "endTime": "2023-09-04T17:00:00.000Z",
+        "_id": "6444d8568e1db702b44a3f8d",
+        "name": "Project 1",
+        "startTime": "2010-03-22T17:00:00.000Z",
+        "endTime": "2012-03-22T17:00:00.000Z",
         "status": false,
         "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
         "teamIds": [
-            "64645a393fe439e250f7f734"
+            "6444d8568e1db702b44a3f89",
+            "6444d8568e1db702b44a3f8b",
+            "644635ecf69b64c9cd07450c"
         ],
-        "createdAt": "2023-05-17T04:38:17.074Z",
-        "updatedAt": "2023-05-17T04:38:17.074Z",
+        "createdAt": "2023-04-23T07:03:50.528Z",
+        "updatedAt": "2023-04-24T07:55:24.179Z",
         "__v": 0,
         "leaders": [
-            "64645a393fe439e250f7f736"
+            "6444d8568e1db702b44a3f7b",
+            "6444d8568e1db702b44a3f83",
+            "6444d8568e1db702b44a3f7b"
         ],
-        "mainProject": "64645a383fe439e250f7f71c",
-        "mainName": "Nguyễn Văn Nghĩa"
+        "mainProject": "6444d8558e1db702b44a3f77",
+        "mainName": "Võ Minh Phương"
     }
     ```
 - getProjectByName:
@@ -683,15 +748,31 @@
     ```json
     [
         {
-            "_id": "6464523b6ae4d94c603ebdd5",
-            "name": "Khai giảng năm học",
-            "startTime": "2023-06-04T17:00:00.000Z",
-            "endTime": "2023-09-04T17:00:00.000Z",
-            "status": false,
+            "_id": "64194e53a0702b7822abd5d9",
+            "name": "Project 1",
+            "startTime": "2001-03-23T17:00:00.000Z",
+            "endTime": "2001-04-23T17:00:00.000Z",
+            "status": true,
             "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
-            "mainProject": "6464523b6ae4d94c603ebdbe",
-            "createdAt": "2023-05-17T04:04:11.815Z",
-            "updatedAt": "2023-05-17T04:04:11.815Z",
+            "teamIds": [
+                "641479b36e21cef193748903",
+                "641479ca6e21cef193748905"
+            ],
+            "mainProject": "641329c27a9b8b3c70c80864",
+            "__v": 0
+        },
+        {
+            "_id": "641a946603fca33b72b65318",
+            "name": "Project test time",
+            "startTime": "2001-03-23T17:00:00.000Z",
+            "endTime": "2001-03-23T17:00:00.000Z",
+            "status": true,
+            "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
+            "teamIds": [
+                "641479b36e21cef193748903",
+                "641479ca6e21cef193748905"
+            ],
+            "mainProject": "641329c27a9b8b3c70c80864",
             "__v": 0
         }
     ]

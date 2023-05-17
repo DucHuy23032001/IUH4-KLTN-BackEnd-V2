@@ -27,6 +27,10 @@ let workSchema = new SCHEMA(
             type: SCHEMA.Types.ObjectId,
             require: [true, "Please fill createId of work!"]
         },
+        leaderId: {
+            type: SCHEMA.Types.ObjectId,
+            default: null
+        },
         projectId:
         {
             type: SCHEMA.Types.ObjectId,
