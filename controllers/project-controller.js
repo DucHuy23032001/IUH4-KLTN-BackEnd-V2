@@ -3,6 +3,7 @@ const WORK = require('../models/work')
 const TASK = require('../models/task')
 const TEAM = require('../models/team')
 const USER = require('../models/user')
+const MEMBER = require('../models/member')
 const MOMENT = require('moment')
 const awsService = require('../services/aws-service')
 
@@ -21,11 +22,23 @@ exports.getProjectById = async (req, res) => {
     let id = req.params.id
     let project = await PROJECT.findById(id)
     let idLeaders = []
-    for (i of project.teamIds) {
+    let idTeams = []
+
+    let teams = await TEAM.find({
+      projectId: id
+    })
+    for (i of teams) {
       if (i != null) {
-        let team = await TEAM.findById(i)
-        idLeaders.push(team.leaderId)
+        let members = await MEMBER.find({
+          teamId : i.id
+        })
+        for ( m of members) {
+          if (m.number == 0) {
+            idLeaders.push(m.id)
+          }
+        }
       }
+      idTeams.push(i.id)
     }
 
     let user = await USER.findById(project.mainProject)
@@ -36,7 +49,7 @@ exports.getProjectById = async (req, res) => {
       endTime: project.endTime,
       status: project.status,
       background: project.background,
-      teamIds: project.teamIds,
+      teamIds: idTeams,
       createdAt: project.createdAt,
       updatedAt: project.updatedAt,
       __v: 0,
@@ -54,12 +67,9 @@ exports.getProjectByName = async (req, res) => {
   try {
     let name = req.params.name.toLowerCase()
     let datas = []
-    // let projects = await PROJECT.find({
-    //   name: { '$regex': name, $options: 'i' }
-    // })
     let projects = await PROJECT.find()
     for (p of projects) {
-      if(p.name.toLowerCase().includes(name)) {
+      if (p.name.toLowerCase().includes(name)) {
         datas.push(p)
       }
     }
@@ -73,49 +83,17 @@ exports.getProjectByIdUser = async (req, res) => {
   try {
     let id = req.params.id
     let projects = []
-    let team = await TEAM.find({
-      listMembers: { $in: id },
+    let members = await MEMBER.find({
+      userId: id
     })
-    if (team != undefined) {
-      for (let i of team) {
-        let project = await PROJECT.find({
-          teamIds: { $in: i.id }
-        })
-        if (project != undefined) {
-          for (i of project) {
-            projects.push(i)
-          }
-        }
+    for (i of members) {
+      let team = await TEAM.findById(i.teamId)
+      let project = await PROJECT.findById(team.projectId)
+      if (project != undefined) {
+          projects.push(project)
       }
+      return res.status(200).json(projects)
     }
-
-    let teams = await TEAM.find({
-        leaderId: id
-    })
-    if (teams != undefined) {
-      for (let i of teams) {
-        let project = await PROJECT.find({
-          teamIds: { $in: i.id }
-        })
-        if (project != undefined) {
-          for (i of project) {
-            projects.push(i)
-          }
-        }
-      }
-    }
-
-    let project = await PROJECT.find({
-      mainProject: id
-    })
-
-    if (project != undefined) {
-      for (i of project) {
-        projects.push(i)
-      }
-    }
-
-    return res.status(200).json(projects)
   } catch (error) {
     return res.status(500).json(error)
   }
@@ -124,7 +102,7 @@ exports.getProjectByIdUser = async (req, res) => {
 exports.updateProject = async (req, res) => {
   try {
     let id = req.params.id
-    let { name, startTime, endTime, status, teamIds, background, mainProject } = req.body
+    let { name, startTime, endTime, status, background, mainProject } = req.body
     let start = MOMENT(startTime, "MM-DD-YYYY")
     let end = MOMENT(endTime, "MM-DD-YYYY")
 
@@ -146,8 +124,7 @@ exports.updateProject = async (req, res) => {
       startTime: start,
       endTime: end,
       status: status,
-      background: background,
-      teamIds: teamIds
+      background: background
     })
     let project = await PROJECT.findById(id)
     return res.status(200).json(project)
@@ -158,7 +135,7 @@ exports.updateProject = async (req, res) => {
 //done
 exports.createProject = async (req, res) => {
   try {
-    let { name, startTime, endTime, teamIds, mainProject } = req.body
+    let { name, startTime, endTime, mainProject } = req.body
 
     let start = MOMENT(startTime, "MM-DD-YYYY")
     let end = MOMENT(endTime, "MM-DD-YYYY")
@@ -176,65 +153,20 @@ exports.createProject = async (req, res) => {
       pathBackground = await awsService.uploadFileToS3(req, res, req.files.background)
     }
 
-    let teams = []
-    if (teamIds != null) {
-      if (Array.isArray(teamIds)) {
-        teams = teamIds
-      }
-      else {
-        teams.push(teamIds)
-      }
-    }
-    if (teamIds == '') {
-      teams = []
-    }
     let project = await PROJECT.create({
       name: name,
       startTime: start,
       endTime: end,
       status: false,
       background: pathBackground,
-      mainProject: mainProject,
-      teamIds: teams
+      mainProject: mainProject
     })
     return res.status(200).json(project)
   } catch (error) {
     return res.status(500).json(error)
   }
 }
-// Chưa test
-exports.addTeams = async (req, res) => {
-  try {
-    let { teamIds, mainProject } = req.body
-    let id = req.params.id
-    let project = await PROJECT.findById(id)
 
-    if (project.mainProject != mainProject) {
-      return res.status(400).json({
-        message: "Only the main project can edit"
-      })
-    }
-
-    let teams = project.teamIds
-    for (i of teamIds) {
-      let check = true
-      for (j of project.teamIds) {
-        if (j == i) {
-          check = false
-        }
-      }
-      if (check) {
-        teams.push(i)
-      }
-    }
-
-    project.teamIds = teams
-    project.save()
-    return res.status(200).json(project)
-  } catch (error) {
-    return res.status(500).json(error)
-  }
-}
 //done 
 exports.removeProject = async (req, res) => {
   try {
