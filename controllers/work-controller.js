@@ -1,6 +1,7 @@
 const WORK = require('../models/work')
 const TASK = require('../models/task')
 const TEAM = require('../models/team')
+const MEMBER = require('../models/member')
 const PROJECT = require('../models/project')
 const MOMENT = require('moment')
 
@@ -12,50 +13,47 @@ exports.getAllWorkByProjectId = async (req, res) => {
         let works = await WORK.find({
             projectId: id
         })
-        for (i of works) {
-            let nameTeam = []
-            if (i.teamId != null) {
-                let team = await TEAM.findById(i.teamId)
-                if (team != null) {
-                    if (team.listTeams.length == 0) {
-                        nameTeam.push(team.teamName)
-                    } else {
-                        let listTeam = team.listTeams
-                        for (j of listTeam) {
-                            if (j != null) {
-                                let itemTeam = await TEAM.findById(j)
-                                nameTeam.push(itemTeam.teamName)
-                            }
+        if (works.length > 0) {
+            for (i of works) {
+                if (i.teamId != null) {
+                    let team = await TEAM.findById(i.teamId)
+                    let members = await MEMBER.find({
+                        teamId : team.id
+                    })
+                    let leaderId
+                    for (m of members) {
+                        if (m.number == 0){
+                            leaderId = m.userId
                         }
                     }
+                    let data = {
+                        _id: i._id,
+                        name: i.name,
+                        status: i.status,
+                        startTime: i.startTime,
+                        endTime: i.endTime,
+                        teamId: i.teamId,
+                        createId: i.createId,
+                        projectId: i.projectId,
+                        leaderId: leaderId,
+                        teamName: [team.teamName]
+                    }
+                    datas.push(data)
+                } else {
+                    let data = {
+                        _id: i._id,
+                        name: i.name,
+                        status: i.status,
+                        startTime: i.startTime,
+                        endTime: i.endTime,
+                        teamId: i.teamId,
+                        createId: i.createId,
+                        projectId: i.projectId,
+                        leaderId: null,
+                        teamName: null
+                    }
+                    datas.push(data)
                 }
-                let data = {
-                    _id: i._id,
-                    name: i.name,
-                    status: i.status,
-                    startTime: i.startTime,
-                    endTime: i.endTime,
-                    teamId: i.teamId,
-                    createId: i.createId,
-                    projectId: i.projectId,
-                    leaderId: team.leaderId,
-                    teamName: nameTeam
-                }
-                datas.push(data)
-            } else {
-                let data = {
-                    _id: i._id,
-                    name: i.name,
-                    status: i.status,
-                    startTime: i.startTime,
-                    endTime: i.endTime,
-                    teamId: i.teamId,
-                    createId: i.createId,
-                    projectId: i.projectId,
-                    leaderId: null,
-                    teamName: nameTeam
-                }
-                datas.push(data)
             }
         }
         return res.status(200).json(datas)
@@ -91,7 +89,7 @@ exports.getWorkByIdUser = async (req, res) => {
                                 createId: j.createId,
                                 projectId: j.projectId,
                                 leaderId: team.leaderId,
-                                teamName: team.teamName
+                                teamName: [team.teamName]
                             }
                             datas.push(data)
                         }
@@ -118,18 +116,6 @@ exports.getWorkByName = async (req, res) => {
             let names = i.name.toLowerCase()
             if (names.includes(name)) {
                 let team = await TEAM.findById(i.teamId)
-                let nameTeam = []
-                if (team != null) {
-                    let listTeam = team.listTeams
-                    if (listTeam.length > 0) {
-                        for (j of listTeam) {
-                            if (j != null) {
-                                let itemTeam = await TEAM.findById(j)
-                                nameTeam.push(itemTeam.teamName)
-                            }
-                        }
-                    }
-                }
                 let data = {
                     _id: i._id,
                     name: i.name,
@@ -140,7 +126,7 @@ exports.getWorkByName = async (req, res) => {
                     createId: i.createId,
                     projectId: i.projectId,
                     leaderId: team.leaderId,
-                    teamName: nameTeam
+                    teamName: [team.teamName]
                 }
                 datas.push(data)
             }
