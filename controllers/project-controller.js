@@ -38,10 +38,10 @@ exports.getProjectById = async (req, res) => {
   try {
     let id = req.params.id
     let project = await PROJECT.findById(id)
-    if ( project != undefined) {
+    if (project != undefined) {
       let idLeaders = []
       let idTeams = []
-  
+
       let teams = await TEAM.find({
         projectId: id
       })
@@ -58,7 +58,7 @@ exports.getProjectById = async (req, res) => {
         }
         idTeams.push(i.id)
       }
-  
+
       let user = await USER.findById(project.mainProject)
       let data = {
         _id: project.id,
@@ -86,7 +86,24 @@ exports.getProjectByName = async (req, res) => {
     let projects = await PROJECT.find()
     for (p of projects) {
       if (p.name.toLowerCase().includes(name)) {
-        datas.push(p)
+        let idTeams = []
+        let teams = await TEAM.find({
+          projectId: id
+        })
+        for (i of teams) {
+          idTeams.push(i.id)
+        }
+        let data = {
+          _id: p.id,
+          name: p.name,
+          startTime: p.startTime,
+          endTime: p.endTime,
+          status: p.status,
+          background: p.background,
+          teamIds: idTeams,
+          mainProject: p.mainProject,
+        }
+        datas.push(data)
       }
     }
     return res.status(200).json(projects)
