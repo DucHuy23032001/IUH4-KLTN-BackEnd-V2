@@ -99,6 +99,24 @@ exports.getProjectByIdUser = async (req, res) => {
     let members = await MEMBER.find({
       userId: id
     })
+
+    let pros = await PROJECT.find({
+      mainProject: id
+    })
+
+    for (p of pros) {
+      let data = {
+        _id: p.id,
+        name: p.name,
+        startTime: p.startTime,
+        endTime: p.endTime,
+        status: p.status,
+        background: p.background,
+        mainProject: p.mainProject,
+      }
+      projects.push(data)
+    }
+
     for (i of members) {
       let team = await TEAM.findById(i.teamId)
       let project = await PROJECT.findById(team.projectId)
@@ -120,8 +138,6 @@ exports.getProjectByIdUser = async (req, res) => {
         }
         idTeams.push(i.id)
       }
-
-      // let user = await USER.findById(project.mainProject)
       let data = {
         _id: project.id,
         name: project.name,
