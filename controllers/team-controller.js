@@ -217,7 +217,7 @@ exports.getAllTeamByIdWork = async (req, res) => {
             }
             data = {
                 _id: teamId,
-                teamName: team.teamName,
+                teamName: [team.teamName],
                 leaderName: leaderName,
                 listMembers: listMembers
             }
@@ -269,8 +269,8 @@ exports.getAllTeamOfUser = async (req, res) => {
             }
             let data = {
                 _id: team.id,
-                leaderId: leaderId,
-                teamName: team.teamName,
+                leaderId: [leaderId],
+                teamName: [team.teamName],
                 listMembers: listMembers,
                 createId: team.createId,
                 createAt: team.createdAt
@@ -303,8 +303,8 @@ exports.getTeamById = async (req, res) => {
         }
         let data = {
             _id: team.id,
-            leaderId: leaderId,
-            teamName: team.teamName,
+            leaderId: [leaderId],
+            teamName: [team.teamName],
             listMembers: listMembers,
             createId: team.createId,
             createAt: team.createdAt
@@ -351,7 +351,7 @@ exports.getTeamByName = async (req, res) => {
                 }
                 let data = {
                     _id: t.id,
-                    teamName: t.teamName,
+                    teamName: [t.teamName],
                     leaderName: leaderName,
                     workName: workNames,
                     leaderId: leaderId
@@ -442,7 +442,7 @@ exports.getMemberByName = async (req, res) => {
         }
         let item = {
             _id: _id,
-            teamName: teamName,
+            teamName: [teamName],
             position: position,
             name: nameRes,
             avatar: avatar,
@@ -484,9 +484,9 @@ exports.createTeam = async (req, res) => {
 
         let data = {
             _id: team.id,
-            teamName: team.teamName,
+            teamName: [team.teamName],
             listMembers: listMembers,
-            leaderId: leaderId,
+            leaderId: [leaderId],
             createId: team.createId,
             createAt: team.createdAt,
             projectId: projectId
@@ -525,10 +525,10 @@ exports.updateTeam = async (req, res) => {
 
         let data = {
             _id: team.id,
-            teamName: team.teamName,
+            teamName: [team.teamName],
             createId: team.createId,
             listMembers: listMembers,
-            leaderId: leaderId,
+            leaderId: [leaderId],
             createAt: team.createdAt,
             projectId: projectId
         }
@@ -568,8 +568,8 @@ exports.changeName = async (req, res) => {
 
         let data = {
             _id: team.id,
-            leaderId: leaderId,
-            teamName: team.teamName,
+            leaderId: [leaderId],
+            teamName: [team.teamName],
             listMembers: listMembers,
             createId: team.createId,
             createAt: team.createdAt
