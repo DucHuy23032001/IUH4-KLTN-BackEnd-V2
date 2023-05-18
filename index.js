@@ -10,6 +10,7 @@ const project = require('./models/project')
 const work = require("./models/work")
 const task = require("./models/task")
 const member = require("./models/member")
+const memberWork = require('./models/memberWork')
 
 DOTENV.config({
     path: "./config.env",
@@ -201,7 +202,6 @@ async function addData() {
         status: false,
         startTime: startTimeW1,
         endTime: endTimeW1,
-        teamId: teamAmNhac.id,
         createId: uMainProject.id,
         projectId: p.id
     })
@@ -211,7 +211,6 @@ async function addData() {
         status: false,
         startTime: startTimeW1,
         endTime: endTimeW1,
-        teamId: teamAmNhac.id,
         createId: uMainProject.id,
         projectId: p.id
     })
@@ -221,13 +220,28 @@ async function addData() {
         status: false,
         startTime: startTimeW1,
         endTime: endTimeW1,
-        teamId: teamAmNhac.id,
         createId: uMainProject.id,
         leaderId: uLeaderTeamAN.id,
         projectId: p.id
     })
 
-    // let task1Work1AmNhac = await task("Tuyển chọn các thành viên tham gia",startTimeW1,endTimeW1,"9:00" ,"10:00",work1AmNhac.id,[uAN1.id, uAN2.id],false,1)
+    let memberWork1 = await memberWork.create({
+        number : 1 ,
+        teamId : teamAmNhac.id,
+        workId : work1AmNhac.id
+    })
+
+    let memberWork2 = await memberWork.create({
+        number : 1 ,
+        teamId : teamAmNhac.id,
+        workId : work2AmNhac.id
+    })
+
+    let memberWork3 = await memberWork.create({
+        number : 1 ,
+        teamId : teamAmNhac.id,
+        workId : work3AmNhac.id
+    })
 
     // let task2Work1AmNhac = await task.create({
     //     name: "Lựa chọn tiết mục để tập luyện",

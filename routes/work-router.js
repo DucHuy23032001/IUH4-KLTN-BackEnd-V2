@@ -4,7 +4,7 @@ const workController = require("../controllers/work-controller")
 ROUTER.get("/:id",workController.getWorkById)
 ROUTER.get("/all-work-project/:id",workController.getAllWorkByProjectId)
 ROUTER.get("/name/:id/:name",workController.getWorkByName)
-ROUTER.get("/id-user/:id",workController.getWorkByIdUser)
+ROUTER.get("/id-user/:id/:userId",workController.getWorkByIdUser)
 
 ROUTER.post("/",workController.createWork)
 
