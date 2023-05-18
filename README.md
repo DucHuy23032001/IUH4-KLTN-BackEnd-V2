@@ -258,19 +258,19 @@
     - Api: **GET**:    https://ptask.cyclic.app/api/teams/team/641eb335bb721b7cdd8cbf36
     - Reponse
     ```json
-    [
-        {
-            "_id":"641eb335bb721b7cdd8cbf36",
-            "leaderId": "642687fbd58ad6becd0fa95f",
-            "teamName": "Team 1",
-            "listMembers": [
-                "642687fbd58ad6becd0fa95f",
-                "642687fbd58ad6becd0fa963"
-            ],
-            "createId": "642687fbd58ad6becd0fa95b",
-            "createAt": "2023-03-31T07:13:00.022Z"
-        }
-    ]
+    {
+        "_id": "6465ba8cfcd3c0a33f09c306",
+        "leaderId": "6465ba8cfcd3c0a33f09c2f2",
+        "teamName": "Âm nhạc",
+        "listMembers": [
+            "6465ba8cfcd3c0a33f09c2f6",
+            "6465ba8cfcd3c0a33f09c2fa",
+            "6465ba8cfcd3c0a33f09c2fe",
+            "6465ba8cfcd3c0a33f09c302"
+        ],
+        "createId": "6465ba8bfcd3c0a33f09c2ed",
+        "createAt": "2023-05-18T05:41:32.593Z"
+    }
     ```
 - getAllTeamOfIdProject:
     - Api: **GET**:    https://ptask.cyclic.app/api/teams/teams-project/641eb335bb721b7cdd8cbf36
@@ -278,14 +278,15 @@
     ```json
     [
         {
-            "_id": "64645a393fe439e250f7f734",
+            "_id": "6465ba8cfcd3c0a33f09c306",
             "teamName": "Âm nhạc",
+            "leaderName": "Võ Minh Phương",
             "workName": [
                 "Chuẩn bị",
                 "Tập luyện",
                 "Trình diễn"
             ],
-            "leaderId": "64645a393fe439e250f7f736"
+            "leaderId": "6465ba8cfcd3c0a33f09c2f2"
         }
     ]
     ```
@@ -295,11 +296,15 @@
     ```json
     [
         {
-            "_id": "64578e65803a4b3ab616793c",
-            "teamName": "Nhóm 123",
-            "leaderName": "Nguyễn Đức Huy",
-            "workName": [],
-            "leaderId": "64573c83acce53ef4dab950b"
+            "_id": "6465ba8cfcd3c0a33f09c306",
+            "teamName": "Âm nhạc",
+            "leaderName": "Võ Minh Phương",
+            "workName": [
+                "Chuẩn bị",
+                "Tập luyện",
+                "Trình diễn"
+            ],
+            "leaderId": "6465ba8cfcd3c0a33f09c2f2"
         }
     ]
     ```
@@ -309,13 +314,13 @@
     ```json
     [
         {
-            "_id": "645f50b0cad5045a9011bd66",
+            "_id": "6465ba8cfcd3c0a33f09c2f6",
             "teamName": [
-                "Team 1"
+                "Âm nhạc"
             ],
-            "position": "Leader",
+            "position": "Member",
             "name": "Nguyễn Đức Huy",
-            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/Huy.jpg",
             "task": []
         }
     ]
@@ -325,40 +330,30 @@
     - Reponse
     ```json
     [
-        {
-            "_id": "643278eea6fdbb3a058ca9f7",
-            "teamName": "Team 1",
-            "position": "Leader",
-            "name": "Nguyễn Đức Huy",
-            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
-            "task": [
-                "Task 1 Work 1"
-            ]
-        },
-        {
-            "_id": "643278eea6fdbb3a058ca9f7",
-            "teamName": "Team 1",
-            "position": "Member",
-            "name": "Nguyễn Đức Huy",
-            "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
-            "task": [
-                "Task 1 Work 1"
-            ]
-        }
+    {
+        "_id": "6465ba8cfcd3c0a33f09c2fe",
+        "teamName": [
+            "Âm nhạc"
+        ],
+        "position": "Member",
+        "name": "Nguyễn Việt Hoàng",
+        "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/2.jpg",
+        "task": []
+    },
+    {
+        "_id": "6465ba8cfcd3c0a33f09c302",
+        "teamName": [
+            "Âm nhạc"
+        ],
+        "position": "Member",
+        "name": "Nguyễn Việt Nam",
+        "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
+        "task": []
+    }
     ]
     ```
 - getLeadersOfMember:
     - Api: **GET**:   http://localhost:3000/api/teams/leader-member/6444d8568e1db702b44a3f8d
-    - Reponse
-    ```json
-    [
-        "6444d8568e1db702b44a3f7b",
-        "6444d8568e1db702b44a3f83",
-        "6444d8568e1db702b44a3f7b"
-    ]
-    ```
-- getLeadersOfTeam:
-    - Api: **GET**:   http://localhost:3000/api/teams/leader-team/6444d8568e1db702b44a3f8d
     - Reponse
     ```json
     [
@@ -451,11 +446,13 @@
     - Reponse
     ```json
     {
-        "_id": "6427f648e35d083e95b84c07",
-        "teamName": "Team 1",
-        "createId": "642687fbd58ad6becd0fa95b",
-        "createAt": "2023-04-01T09:15:52.389Z",
-        "projectId": "6426a65e8b1cc3b37eb1221f"
+        "_id": "6465c1439976312b5970fde8",
+        "teamName": "Team Huy Tạo",
+        "listMembers": [],
+        "leaderId": null,
+        "createId": "6465ba8bfcd3c0a33f09c2ed",
+        "createAt": "2023-05-18T06:10:11.992Z",
+        "projectId": "6465ba8cfcd3c0a33f09c2f2"
     }
     ```
 - updateTeam:
@@ -593,39 +590,36 @@
     ```json
     [
         {
-            "_id": "63f4836e4986d4991247715a",
-            "name": "name",
-            "startTime": "2001-03-22T17:00:00.000Z",
-            "endTime": "2100-03-22T17:00:00.000Z",
-            "status": true,
-            "teamIds": [],
-            "__v": 0
-        },
-        {
-            "_id": "63f483964986d4991247715c",
-            "name": "name",
-            "startTime": "2001-03-22T17:00:00.000Z",
-            "endTime": "2100-03-22T17:00:00.000Z",
-            "status": true,
-            "teamIds": [],
-            "__v": 0
+            "_id": "6465ba8cfcd3c0a33f09c304",
+            "name": "Khai giảng năm học",
+            "startTime": "2023-06-04T17:00:00.000Z",
+            "endTime": "2023-09-04T17:00:00.000Z",
+            "status": false,
+            "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
+            "teamIds": [
+                "6465ba8cfcd3c0a33f09c306"
+            ],
+            "mainProject": "6465ba8bfcd3c0a33f09c2ed",
+            "mainName": "Nguyễn Văn Nghĩa"
         }
     ]
     ```
 - createProject
     - Api: **POST**:    https://ptask.cyclic.app/api/projects/create
     - Request
-    ![image](https://user-images.githubusercontent.com/113782478/229061766-9d3673bb-3f21-4a2b-b472-310626f6ffe2.png)
+        inboxx
     - Reponse
     ```json
     {
-        "name": "Project test",
-        "startTime": "2001-03-23T17:00:00.000Z",
-        "endTime": "2001-03-23T17:00:00.000Z",
-        "status": true,
+        "_id": "6465cee9cca13ef5d0ef2ba2",
+        "name": "Khai giảng năm học Phương",
+        "startTime": "2023-06-04T17:00:00.000Z",
+        "endTime": "2023-09-04T17:00:00.000Z",
+        "status": false,
         "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
-        "_id": "641ba3f0efd24fc581820aba",
-        "__v": 0
+        "teamIds": [],
+        "mainProject": "6465ba8cfcd3c0a33f09c2f2",
+        "mainName": "Võ Minh Phương"
     }
     ```
 - getProjectById:
@@ -633,22 +627,16 @@
     - Reponse
     ```json
     {
-        "_id": "64645a393fe439e250f7f732",
+        "_id": "6465ba8cfcd3c0a33f09c304",
         "name": "Khai giảng năm học",
         "startTime": "2023-06-04T17:00:00.000Z",
         "endTime": "2023-09-04T17:00:00.000Z",
         "status": false,
         "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
         "teamIds": [
-            "64645a393fe439e250f7f734"
+            "6465ba8cfcd3c0a33f09c306"
         ],
-        "createdAt": "2023-05-17T04:38:17.074Z",
-        "updatedAt": "2023-05-17T04:38:17.074Z",
-        "__v": 0,
-        "leaders": [
-            "64645a393fe439e250f7f736"
-        ],
-        "mainProject": "64645a383fe439e250f7f71c",
+        "mainProject": "6465ba8bfcd3c0a33f09c2ed",
         "mainName": "Nguyễn Văn Nghĩa"
     }
     ```
@@ -658,21 +646,27 @@
     ```json
     [
         {
-            "_id": "63f4836e4986d4991247715a",
-            "name": "name",
-            "startTime": "2001-03-22T17:00:00.000Z",
-            "endTime": "2100-03-22T17:00:00.000Z",
-            "status": true,
-            "teamIds": [],
+            "_id": "6465ba8cfcd3c0a33f09c304",
+            "name": "Khai giảng năm học",
+            "startTime": "2023-06-04T17:00:00.000Z",
+            "endTime": "2023-09-04T17:00:00.000Z",
+            "status": false,
+            "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
+            "mainProject": "6465ba8bfcd3c0a33f09c2ed",
+            "createdAt": "2023-05-18T05:41:32.539Z",
+            "updatedAt": "2023-05-18T05:41:32.539Z",
             "__v": 0
         },
         {
-            "_id": "63f483964986d4991247715c",
-            "name": "name",
-            "startTime": "2001-03-22T17:00:00.000Z",
-            "endTime": "2100-03-22T17:00:00.000Z",
-            "status": true,
-            "teamIds": [],
+            "_id": "6465ce5c83c39850efd79f50",
+            "name": "Khai giảng năm học Phương",
+            "startTime": "2023-06-04T17:00:00.000Z",
+            "endTime": "2023-09-04T17:00:00.000Z",
+            "status": false,
+            "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
+            "mainProject": "6465ba8cfcd3c0a33f09c2f2",
+            "createdAt": "2023-05-18T07:06:04.939Z",
+            "updatedAt": "2023-05-18T07:06:04.939Z",
             "__v": 0
         }
     ]
@@ -683,16 +677,15 @@
     ```json
     [
         {
-            "_id": "6464523b6ae4d94c603ebdd5",
-            "name": "Khai giảng năm học",
+            "_id": "6465cecc1aadb59cf622e895",
+            "name": "Khai giảng năm học Phương",
             "startTime": "2023-06-04T17:00:00.000Z",
             "endTime": "2023-09-04T17:00:00.000Z",
             "status": false,
             "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
-            "mainProject": "6464523b6ae4d94c603ebdbe",
-            "createdAt": "2023-05-17T04:04:11.815Z",
-            "updatedAt": "2023-05-17T04:04:11.815Z",
-            "__v": 0
+            "teamIds": [],
+            "mainProject": "6465ba8cfcd3c0a33f09c2f2",
+            "mainName": "Võ Minh Phương"
         }
     ]
     ```
@@ -711,66 +704,82 @@
     ```json
     [
         {
-            "_id": "645f538716546fb84d14d088",
-            "name": "Update test 1 ",
-            "status": true,
-            "startTime": "2023-04-30T17:00:00.000Z",
-            "endTime": "2023-05-28T17:00:00.000Z",
-            "teamId": "645f538616546fb84d14d086",
-            "createId": "645f50b0cad5045a9011bd61",
-            "projectId": "645f534516546fb84d14d058",
-            "leaderId": "645f50b0cad5045a9011bd66",
-            "teamName": [
-                "Nhóm 1"
-            ]
-        },
-        {
-            "_id": "645f5c9e16546fb84d14d2ff",
-            "name": "Công việc 2",
-            "status": true,
-            "startTime": "2023-04-30T17:00:00.000Z",
-            "endTime": "2023-05-30T17:00:00.000Z",
-            "teamId": "645f5c9d16546fb84d14d2fd",
-            "createId": "645f50b0cad5045a9011bd61",
-            "projectId": "645f534516546fb84d14d058",
-            "leaderId": "645f50b0cad5045a9011bd66",
-            "teamName": [
-                "Nhóm 2"
-            ]
-        },
-        {
-            "_id": "646057bc8d4e5b250fc4fc97",
-            "name": "Công việc nhìu nhóm",
+            "_id": "6465ba8cfcd3c0a33f09c312",
+            "name": "Chuẩn bị",
             "status": false,
-            "startTime": "2023-04-30T17:00:00.000Z",
-            "endTime": "2023-05-23T17:00:00.000Z",
-            "teamId": "646057bc8d4e5b250fc4fc95",
-            "createId": "645f50b0cad5045a9011bd61",
-            "projectId": "645f534516546fb84d14d058",
-            "leaderId": "645f50b0cad5045a9011bd66",
+            "startTime": "2023-06-04T17:00:00.000Z",
+            "endTime": "2023-06-14T17:00:00.000Z",
+            "teamId": [
+                "6465ba8cfcd3c0a33f09c306"
+            ],
+            "createId": "6465ba8bfcd3c0a33f09c2ed",
+            "projectId": "6465ba8cfcd3c0a33f09c304",
+            "leaderId": [
+                "6465ba8cfcd3c0a33f09c2f2"
+            ],
             "teamName": [
-                "Nhóm 1",
-                "Nhóm 2"
+                "Âm nhạc"
+            ]
+        },
+        {
+            "_id": "6465ba8cfcd3c0a33f09c314",
+            "name": "Tập luyện",
+            "status": false,
+            "startTime": "2023-06-04T17:00:00.000Z",
+            "endTime": "2023-06-14T17:00:00.000Z",
+            "teamId": [
+                "6465ba8cfcd3c0a33f09c306"
+            ],
+            "createId": "6465ba8bfcd3c0a33f09c2ed",
+            "projectId": "6465ba8cfcd3c0a33f09c304",
+            "leaderId": [
+                "6465ba8cfcd3c0a33f09c2f2"
+            ],
+            "teamName": [
+                "Âm nhạc"
+            ]
+        },
+        {
+            "_id": "6465ba8dfcd3c0a33f09c316",
+            "name": "Trình diễn",
+            "status": false,
+            "startTime": "2023-06-04T17:00:00.000Z",
+            "endTime": "2023-06-14T17:00:00.000Z",
+            "teamId": [
+                "6465ba8cfcd3c0a33f09c306"
+            ],
+            "createId": "6465ba8bfcd3c0a33f09c2ed",
+            "projectId": "6465ba8cfcd3c0a33f09c304",
+            "leaderId": [
+                "6465ba8cfcd3c0a33f09c2f2"
+            ],
+            "teamName": [
+                "Âm nhạc"
             ]
         }
     ]
     ```
 - getWorkByName:
-    - Api: **GET**:    http://localhost:3000/api/works/name/6454aee55e2d29d9ec8bc8f9/work 1
+    - Api: **GET**:    http://localhost:3000/api/works/name/6465ba8cfcd3c0a33f09c304/Chuẩn
     - Reponse
     ```json
     [
         {
-            "_id": "64577269803a4b3ab6166b44",
-            "name": "1",
+            "_id": "6465ba8cfcd3c0a33f09c312",
+            "name": "Chuẩn bị",
             "status": false,
-            "startTime": "2023-04-29T17:00:00.000Z",
-            "endTime": "2023-05-31T17:00:00.000Z",
-            "teamId": "64577269803a4b3ab6166b42",
-            "createId": "64573c83acce53ef4dab9507",
-            "projectId": "64577242803a4b3ab6166b14",
+            "startTime": "2023-06-04T17:00:00.000Z",
+            "endTime": "2023-06-14T17:00:00.000Z",
+            "teamId": [
+                "6465ba8cfcd3c0a33f09c306"
+            ],
+            "createId": "6465ba8bfcd3c0a33f09c2ed",
+            "projectId": "6465ba8cfcd3c0a33f09c304",
+            "leaderId": [
+                "6465ba8cfcd3c0a33f09c2f2"
+            ],
             "teamName": [
-                "1 Team"
+                "Âm nhạc"
             ]
         }
     ]
@@ -780,41 +789,82 @@
     - Reponse
     ```json
     {
-        "_id": "645f538716546fb84d14d088",
-        "name": "Update test 1 ",
-        "status": true,
-        "startTime": "2023-04-30T17:00:00.000Z",
-        "endTime": "2023-05-28T17:00:00.000Z",
-        "teamId": "645f538616546fb84d14d086",
-        "createId": "645f50b0cad5045a9011bd61",
-        "projectId": "645f534516546fb84d14d058",
-        "leaderId": "645f50b0cad5045a9011bd66",
+        "_id": "6465ba8cfcd3c0a33f09c312",
+        "name": "Chuẩn bị",
+        "status": false,
+        "startTime": "2023-06-04T17:00:00.000Z",
+        "endTime": "2023-06-14T17:00:00.000Z",
+        "teamId": [
+            "6465ba8cfcd3c0a33f09c306"
+        ],
+        "createId": "6465ba8bfcd3c0a33f09c2ed",
+        "projectId": "6465ba8cfcd3c0a33f09c304",
+        "leaderId": [
+            "6465ba8cfcd3c0a33f09c2f2"
+        ],
         "teamName": [
-            "Công việc 1 Team"
+            "Âm nhạc"
         ]
     }
     ```
 - getWorkByIdUser:
-    - Api: **GET**:    http://localhost:3000/api/works/id-user/645673277b539bdc79a198fc (id project)
-    = Request 
-    ```json
-    {
-        "userId" : "645673267b539bdc79a198f2"
-    }
-    ```
+    - Api: **GET**:    http://localhost:3000/api/works/id-user/645673277b539bdc79a198fc/:userId (id project)
     - Reponse
     ```json
     [
         {
-            "_id": "645673277b539bdc79a19900",
-            "name": "Work 2",
+            "_id": "6465ba8cfcd3c0a33f09c312",
+            "name": "Chuẩn bị",
             "status": false,
-            "startTime": "2011-03-22T17:00:00.000Z",
-            "endTime": "2012-03-22T17:00:00.000Z",
-            "teamId": "645673267b539bdc79a198fa",
-            "createId": "645673267b539bdc79a198f2",
-            "projectId": "645673277b539bdc79a198fc",
-            "teamName": "Team 2"
+            "startTime": "2023-06-04T17:00:00.000Z",
+            "endTime": "2023-06-14T17:00:00.000Z",
+            "teamId": [
+                "6465ba8cfcd3c0a33f09c306"
+            ],
+            "createId": "6465ba8bfcd3c0a33f09c2ed",
+            "projectId": "6465ba8cfcd3c0a33f09c304",
+            "leaderId": [
+                "6465ba8cfcd3c0a33f09c2f2"
+            ],
+            "teamName": [
+                "Âm nhạc"
+            ]
+        },
+        {
+            "_id": "6465ba8cfcd3c0a33f09c314",
+            "name": "Tập luyện",
+            "status": false,
+            "startTime": "2023-06-04T17:00:00.000Z",
+            "endTime": "2023-06-14T17:00:00.000Z",
+            "teamId": [
+                "6465ba8cfcd3c0a33f09c306"
+            ],
+            "createId": "6465ba8bfcd3c0a33f09c2ed",
+            "projectId": "6465ba8cfcd3c0a33f09c304",
+            "leaderId": [
+                "6465ba8cfcd3c0a33f09c2f2"
+            ],
+            "teamName": [
+                "Âm nhạc"
+            ]
+        },
+        {
+            "_id": "6465ba8dfcd3c0a33f09c316",
+            "name": "Trình diễn",
+            "status": false,
+            "startTime": "2023-06-04T17:00:00.000Z",
+            "endTime": "2023-06-14T17:00:00.000Z",
+            "teamId": [
+                "6465ba8cfcd3c0a33f09c306"
+            ],
+            "createId": "6465ba8bfcd3c0a33f09c2ed",
+            "projectId": "6465ba8cfcd3c0a33f09c304",
+            "leaderId": [
+                "6465ba8cfcd3c0a33f09c2f2"
+            ],
+            "teamName": [
+                "Âm nhạc"
+            ]
         }
     ]
     ```
@@ -823,30 +873,26 @@
     - Request
     ```json
     {
-        "teamId": ["6454aee55e2d29d9ec8bc8f5"],
         "createId":"6454aee45e2d29d9ec8bc8e2",
         "name":"Work Huy 1 ",
         "startTime": "03/23/2010",
         "endTime": "03/23/2011",
         "projectId":"6454aee55e2d29d9ec8bc8f9",
-        "leaderId":"6454aee45e2d29d9ec8bc8e7"
     }
     ```
     - Reponse **ManagerId nó sẽ được tạo thành leader của 1 team mới mà cái teamId trên kia là members trong đó**
     ```json
     {
-        "name": "Work Huy 1 ",
+        "_id": "6465c92391e0aba71b4a8eeb",
+        "name": "Trình diễn 2",
         "status": false,
-        "startTime": "2010-03-22T17:00:00.000Z",
-        "endTime": "2011-03-22T17:00:00.000Z",
-        "teamId": "6454aee55e2d29d9ec8bc8f5",
-        "createId": "6454aee45e2d29d9ec8bc8e2",
-        "leaderId": "6454aee45e2d29d9ec8bc8e7",
-        "projectId": "6454aee55e2d29d9ec8bc8f9",
-        "_id": "6454b3e25cbd47a5f822c53f",
-        "createdAt": "2023-05-05T07:44:34.746Z",
-        "updatedAt": "2023-05-05T07:44:34.746Z",
-        "__v": 0
+        "startTime": "2023-08-31T17:00:00.000Z",
+        "endTime": "2023-09-04T17:00:00.000Z",
+        "teamId": [],
+        "createId": "6465ba8bfcd3c0a33f09c2ed",
+        "projectId": "6465ba8cfcd3c0a33f09c304",
+        "leaderId": [],
+        "teamName": []
     }
     ```
 - updateWork
@@ -854,28 +900,24 @@
     - Request
     ```json
     {
-        "teamId":["643278efa6fdbb3a058caa05", "643278efa6fdbb3a058caa07"],
-        "name":"Work Huy tesst 3 ",
-        "startTime": "03/23/2001",
-        "endTime": "03/23/2002",
-        "leaderId":"643278eea6fdbb3a058ca9f3"
+        "name":"Trinh dien 3",
+        "startTime":"09-01-2023",
+        "endTime":"09-4-2023",
     }
     ```
     - Reponse 
     ```json
     {
-        "name": "Work Huy tesst 3 ",
+        "_id": "6465c92391e0aba71b4a8eeb",
+        "name": "Trinh dien 3",
         "status": false,
-        "startTime": "2001-03-22T17:00:00.000Z",
-        "endTime": "2002-03-22T17:00:00.000Z",
-        "teamId": "6432a2de1b83802815e147f9",
-        "createId": "643278eea6fdbb3a058ca9f3",
-        "leaderId": null,
-        "projectId": "643278efa6fdbb3a058caa0b",
-        "_id": "6432a2de1b83802815e147fd",
-        "createdAt": "2023-04-09T11:34:54.515Z",
-        "updatedAt": "2023-04-09T11:34:54.515Z",
-        "__v": 0
+        "startTime": "2023-08-31T17:00:00.000Z",
+        "endTime": "2023-09-03T17:00:00.000Z",
+        "teamId": [],
+        "createId": "6465ba8bfcd3c0a33f09c2ed",
+        "projectId": "6465ba8cfcd3c0a33f09c304",
+        "leaderId": [],
+        "teamName": []
     }
     ```
 - changeNameWork
@@ -890,15 +932,16 @@
     - Reponse
     ```json
     {
-        "_id": "641eb7fc87c02b20789b3633",
+        "_id": "6465c92391e0aba71b4a8eeb",
         "name": "Test change name 1",
         "status": false,
-        "startTime": "2001-03-22T17:00:00.000Z",
-        "endTime": "2002-03-22T17:00:00.000Z",
-        "teamId": "641eb315bb721b7cdd8cbf32",
-        "createId": "641eb25bbb721b7cdd8cbf2b",
-        "projectId": "641eb335bb721b7cdd8cbf36",
-        "__v": 0
+        "startTime": "2023-08-31T17:00:00.000Z",
+        "endTime": "2023-09-03T17:00:00.000Z",
+        "teamId": [],
+        "createId": "6465ba8bfcd3c0a33f09c2ed",
+        "projectId": "6465ba8cfcd3c0a33f09c304",
+        "leaderId": [],
+        "teamName": []
     }
     ```
 - changeStatusWork
@@ -912,15 +955,16 @@
     - Reponse
     ```json
     {
-        "_id": "641eb7fc87c02b20789b3633",
+        "_id": "6465c92391e0aba71b4a8eeb",
         "name": "Test change name 1",
         "status": true,
-        "startTime": "2001-03-22T17:00:00.000Z",
-        "endTime": "2002-03-22T17:00:00.000Z",
-        "teamId": "641eb315bb721b7cdd8cbf32",
-        "createId": "641eb25bbb721b7cdd8cbf2b",
-        "projectId": "641eb335bb721b7cdd8cbf36",
-        "__v": 0
+        "startTime": "2023-08-31T17:00:00.000Z",
+        "endTime": "2023-09-03T17:00:00.000Z",
+        "teamId": [],
+        "createId": "6465ba8bfcd3c0a33f09c2ed",
+        "projectId": "6465ba8cfcd3c0a33f09c304",
+        "leaderId": [],
+        "teamName": []
     }
     ```
 - removeWork
