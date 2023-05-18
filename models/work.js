@@ -19,10 +19,6 @@ let workSchema = new SCHEMA(
             type: Date,
             require: [true, "Please fill endTime of work!"]
         },
-        teamId: {
-            type: SCHEMA.Types.ObjectId,
-            require: [true, "Please fill teamId of work!"]
-        },
         createId: {
             type: SCHEMA.Types.ObjectId,
             require: [true, "Please fill createId of work!"]

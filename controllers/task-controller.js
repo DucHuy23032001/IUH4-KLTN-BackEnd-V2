@@ -27,27 +27,27 @@ exports.getAllTaskByIdProject = async (req, res) => {
                 for (p of partitions) {
                     let user = await USER.findById(p.userId)
                     let info = {
-                        "_id": user.id,
-                        "name": user.fullName,
-                        "avatar": user.avatar
+                        _id: user.id,
+                        name: user.fullName,
+                        avatar: user.avatar
                     }
                     members.push(info)
                 }
                 let item = {
-                    "_id": t._id,
-                    "name": t.name,
-                    "description": t.description,
-                    "level": t.level,
-                    "startDay": t.startDay,
-                    "endDay": t.endDay,
-                    "startHour": t.startHour,
-                    "endHour": t.endHour,
-                    "imageLink": t.imageLink,
-                    "workId": work.id,
-                    "workName": work.name,
-                    "members": members,
-                    "status": t.status,
-                    "__v": 0
+                    _id: tasks._id,
+                    name: tasks.name,
+                    description: tasks.description,
+                    level: tasks.level,
+                    startDay: tasks.startDay,
+                    endDay: tasks.endDay,
+                    startHour: tasks.startHour,
+                    endHour: tasks.endHour,
+                    imageLink: tasks.imageLink,
+                    workId: work.id,
+                    workName: work.name,
+                    members: members,
+                    status: tasks.status,
+                    __v: 0
                 }
                 data.push(item)
             }
@@ -74,26 +74,27 @@ exports.getAllTaskInWork = async (req, res) => {
             for (p of partitions) {
                 let user = await USER.findById(p.userId)
                 let info = {
-                    "_id": user.id,
-                    "name": user.fullName,
-                    "avatar": user.avatar
+                    _id: user.id,
+                    name: user.fullName,
+                    avatar: user.avatar
                 }
                 members.push(info)
             }
             let item = {
-                "_id": j._id,
-                "name": j.name,
-                "description": j.description,
-                "level": j.level,
-                "startDay": j.startDay,
-                "endDay": j.endDay,
-                "startHour": j.startHour,
-                "endHour": j.endHour,
-                "workId": id,
-                "workName": work.name,
-                "members": members,
-                "status": j.status,
-                "__v": 0
+                _id: tasks._id,
+                name: tasks.name,
+                description: tasks.description,
+                level: tasks.level,
+                startDay: tasks.startDay,
+                endDay: tasks.endDay,
+                startHour: tasks.startHour,
+                endHour: tasks.endHour,
+                imageLink: tasks.imageLink,
+                workId: work.id,
+                workName: work.name,
+                members: members,
+                status: tasks.status,
+                __v: 0
             }
             datas.push(item)
         }
@@ -115,27 +116,27 @@ exports.getTaskById = async (req, res) => {
         for (p of partitions) {
             let user = await USER.findById(p.userId)
             let info = {
-                "_id": user.id,
-                "name": user.fullName,
-                "avatar": user.avatar
+                _id: user.id,
+                name: user.fullName,
+                avatar: user.avatar
             }
             members.push(info)
         }
         let data = {
-            "_id": tasks._id,
-            "name": tasks.name,
-            "description": tasks.description,
-            "level": tasks.level,
-            "startDay": tasks.startDay,
-            "endDay": tasks.endDay,
-            "startHour": tasks.startHour,
-            "endHour": tasks.endHour,
-            "imageLink": tasks.imageLink,
-            "workId": work.id,
-            "workName": work.name,
-            "members": members,
-            "status": tasks.status,
-            "__v": 0
+            _id: tasks._id,
+            name: tasks.name,
+            description: tasks.description,
+            level: tasks.level,
+            startDay: tasks.startDay,
+            endDay: tasks.endDay,
+            startHour: tasks.startHour,
+            endHour: tasks.endHour,
+            imageLink: tasks.imageLink,
+            workId: work.id,
+            workName: work.name,
+            members: members,
+            status: tasks.status,
+            __v: 0
         }
         return res.status(200).json(data)
     } catch (error) {
@@ -172,9 +173,9 @@ exports.getTaskByName = async (req, res) => {
                 for (p of partitions) {
                     let user = await USER.findById(p.userId)
                     let info = {
-                        "_id": user.id,
-                        "name": user.fullName,
-                        "avatar": user.avatar
+                        _id: user.id,
+                        name: user.fullName,
+                        avatar: user.avatar
                     }
                     members.push(info)
                 }
