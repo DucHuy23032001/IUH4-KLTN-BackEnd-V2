@@ -19,20 +19,29 @@ exports.getAllTeamByIdProject = async (req, res) => {
         if (teams.length > 0) {
             for (item of teams) {
                 let workNames = []
-                let leaderId
-                let leaderName
+                let leaderId = null
+                let leaderName = null
                 let members = await MEMBER.find({
                     teamId: item.id
                 })
+
                 let memberWork = await MEMBERWORK.find({
                     teamId: item.id
                 })
 
-                console.log(memberWork);
+                // console.log(memberWork);
 
-                for (m of memberWork) {
-                    let w = await WORK.findById(m.workId)
-                    workNames.push(w.name)
+                if ( memberWork.length > 0 ) {
+                    for (m of memberWork) {
+                        console.log(m.workId);
+                        let w = await WORK.findById(m.workId)
+                        console.log(w);
+                        workNames.push(w.name)
+                    }
+                }
+                console.log("workNames" , workNames);
+
+                if (members.length > 0) {
                     for (m2 of members) {
                         if (m2.number == 0) {
                             let user = await USER.findById(m2.userId)
@@ -41,6 +50,7 @@ exports.getAllTeamByIdProject = async (req, res) => {
                         }
                     }
                 }
+                console.log("a");
                 let data = {
                     _id: item._id,
                     teamName: item.teamName,
@@ -48,6 +58,7 @@ exports.getAllTeamByIdProject = async (req, res) => {
                     workName: workNames,
                     leaderId: leaderId
                 }
+                console.log(data);
                 datas.push(data)
             }
         }
