@@ -615,6 +615,8 @@ exports.removeWork = async (req, res) => {
     try {
         let id = req.params.id
         await WORK.deleteOne({ _id: id });
+        await MEMBERWORK.deleteMany({  workId: id });
+        await NOTE.deleteMany({  workId: id });
         await TASK.deleteMany({ workId: id });
         return res.status(200).json({
             _id: id
