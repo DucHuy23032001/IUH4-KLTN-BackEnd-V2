@@ -106,14 +106,14 @@ exports.getProjectByName = async (req, res) => {
             status: p.status,
             background: p.background,
             teamIds: idTeams,
-            mainProject: projects.mainProject,
+            mainProject: p.mainProject,
             mainName: user.fullName
           }
           datas.push(data)
         }
       }
     }
-    return res.status(200).json(projects)
+    return res.status(200).json(datas)
   } catch (error) {
     return res.status(500).json(error)
   }
@@ -158,7 +158,6 @@ exports.getProjectByIdUser = async (req, res) => {
       for (i of members) {
         let team = await TEAM.findById(i.teamId)
         let p = await PROJECT.findById(team.projectId)
-        console.log(p);
         let teams = await TEAM.find({
           projectId: team.projectId
         })
