@@ -652,10 +652,11 @@
             "endTime": "2023-09-04T17:00:00.000Z",
             "status": false,
             "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
+            "teamIds": [
+                "6465ba8cfcd3c0a33f09c306"
+            ],
             "mainProject": "6465ba8bfcd3c0a33f09c2ed",
-            "createdAt": "2023-05-18T05:41:32.539Z",
-            "updatedAt": "2023-05-18T05:41:32.539Z",
-            "__v": 0
+            "mainName": "Nguyễn Văn Nghĩa"
         },
         {
             "_id": "6465ce5c83c39850efd79f50",
@@ -664,10 +665,9 @@
             "endTime": "2023-09-04T17:00:00.000Z",
             "status": false,
             "background": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/project.png",
+            "teamIds": [],
             "mainProject": "6465ba8cfcd3c0a33f09c2f2",
-            "createdAt": "2023-05-18T07:06:04.939Z",
-            "updatedAt": "2023-05-18T07:06:04.939Z",
-            "__v": 0
+            "mainName": "Võ Minh Phương"
         }
     ]
     ```
@@ -908,8 +908,8 @@
     - Reponse 
     ```json
     {
-        "_id": "6465c92391e0aba71b4a8eeb",
-        "name": "Trinh dien 3",
+        "_id": "6465db976bddd3877e14732b",
+        "name": "Trinh dien 31",
         "status": false,
         "startTime": "2023-08-31T17:00:00.000Z",
         "endTime": "2023-09-03T17:00:00.000Z",
