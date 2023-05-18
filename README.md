@@ -878,6 +878,7 @@
         "startTime": "03/23/2010",
         "endTime": "03/23/2011",
         "projectId":"6454aee55e2d29d9ec8bc8f9",
+        "teamId" : ["6454aee55e2d29d9ec8bc8f9"]
     }
     ```
     - Reponse **ManagerId nó sẽ được tạo thành leader của 1 team mới mà cái teamId trên kia là members trong đó**
@@ -888,7 +889,7 @@
         "status": false,
         "startTime": "2023-08-31T17:00:00.000Z",
         "endTime": "2023-09-04T17:00:00.000Z",
-        "teamId": [],
+        "teamId": ["6454aee55e2d29d9ec8bc8f9"],
         "createId": "6465ba8bfcd3c0a33f09c2ed",
         "projectId": "6465ba8cfcd3c0a33f09c304",
         "leaderId": [],

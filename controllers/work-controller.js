@@ -245,7 +245,7 @@ exports.getWorkById = async (req, res) => {
 exports.createWork = async (req, res) => {
     try {
         let data
-        let { name, projectId, startTime, endTime, createId } = req.body
+        let { name, projectId, startTime, endTime, createId, teamId } = req.body
         let start = MOMENT(startTime, "MM-DD-YYYY")
         let end = MOMENT(endTime, "MM-DD-YYYY")
 
@@ -274,11 +274,18 @@ exports.createWork = async (req, res) => {
             startTime: start,
             endTime: end
         })
+        for ( t of teamId) {
+            await MEMBERWORK.create({
+                teamId: t,
+                number: 0,
+                workId: work.id
+            })
+        }
         let memberWorks = await MEMBERWORK.find({
             workId: work.id
         })
         let leaderId = []
-        let teamId = []
+        let teamIdRes = []
         let teamName = []
         if (memberWorks.length > 0) {
             for (m of memberWorks) {
@@ -287,7 +294,7 @@ exports.createWork = async (req, res) => {
                 })
                 if (teams.length > 0) {
                     for (t of teams) {
-                        teamId.push(t.id)
+                        teamIdRes.push(t.id)
                         teamName.push(t.teamName)
                         let members = await MEMBER.find({
                             teamId: t.id
@@ -309,7 +316,7 @@ exports.createWork = async (req, res) => {
             status: work.status,
             startTime: work.startTime,
             endTime: work.endTime,
-            teamId: teamId,
+            teamId: teamIdRes,
             createId: work.createId,
             projectId: work.projectId,
             leaderId: leaderId,
