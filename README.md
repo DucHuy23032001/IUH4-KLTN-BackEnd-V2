@@ -291,7 +291,7 @@
     ]
     ```
 - getTeamByName:
-    - Api: **GET**:    http://localhost:3000/api/teams/name/64574176803a4b3ab6165a43/Nhóm 123
+    - Api: **GET**:    http://localhost:3000/api/teams/name/6466e8be9edd5112ae921994/2
     - Reponse
     ```json
     [
@@ -438,108 +438,112 @@
     - Request 
     ```json
     {
-        "createId":"64280789e4fa172184218593",
-        "teamName":"Team Test",
-        "projectId":"6428078ae4fa1721842185ab",
+        "createId":"6466e8bd9edd5112ae92197d",
+        "teamName":"Team Huy Tạo",
+        "projectId":"6466e8be9edd5112ae921994",
+        "leaderId": "6466e8be9edd5112ae921986" , 
+        "listMembers" : ["6466e8be9edd5112ae92198a", "6466e8be9edd5112ae92198e"]
     }
     ```
     - Reponse
     ```json
     {
-        "_id": "6465c1439976312b5970fde8",
+        "_id": "6466ec1b2ead14ebe5e23fb0",
         "teamName": "Team Huy Tạo",
-        "listMembers": [],
-        "leaderId": null,
-        "createId": "6465ba8bfcd3c0a33f09c2ed",
-        "createAt": "2023-05-18T06:10:11.992Z",
-        "projectId": "6465ba8cfcd3c0a33f09c2f2"
+        "listMembers": [
+            "6466e8be9edd5112ae92198a",
+            "6466e8be9edd5112ae92198e"
+        ],
+        "leaderId": "6466e8be9edd5112ae921986",
+        "createId": "6466e8bd9edd5112ae92197d",
+        "createAt": "2023-05-19T03:25:15.839Z",
+        "projectId": "6466e8be9edd5112ae921994"
     }
     ```
 - updateTeam:
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/teams
+    - Api: **PATCH**:    http://localhost:3000/api/teams/6467226fc9398dd00ccd5ac6
     - Request 
     ```json
     {
-        "createId":"64280789e4fa172184218593",
-        "teamName":"Team Test",
-        "projectId":"6428078ae4fa1721842185ab",
+        "teamName":"Team Huy 1",
+        "leaderId": "6466e8be9edd5112ae92198e" ,
+        "listMembers" : ["6466e8be9edd5112ae921986"]
     }
     ```
     - Reponse
     ```json
     {
-        "_id": "6427f648e35d083e95b84c07",
-        "teamName": "Team 1",
-        "createId": "642687fbd58ad6becd0fa95b",
-        "createAt": "2023-04-01T09:15:52.389Z",
-        "projectId": "6426a65e8b1cc3b37eb1221f",
+        "_id": "6467226fc9398dd00ccd5ac6",
+        "teamName": "Team Huy 1",
+        "createId": "6466e8bd9edd5112ae92197d",
+        "listMembers": [
+            "6466e8be9edd5112ae921986"
+        ],
+        "leaderId": "6466e8be9edd5112ae92198e",
+        "createAt": "2023-05-19T07:17:03.673Z",
+        "projectId": "6466e8be9edd5112ae921994"
     }
     ```
 - changeNameTeam:
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/change-name/63f4806dc4ec61b3edc26f6e
+    - Api: **PATCH**:    http://localhost:3000/api/teams/change-name/6467226fc9398dd00ccd5ac6
     - Request
     ```json
     {
-        "name":"Name 1"
+        "teamName":"Name 1"
     }
     ```
     - Reponse
     ```json
     {
-        "_id": "63f4806dc4ec61b3edc26f6e",
-        "name": "Name 1",
+        "_id": "6467226fc9398dd00ccd5ac6",
+        "leaderId": "6466e8be9edd5112ae92198e",
+        "teamName": "Name 1",
         "listMembers": [
-            "642687fbd58ad6becd0fa95b",
-            "642687fbd58ad6becd0fa95f"
+            "6466e8be9edd5112ae921986"
         ],
-        "__v": 2
+        "createId": "6466e8bd9edd5112ae92197d",
+        "createAt": "2023-05-19T07:17:03.673Z"
     }
 - addMember: 
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/add-member/63f4806dc4ec61b3edc26f6e
+    - Api: **PATCH**:    http://localhost:3000/api/teams/add-member/6467226fc9398dd00ccd5ac6
     - Request
     ```json
     {
-        "createId":"6429449d32e69be96008c587",
-        "memberIds": ["6429449d32e69be96008c587","6429449d32e69be96008c58c"]
+        "memberIds": ["6466e8be9edd5112ae92198e", "6466e8be9edd5112ae92198a"]
     }
     ```
     - Reponse
     ```json
     {
-        "_id": "6429449e32e69be96008c59a",
-        "leaderId": "6429449d32e69be96008c58c",
-        "teamName": "Team 1",
+        "_id": "6467226fc9398dd00ccd5ac6",
+        "leaderId": "6466e8be9edd5112ae92198e",
+        "teamName": "Name 1",
         "listMembers": [
-            "6429449d32e69be96008c58c",
-            "6429449e32e69be96008c590",
-            "6429449d32e69be96008c587"
+            "6466e8be9edd5112ae921986",
+            "6466e8be9edd5112ae921992",
+            "6466e8be9edd5112ae92198a"
         ],
-        "listTeams": [],
-        "createId": "6429449d32e69be96008c587",
-        "createAt": "2023-04-02T09:02:22.306Z"
+        "createId": "6466e8bd9edd5112ae92197d",
+        "createAt": "2023-05-19T07:17:03.673Z"
     }
     ```
 - removeMember: 
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/teams/remove-member/63f4806dc4ec61b3edc26f6e
+    - Api: **PATCH**:   http://localhost:3000/api/teams/remove-member/6467226fc9398dd00ccd5ac6
     - Request
     ```json
     {
-        "memberId":"6429449d32e69be96008c587"
+        "memberId":"6466e8be9edd5112ae921986"
     }
     ```
     - Reponse
     ```json
     {
-        "_id": "6429449e32e69be96008c59a",
-        "leaderId": "6429449d32e69be96008c58c",
-        "teamName": "Team 1",
-        "listMembers": [
-            "6429449d32e69be96008c58c",
-            "6429449e32e69be96008c590"
-        ],
-        "listTeams": [],
-        "createId": "6429449d32e69be96008c587",
-        "createAt": "2023-04-02T09:02:22.306Z"
+        "_id": "6467226fc9398dd00ccd5ac6",
+        "leaderId": "6466e8be9edd5112ae92198e",
+        "teamName": "Name 1",
+        "listMembers": [],
+        "createId": "6466e8bd9edd5112ae92197d",
+        "createAt": "2023-05-19T07:17:03.673Z"
     }
     ```
 
@@ -567,21 +571,19 @@
     }
     ```
 - removeTeamInProject
-    - Api: **DELETE**:    https://ptask.cyclic.app/api/teams/6429449e32e69be96008c59a
+    - Api: **DELETE**:    http://localhost:3000/api/teams/646731894baa786f0cec2a93
     - Reponse
     ```json
     {
-        "_id": "6429449e32e69be96008c59a",
-        "leaderId": "6429449d32e69be96008c58c",
-        "teamName": "Team 1",
+        "_id": "646731894baa786f0cec2a93",
+        "leaderId": "6466e8be9edd5112ae921986",
+        "teamName": "Team Huy",
         "listMembers": [
-            "6429449e32e69be96008c59c",
-            "6429449d32e69be96008c58c",
-            "6429449e32e69be96008c590"
+            "6466e8be9edd5112ae92198a",
+            "6466e8be9edd5112ae92198e"
         ],
-        "listTeams": [],
-        "createId": "6429449d32e69be96008c587",
-        "createAt": "2023-04-02T09:02:22.306Z"
+        "createId": "6466e8bd9edd5112ae92197d",
+        "createAt": "2023-05-19T08:21:29.237Z"
     }
 ## Project
 - getAllProject
@@ -873,27 +875,36 @@
     - Request
     ```json
     {
-        "createId":"6454aee45e2d29d9ec8bc8e2",
-        "name":"Work Huy 1 ",
-        "startTime": "03/23/2010",
-        "endTime": "03/23/2011",
-        "projectId":"6454aee55e2d29d9ec8bc8f9",
-        "teamId" : ["6454aee55e2d29d9ec8bc8f9"]
+        "name":"Công việc 1",
+        "startTime":"06/14/2023",
+        "endTime":"06/18/2023",
+        "createId":"6466e8bd9edd5112ae92197d",
+        "teamId":["6466e8be9edd5112ae921996", "6466ec1b2ead14ebe5e23fb0"],
+        "projectId":"6466e8be9edd5112ae921994"
     }
     ```
-    - Reponse **ManagerId nó sẽ được tạo thành leader của 1 team mới mà cái teamId trên kia là members trong đó**
+    - Reponse 
     ```json
     {
-        "_id": "6465c92391e0aba71b4a8eeb",
-        "name": "Trình diễn 2",
+        "_id": "6466ef77da94caa71b7626bd",
+        "name": "Công việc 1",
         "status": false,
-        "startTime": "2023-08-31T17:00:00.000Z",
-        "endTime": "2023-09-04T17:00:00.000Z",
-        "teamId": ["6454aee55e2d29d9ec8bc8f9"],
-        "createId": "6465ba8bfcd3c0a33f09c2ed",
-        "projectId": "6465ba8cfcd3c0a33f09c304",
-        "leaderId": [],
-        "teamName": []
+        "startTime": "2023-06-13T17:00:00.000Z",
+        "endTime": "2023-06-17T17:00:00.000Z",
+        "teamId": [
+            "6466e8be9edd5112ae921996",
+            "6466ec1b2ead14ebe5e23fb0"
+        ],
+        "createId": "6466e8bd9edd5112ae92197d",
+        "projectId": "6466e8be9edd5112ae921994",
+        "leaderId": [
+            "6466e8be9edd5112ae921982",
+            "6466e8be9edd5112ae921986"
+        ],
+        "teamName": [
+            "Âm nhạc 2",
+            "Team Huy Tạo"
+        ]
     }
     ```
 - updateWork
@@ -901,9 +912,10 @@
     - Request
     ```json
     {
-        "name":"Trinh dien 3",
-        "startTime":"09-01-2023",
-        "endTime":"09-4-2023",
+        "name":"Work Huy 1 ",
+        "startTime": "03/23/2010",
+        "endTime": "03/23/2011",
+        "teamId" : ["6454aee55e2d29d9ec8bc8f9"]
     }
     ```
     - Reponse 
@@ -982,36 +994,33 @@
     - Request
     ```json
     {
-        "name":"Task 2 Work 1",
-        "description": "description",
-        "startDay":"03-23-2001",
-        "endDay":"03-23-2010",
+        "name":"Tuyển chọn các thành viên tham gia",
+        "description": "Tập hợp, tổ chức tuyển chọn thành viên cho đội văn nghệ",
+        "startDay":"06/05/2023",
+        "endDay":"06/12/2023",
         "startHour":"9:00",
         "endHour":"16:00",
-        "workId":"643278efa6fdbb3a058caa0d",
-        "members":["643278eea6fdbb3a058ca9fb"],
+        "workId":"6466e8bf9edd5112ae9219a2",
+        "members":["6466e8be9edd5112ae921982"],
         "level": 1
     }
     ```
     - Reponse
     ```json
     {
-        "name": "task 1",
-        "description": "description",
-        "startDay": "2001-03-22T17:00:00.000Z",
-        "endDay": "2010-03-22T17:00:00.000Z",
+        "_id": "6466eaa1fc9427dfae0725ff",
+        "name": "Tuyển chọn các thành viên tham gia",
+        "description": "Tập hợp, tổ chức tuyển chọn thành viên cho đội văn nghệ",
+        "startDay": "2023-06-04T17:00:00.000Z",
+        "endDay": "2023-06-11T17:00:00.000Z",
         "startHour": "9:00",
         "endHour": "16:00",
-        "workId": "6428078ae4fa1721842185ad",
         "members": [
-            "64280789e4fa172184218597"
+            "6466e8be9edd5112ae921982"
         ],
-        "status": 3,
-        "level": "Bình thường",
-        "_id": "64280906e1a5e1900bfa4cde",
-        "createdAt": "2023-04-01T10:35:50.654Z",
-        "updatedAt": "2023-04-01T10:35:50.654Z",
-        "__v": 0
+        "level": 1,
+        "status": false,
+        "workId": "6466e8bf9edd5112ae9219a2"
     }
     ```
 - getAllTaskInProject (by Id project)
