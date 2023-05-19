@@ -21,7 +21,6 @@ exports.getAllTaskByIdProject = async (req, res) => {
             let tasks = await TASK.find({
                 workId: i.id
             })
-            // console.log(tasks);
             if(tasks.length > 0) {
                 for (t of tasks) {
                     let members = []
@@ -51,7 +50,6 @@ exports.getAllTaskByIdProject = async (req, res) => {
                         workName: work.name,
                         members: members,
                         status: t.status,
-                        __v: 0
                     }
                     data.push(item)
                 }
@@ -99,7 +97,6 @@ exports.getAllTaskInWork = async (req, res) => {
                     workName: work.name,
                     members: members,
                     status: t.status,
-                    __v: 0
                 }
                 datas.push(item)
             }
@@ -137,12 +134,10 @@ exports.getTaskById = async (req, res) => {
             endDay: tasks.endDay,
             startHour: tasks.startHour,
             endHour: tasks.endHour,
-            imageLink: tasks.imageLink,
             workId: work.id,
             workName: work.name,
             members: members,
             status: tasks.status,
-            __v: 0
         }
         return res.status(200).json(data)
     } catch (error) {
@@ -169,9 +164,7 @@ exports.getTaskByName = async (req, res) => {
                 allTask.push(t)
             }
         }
-        // console.log(allTask);
         for (i of allTask) {
-            console.log(i.name.toLowerCase().includes(name));
             if (i.name.toLowerCase().includes(name)) {
                 let members = []
                 let partitions = await PARTITIONTABLE.find({
@@ -188,20 +181,18 @@ exports.getTaskByName = async (req, res) => {
                 }
                 let work = await WORK.findById(i.workId)
                 let data = {
-                    _id: i.id,
+                    _id: i._id,
                     name: i.name,
+                    description: i.description,
+                    level: i.level,
                     startDay: i.startDay,
                     endDay: i.endDay,
                     startHour: i.startHour,
                     endHour: i.endHour,
-                    workId: i.workId,
+                    workId: work.id,
                     workName: work.name,
                     members: members,
-                    status: i.status,
-                    level: i.level,
-                    createdAt: i.createdAt,
-                    updatedAt: i.updatedAt,
-                    __v: i.__v
+                    status: tasks.status,
                 }
                 datas.push(data)
             }
@@ -467,17 +458,12 @@ exports.removeTask = async (req, res) => {
         let id = req.params.id
 
         let task = await TASK.findById(id)
-        // console.log(task);
         let partitions = await PARTITIONTABLE.find({
             taskId: id
         })
-
-        console.log(partitions);
         let membersRes = []
         if(partitions.length > 0) {
-            console.log(partitions.length);
             for (a of partitions) {
-                console.log(a);
                 membersRes.push(a.userId)
             }
         }
