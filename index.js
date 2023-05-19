@@ -10,7 +10,9 @@ const project = require('./models/project')
 const work = require("./models/work")
 const task = require("./models/task")
 const member = require("./models/member")
+const partitionTable = require('./models/partitionTable')
 const memberWork = require('./models/memberWork')
+const note = require('./models/note')
 
 DOTENV.config({
     path: "./config.env",
@@ -243,41 +245,104 @@ async function addData() {
         workId : work3AmNhac.id
     })
 
-    // let task2Work1AmNhac = await task.create({
-    //     name: "Lựa chọn tiết mục để tập luyện",
-    //     startDay: startTimeW1,
-    //     endDay: endTimeW1,
-    //     startHour: "9:00" ,
-    //     endHour: "10:00",
-    //     workId: work1AmNhac.id,
-    //     members: [uAN3.id, uAN4.id],
-    //     status: false,
-    //     level: 1
-    // })
+    let task1Work1AmNhac = await task.create({
+        name: "Lựa chọn tiết mục để tập luyện",
+        description: "description",
+        startDay: startTimeW1,
+        endDay: endTimeW1,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work1AmNhac.id,
+        status: false,
+        level: 1
+    })
 
-    // let task3Work1AmNhac = await task.create({
-    //     name: "Lựa chọn địa điểm tập luyện",
-    //     startDay: startTimeW1,
-    //     endDay: endTimeW1,
-    //     startHour: "9:00" ,
-    //     endHour: "10:00",
-    //     workId: work1AmNhac.id,
-    //     members: [uAN3.id, uAN4.id],
-    //     status: false,
-    //     level: 1
-    // })
+    let task2Work1AmNhac = await task.create({
+        name: "Lựa chọn địa điểm tập luyện",
+        description: "description",
+        startDay: startTimeW1,
+        endDay: endTimeW1,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work1AmNhac.id,
+        status: false,
+        level: 1
+    })
 
-    // let task4Work1AmNhac = await task.create({
-    //     name: "Lên kế hoạch thời gian tập luyện",
-    //     startDay: startTimeW1,
-    //     endDay: endTimeW1,
-    //     startHour: "9:00" ,
-    //     endHour: "10:00",
-    //     workId: work1AmNhac.id,
-    //     members: [uAN1.id, uAN2.id],
-    //     status: false,
-    //     level: 1
-    // })
+    let task3Work1AmNhac = await task.create({
+        name: "Lựa chọn Thành viên",
+        description: "description",
+        startDay: startTimeW1,
+        endDay: endTimeW1,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work1AmNhac.id,
+        status: false,
+        level: 1
+    })
+
+    let task4Work1AmNhac = await task.create({
+        name: "Lên kế hoạch thời gian tập luyện",
+        description: "description",
+        startDay: startTimeW1,
+        endDay: endTimeW1,
+        startHour: "9:00" ,
+        endHour: "10:00",
+        workId: work1AmNhac.id,
+        status: false,
+        level: 1
+    })
+
+    let partitionTable1 = await partitionTable.create({
+        userId: uAN1.id,
+        number:1,
+        taskId:task1Work1AmNhac.id,
+    })
+
+    let partitionTable2 = await partitionTable.create({
+        userId: uAN2.id,
+        number:1,
+        taskId:task2Work1AmNhac.id,
+    })
+
+    let partitionTable3 = await partitionTable.create({
+        userId: uAN3.id,
+        number:1,
+        taskId:task3Work1AmNhac.id,
+    })
+
+    let partitionTable4 = await partitionTable.create({
+        userId: uAN4.id,
+        number:1,
+        taskId:task4Work1AmNhac.id,
+    })
+
+    let note1 = await note.create({
+        text: "note 1",
+        taskId: task1Work1AmNhac.id,
+        createId: uAN1.id
+    })
+
+    let note2 = await note.create({
+        text: "note 2",
+        taskId: task1Work1AmNhac.id,
+        createId: uAN1.id
+    })
+
+    let note3 = await note.create({
+        text: "note 3",
+        workId: work1AmNhac,
+        createId: uAN1.id
+    })
+
+    let note4 = await note.create({
+        text: "note 4",
+        workId: work2AmNhac,
+        createId: uAN1.id
+    })
+
+
+
 
     // let task1Work2AmNhac = await task.create({
     //     name: "Phân chia các thành viên thành những nhóm nhỏ hơn",
