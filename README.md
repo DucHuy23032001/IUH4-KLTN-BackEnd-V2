@@ -1029,24 +1029,24 @@
     ```json
     [
         {
-            "_id": "645f5e0d6cc2f8ee9a40b886",
-            "name": "ssss",
-            "description": "dđ",
+            "_id": "6467359c0a39f3ea3694d78f",
+            "name": "Lựa chọn địa điểm tập luyện",
+            "description": "description",
             "level": 1,
-            "startDay": "2023-05-07T17:00:00.000Z",
-            "endDay": "2023-05-23T17:00:00.000Z",
-            "startHour": "04:53",
-            "endHour": "04:53",
-            "workId": "645f5c9e16546fb84d14d2ff",
-            "workName": "Công việc 2",
+            "startDay": "2023-06-04T17:00:00.000Z",
+            "endDay": "2023-06-14T17:00:00.000Z",
+            "startHour": "9:00",
+            "endHour": "10:00",
+            "workId": "6467359c0a39f3ea3694d781",
+            "workName": "Chuẩn bị",
             "members": [
                 {
-                    "_id": "645f50b0cad5045a9011bd6a",
+                    "_id": "6467359b0a39f3ea3694d769",
                     "name": "Nguyễn Đức Hùng",
-                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/5.jpg"
                 }
             ],
-            "status": true,
+            "status": false,
             "__v": 0
         }
     ]
@@ -1057,25 +1057,26 @@
     ```json
     [
         {
-            "_id": "645d0cc85d50058b05aff56d",
-            "name": "ddd",
-            "description": "123",
-            "level": 2,
-            "startDay": "2023-05-10T17:00:00.000Z",
-            "endDay": "2023-05-14T17:00:00.000Z",
-            "startHour": "22:41",
-            "endHour": "10:41",
-            "workId": "645bb9e2fb4144361c7698a6",
-            "workName": "RedMiu",
+            "_id": "6467359c0a39f3ea3694d78d",
+            "name": "Lựa chọn tiết mục để tập luyện",
+            "description": "description",
+            "level": 1,
+            "startDay": "2023-06-04T17:00:00.000Z",
+            "endDay": "2023-06-14T17:00:00.000Z",
+            "startHour": "9:00",
+            "endHour": "10:00",
+            "workId": "6467359c0a39f3ea3694d781",
+            "workName": "Chuẩn bị",
             "members": [
                 {
-                    "name": "Nguyễn Việt Nam",
-                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
+                    "_id": "6467359b0a39f3ea3694d765",
+                    "name": "Nguyễn Đức Huy",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/Huy.jpg"
                 }
             ],
             "status": false,
             "__v": 0
-        }
+        },
     ]
     ```
 - getTaskById
@@ -1083,20 +1084,22 @@
     - Reponse
     ```json
     {
-        "_id": "644f0b227803eeb315da8fb3",
-        "name": "Demo",
-        "description": "ffff",
-        "level": 2,
-        "startDay": "2023-04-30T00:00:00.000Z",
-        "endDay": "2023-04-30T00:00:00.000Z",
-        "startHour": "13:01",
-        "endHour": "17:02",
-        "workId": "644a7c32d014f3bd84234e5f",
-        "workName": "RedMiu123",
+        "_id": "6467359c0a39f3ea3694d78f",
+        "name": "Lựa chọn địa điểm tập luyện",
+        "description": "description",
+        "level": 1,
+        "startDay": "2023-06-04T17:00:00.000Z",
+        "endDay": "2023-06-14T17:00:00.000Z",
+        "startHour": "9:00",
+        "endHour": "10:00",
+        "workId": "6467359c0a39f3ea3694d781",
+        "workName": "Chuẩn bị",
         "members": [
-            "6444d8568e1db702b44a3f7b",
-            "6444d8568e1db702b44a3f87",
-            "6444d8568e1db702b44a3f7f"
+            {
+                "_id": "6467359b0a39f3ea3694d769",
+                "name": "Nguyễn Đức Hùng",
+                "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/5.jpg"
+            }
         ],
         "status": false,
         "__v": 0
@@ -1104,82 +1107,209 @@
     ```
 - getTaskByName:
     - Api: **GET**:    https://ptask.cyclic.app/api/tasks/name/:projectId/Task 1 Work 1 ***(:name)***
+                        http://localhost:3000/api/tasks/name/6467359b0a39f3ea3694d773/a
     - Reponse
     ```json
     [
         {
-            "_id": "6447cdb779b011741ccca4ac",
-            "name": "RedMiu123",
-            "startDay": "2023-03-26T00:00:00.000Z",
-            "endDay": "2023-03-26T00:00:00.000Z",
-            "startHour": "20:56",
-            "endHour": "10:58",
-            "workId": "6447cd7ae12c0a9a41b75626",
-            "workName": "RedMiu999",
+            "_id": "6467359c0a39f3ea3694d78d",
+            "name": "Lựa chọn tiết mục để tập luyện",
+            "startDay": "2023-06-04T17:00:00.000Z",
+            "endDay": "2023-06-14T17:00:00.000Z",
+            "startHour": "9:00",
+            "endHour": "10:00",
+            "workId": "6467359c0a39f3ea3694d781",
+            "workName": "Chuẩn bị",
             "members": [
                 {
-                    "name": "Nguyễn Đức Hùng",
-                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
-                },
-                {
+                    "_id": "6467359b0a39f3ea3694d765",
                     "name": "Nguyễn Đức Huy",
-                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
-                },
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/Huy.jpg"
+                }
+            ],
+            "status": false,
+            "level": 1,
+            "createdAt": "2023-05-19T08:38:52.480Z",
+            "updatedAt": "2023-05-19T08:38:52.480Z",
+            "__v": 0
+        },
+        {
+            "_id": "6467359c0a39f3ea3694d78f",
+            "name": "Lựa chọn địa điểm tập luyện",
+            "startDay": "2023-06-04T17:00:00.000Z",
+            "endDay": "2023-06-14T17:00:00.000Z",
+            "startHour": "9:00",
+            "endHour": "10:00",
+            "workId": "6467359c0a39f3ea3694d781",
+            "workName": "Chuẩn bị",
+            "members": [
                 {
+                    "_id": "6467359b0a39f3ea3694d769",
+                    "name": "Nguyễn Đức Hùng",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/5.jpg"
+                }
+            ],
+            "status": false,
+            "level": 1,
+            "createdAt": "2023-05-19T08:38:52.543Z",
+            "updatedAt": "2023-05-19T08:38:52.543Z",
+            "__v": 0
+        },
+        {
+            "_id": "6467359c0a39f3ea3694d791",
+            "name": "Lựa chọn Thành viên",
+            "startDay": "2023-06-04T17:00:00.000Z",
+            "endDay": "2023-06-14T17:00:00.000Z",
+            "startHour": "9:00",
+            "endHour": "10:00",
+            "workId": "6467359c0a39f3ea3694d781",
+            "workName": "Chuẩn bị",
+            "members": [
+                {
+                    "_id": "6467359b0a39f3ea3694d76d",
+                    "name": "Nguyễn Việt Hoàng",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/2.jpg"
+                }
+            ],
+            "status": false,
+            "level": 1,
+            "createdAt": "2023-05-19T08:38:52.600Z",
+            "updatedAt": "2023-05-19T08:38:52.600Z",
+            "__v": 0
+        },
+        {
+            "_id": "6467359c0a39f3ea3694d793",
+            "name": "Lên kế hoạch thời gian tập luyện",
+            "startDay": "2023-06-04T17:00:00.000Z",
+            "endDay": "2023-06-14T17:00:00.000Z",
+            "startHour": "9:00",
+            "endHour": "10:00",
+            "workId": "6467359c0a39f3ea3694d781",
+            "workName": "Chuẩn bị",
+            "members": [
+                {
+                    "_id": "6467359b0a39f3ea3694d771",
                     "name": "Nguyễn Việt Nam",
                     "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png"
                 }
             ],
             "status": false,
             "level": 1,
-            "createdAt": "2023-04-25T12:55:19.547Z",
-            "updatedAt": "2023-04-25T12:55:19.547Z",
+            "createdAt": "2023-05-19T08:38:52.660Z",
+            "updatedAt": "2023-05-19T08:38:52.660Z",
             "__v": 0
         }
     ]
     ```
 - updateTask
-    - Api: **PATCH**:    https://ptask.cyclic.app/api/tasks/update/63f48c272df79e949fe9243b
+    - Api: **PATCH**:    https://ptask.cyclic.app/api/tasks/update/64673b3edb627cc53849f37d
     - Request
     ```json
     {
-        "name":"task test update",
-        "startDay":"03-23-2001",
-        "endDay":"03-23-20100",
+        "name":"Tuyển chọn các thành viên tham gi 2a3",
+        "description": "Tập hợp, tổ chức tuyển chọn thành viên cho đội văn nghệ",
+        "startDay":"06/05/2023",
+        "endDay":"06/12/2023",
         "startHour":"9:00",
-        "description": "description",
         "endHour":"16:00",
-        "userId":"641eb24fbb721b7cdd8cbf25",
-        "level":2,
-        "status": true,
-        "members":[ "641eb24fbb721b7cdd8cbf25"]
+        "status": false,
+        "members":["6467359b0a39f3ea3694d771", "6467359b0a39f3ea3694d76d", "6467359b0a39f3ea3694d769"],
+        "level": 1
     }
     ```
     - Reponse
     ```json
     {
-        "_id": "641eb81187c02b20789b3637",
-        "name": "task test update",
-        "startDay": "2001-03-22T17:00:00.000Z",
-        "endDay": "2010-03-22T17:00:00.000Z",
+        "_id": "64673b3edb627cc53849f37d",
+        "name": "Tuyển chọn các thành viên tham gi 2a3",
+        "description": "Tập hợp, tổ chức tuyển chọn thành viên cho đội văn nghệ",
+        "startDay": "2023-06-04T17:00:00.000Z",
+        "endDay": "2023-06-11T17:00:00.000Z",
         "startHour": "9:00",
         "endHour": "16:00",
-        "workId": "641eb7fc87c02b20789b3633",
         "members": [
-            "641eb24fbb721b7cdd8cbf25"
+            "6467359b0a39f3ea3694d771",
+            "6467359b0a39f3ea3694d76d",
+            "6467359b0a39f3ea3694d769"
         ],
-        "status": true,
-        "description": "description",
-        "level": 2,
-        "__v": 0
+        "level": 1,
+        "status": false,
+        "workId": "6467359c0a39f3ea3694d785"
     }
     ```
 - removeTask
-    - Api: **PATCH**:    http://localhost:3000/api/tasks/63f48c272df79e949fe9243b
+    - Api: **DELETE**:    http://localhost:3000/api/tasks/6467359c0a39f3ea3694d793
     - Reponse
     ```json
     {
-        "_id": "63f48c272df79e949fe9243b"
+        "_id": "6467359c0a39f3ea3694d793",
+        "name": "Lên kế hoạch thời gian tập luyện",
+        "description": "description",
+        "startDay": "2023-06-04T17:00:00.000Z",
+        "endDay": "2023-06-14T17:00:00.000Z",
+        "startHour": "9:00",
+        "endHour": "10:00",
+        "members": [
+            "6467359b0a39f3ea3694d771"
+        ],
+        "level": 1,
+        "status": false,
+        "workId": "6467359c0a39f3ea3694d781"
+    }
+    ```
+- removeMember
+    - Api: **DELETE**:    http://localhost:3000/api/tasks/remove-member/64673b3edb627cc53849f37d
+    - Request
+    ```json
+    {
+        "member" : "6467359b0a39f3ea3694d769"
+    }
+    ```
+    - Reponse
+    ```json
+    {
+        "_id": "64673b3edb627cc53849f37d",
+        "name": "6868",
+        "description": "Tập hợp, tổ chức tuyển chọn thành viên cho đội văn nghệ",
+        "startDay": "2023-06-04T17:00:00.000Z",
+        "endDay": "2023-06-11T17:00:00.000Z",
+        "startHour": "9:00",
+        "endHour": "16:00",
+        "members": [
+            "6467359b0a39f3ea3694d771",
+            "6467359b0a39f3ea3694d76d"
+        ],
+        "level": 1,
+        "status": false,
+        "workId": "6467359c0a39f3ea3694d785"
+    }
+    ```
+- addMember
+    - Api: **POST**:    http://localhost:3000/api/tasks/remove-member/64673b3edb627cc53849f37d
+    - Request
+    ```json
+    {
+        "member" : "6467359b0a39f3ea3694d769"
+    }
+    ```
+    - Reponse
+    ```json
+    {
+        "_id": "64673b3edb627cc53849f37d",
+        "name": "6868",
+        "description": "Tập hợp, tổ chức tuyển chọn thành viên cho đội văn nghệ",
+        "startDay": "2023-06-04T17:00:00.000Z",
+        "endDay": "2023-06-11T17:00:00.000Z",
+        "startHour": "9:00",
+        "endHour": "16:00",
+        "members": [
+            "6467359b0a39f3ea3694d771",
+            "6467359b0a39f3ea3694d76d",
+            "6467359b0a39f3ea3694d769"
+        ],
+        "level": 1,
+        "status": false,
+        "workId": "6467359c0a39f3ea3694d785"
     }
     ```
 - changeStatus
@@ -1187,20 +1317,45 @@
     - Reponse
     ```json
     {
-        "_id": "641eb81187c02b20789b3637",
-        "name": "task test update",
-        "startDay": "2001-03-22T17:00:00.000Z",
-        "endDay": "2010-03-22T17:00:00.000Z",
-        "startHour": "9:00",
-        "endHour": "16:00",
-        "workId": "641eb7fc87c02b20789b3633",
-        "members": [
-            "641eb24fbb721b7cdd8cbf25"
-        ],
-        "status": true,
+        "_id": "6467359c0a39f3ea3694d78d",
+        "name": "Lựa chọn tiết mục để tập luyện",
         "description": "description",
+        "startDay": "2023-06-04T17:00:00.000Z",
+        "endDay": "2023-06-14T17:00:00.000Z",
+        "startHour": "9:00",
+        "endHour": "10:00",
+        "members": [
+            "6467359b0a39f3ea3694d765"
+        ],
         "level": 1,
-        "__v": 0
+        "status": true,
+        "workId": "6467359c0a39f3ea3694d781"
+    }
+    ```
+- changeName
+    - Api: **PATCH**:    http://localhost:3000/api/tasks/change-name/64673b3edb627cc53849f37d
+    - Request 
+    ```json
+    {
+        "name":"6868"
+    }
+    ```
+    - Reponse
+    ```json
+    {
+        "_id": "6467359c0a39f3ea3694d78d",
+        "name": "Lựa chọn tiết mục để tập luyện",
+        "description": "description",
+        "startDay": "2023-06-04T17:00:00.000Z",
+        "endDay": "2023-06-14T17:00:00.000Z",
+        "startHour": "9:00",
+        "endHour": "10:00",
+        "members": [
+            "6467359b0a39f3ea3694d765"
+        ],
+        "level": 1,
+        "status": true,
+        "workId": "6467359c0a39f3ea3694d781"
     }
     ```
 ## Note
