@@ -29,17 +29,12 @@ exports.getAllTeamByIdProject = async (req, res) => {
                     teamId: item.id
                 })
 
-                // console.log(memberWork);
-
-                if ( memberWork.length > 0 ) {
+                if (memberWork.length > 0) {
                     for (m of memberWork) {
-                        console.log(m.workId);
                         let w = await WORK.findById(m.workId)
-                        console.log(w);
                         workNames.push(w.name)
                     }
                 }
-                console.log("workNames" , workNames);
 
                 if (members.length > 0) {
                     for (m2 of members) {
@@ -50,7 +45,6 @@ exports.getAllTeamByIdProject = async (req, res) => {
                         }
                     }
                 }
-                console.log("a");
                 let data = {
                     _id: item._id,
                     teamName: item.teamName,
@@ -58,7 +52,6 @@ exports.getAllTeamByIdProject = async (req, res) => {
                     workName: workNames,
                     leaderId: leaderId
                 }
-                console.log(data);
                 datas.push(data)
             }
         }
@@ -276,12 +269,15 @@ exports.getAllTeamOfUser = async (req, res) => {
             });
             let leaderId
             let listMembers = []
-            for (m of members) {
-                if (m.number == 0) {
-                    leaderId = m.userId
-                }
-                if (m.number == 1) {
-                    listMembers.push(m.userId)
+            console.log(members);
+            if (members.length > 0) {
+                for (m of members) {
+                    if (m.number == 0) {
+                        leaderId = m.userId
+                    }
+                    if (m.number == 1) {
+                        listMembers.push(m.userId)
+                    }
                 }
             }
             let data = {
@@ -393,7 +389,6 @@ exports.getMemberByName = async (req, res) => {
 
         let datas = []
         let allTasks = []
-
         let teamName = []
         let _id
         let position
@@ -409,6 +404,8 @@ exports.getMemberByName = async (req, res) => {
         let teams = await TEAM.find({
             projectId: id
         })
+
+        console.log(teams);
 
         if (works.length > 0) {
             for (i of works) {
@@ -427,8 +424,10 @@ exports.getMemberByName = async (req, res) => {
             let members = await MEMBER.find({
                 teamId: t.id
             })
+            console.log(members);
             for (m of members) {
                 let user = await USER.findById(m.userId)
+                console.log(user);
                 if (user.fullName.toLowerCase().includes(name)) {
                     if (allTasks.length > 0) {
                         for (t of allTasks) {
@@ -478,7 +477,7 @@ exports.getMemberByName = async (req, res) => {
 //done
 exports.createTeam = async (req, res) => {
     try {
-        let { teamName, createId, projectId } = req.body
+        let { teamName, createId, projectId, leaderId, listMembers } = req.body
 
         let team = await TEAM.create({
             teamName: teamName,
@@ -486,21 +485,17 @@ exports.createTeam = async (req, res) => {
             projectId: projectId
         })
 
-
-        let members = await MEMBER.find({
-            teamId: team.id
+        await MEMBER.create({
+            userId: leaderId,
+            teamId: team.id,
+            number: 0
         })
-
-        let listMembers = []
-        let leaderId = null
-
-        if (members.length > 0) {
-            for (m of members) {
-                listMembers.push(m.userId)
-                if (m.number == 0) {
-                    leaderId = m.userId
-                }
-            }
+        for (m of listMembers) {
+            await MEMBER.create({
+                userId: m,
+                teamId: team.id,
+                number: 1
+            })
         }
 
         let data = {
@@ -521,25 +516,138 @@ exports.createTeam = async (req, res) => {
 exports.updateTeam = async (req, res) => {
     try {
         let id = req.params.id
-        let { teamName, createId, projectId } = req.body
-        let team = await TEAM.findByIdAndUpdate(id, {
-            teamName: teamName,
-            createId: createId,
-            projectId: projectId
-        })
+        let { teamName, leaderId, listMembers } = req.body
+
+        let team = await TEAM.findById(id)
+        team.teamName = teamName
+        team.save()
 
         let members = await MEMBER.find({
             teamId: id
         })
 
-        let listMembers = []
-        let leaderId = null
-
         if (members.length > 0) {
-            for (m of members) {
-                listMembers.push(m.userId)
+            if (listMembers.length > 0) {
+                let checkLeader = true
+                let idM = null
+                for (m of members) {
+                    if (m.number == 1) {
+                        let checkMember = true
+                        for (l of listMembers) {
+                            if (m.userId == l) {
+                                checkMember = false
+                            }
+                        }
+                        if (checkMember) {
+                            await MEMBER.deleteOne({ _id: m.id })
+                        }
+                    } else if (m.number == 0) {
+                        if (m.userId == leaderId) {
+                            checkLeader = false
+                        } else {
+                            idM = m.id
+                        }
+                    }
+                }
+                if (checkLeader) {
+                    await MEMBER.deleteOne({ _id: idM })
+                }
+            } else {
+                let checkLeader = true
+                let idM = null
+                for (m of members) {
+                    if (m.number == 1) {
+                        await MEMBER.deleteOne({ _id: m.id })
+                    } else if (m.number == 0) {
+                        if (m.userId == leaderId) {
+                            checkLeader = false
+                        } else {
+                            idM = m.id
+                        }
+                    }
+                }
+                if (checkLeader) {
+                    await MEMBER.deleteOne({ _id: idM })
+                }
+            }
+        }
+
+        let membersAdd = await MEMBER.find({
+            teamId: id
+        })
+
+        if (membersAdd.length > 0) {
+            if (listMembers.length > 0) {
+                for (l of listMembers) {
+                    let checkMember = true
+                    for (m of membersAdd) {
+                        if (m.userId == l && m.number == 1) {
+                            checkMember = false
+                        }
+                    }
+                    if (checkMember) {
+                        await MEMBER.create({
+                            userId: l,
+                            number: 1,
+                            teamId: id
+                        })
+                    }
+                }
+                let checkLeader = true
+                for (m of membersAdd) {
+                    if (m.number == 0) {
+                        checkLeader = false
+                    }
+                }
+                if (checkLeader) {
+                    await MEMBER.create({
+                        userId: leaderId,
+                        number: 0,
+                        teamId: id
+                    })
+                }
+            } else {
+                let checkLeader = true
+                for (m of membersAdd) {
+                    if (m.number == 0) {
+                        checkLeader = false
+                    }
+                }
+                if (checkLeader) {
+                    await MEMBER.create({
+                        userId: leaderId,
+                        number: 0,
+                        teamId: id
+                    })
+                }
+            }
+        } else {
+            for (l of listMembers) {
+                await MEMBER.create({
+                    userId: l,
+                    number: 1,
+                    teamId: id
+                })
+            }
+            await MEMBER.create({
+                userId: leaderId,
+                number: 0,
+                teamId: id
+            })
+        }
+
+        let membersRes = await MEMBER.find({
+            teamId: id
+        })
+        let listMembersRes = []
+        let leaderIdRes = null
+        if (membersRes.length > 0) {
+            for (m of membersRes) {
+                if (m.number == 1) {
+                    listMembersRes.push(m.userId)
+                }
                 if (m.number == 0) {
-                    leaderId = m.userId
+                    leaderIdRes = m.userId
                 }
             }
         }
@@ -548,10 +656,10 @@ exports.updateTeam = async (req, res) => {
             _id: team.id,
             teamName: [team.teamName],
             createId: team.createId,
-            listMembers: listMembers,
-            leaderId: [leaderId],
+            listMembers: listMembersRes,
+            leaderId: leaderIdRes,
             createAt: team.createdAt,
-            projectId: projectId
+            projectId: team.projectId
         }
         return res.status(200).json(data)
     } catch (error) {
@@ -562,14 +670,10 @@ exports.updateTeam = async (req, res) => {
 exports.changeName = async (req, res) => {
     try {
         let id = req.params.id
-        let { newName, createId } = req.body
+        let { teamName } = req.body
         let team = await TEAM.findById(id)
-        if (team.createId != createId) {
-            return res.status(400).json({
-                message: "Only the creator can edit"
-            })
-        }
-        team.teamName = newName
+
+        team.teamName = teamName
         await team.save();
 
         let listMembers = []
@@ -580,7 +684,9 @@ exports.changeName = async (req, res) => {
         })
         if (members.length > 0) {
             for (m of members) {
-                listMembers.push(m.userId)
+                if (m.number == 1) {
+                    listMembers.push(m.userId)
+                }
                 if (m.number == 0) {
                     leaderId = m.userId
                 }
@@ -627,8 +733,11 @@ exports.removeMember = async (req, res) => {
 
         let leaderId = null
         let listMembers = []
-        if (members.length > 0) {
-            for (m of members) {
+        let members2 = await MEMBER.find({
+            teamId: id
+        })
+        if (members2.length > 0) {
+            for (m of members2) {
                 if (m.number == 0) {
                     leaderId = m.userId
                 } else if (m.number == 1) {
@@ -655,23 +764,28 @@ exports.removeMember = async (req, res) => {
 exports.addMember = async (req, res) => {
     try {
         let id = req.params.id
-        let { memberIds, createId } = req.body
-
+        let { memberIds } = req.body
+        console.log(id);
         let team = await TEAM.findById(id)
         let members = await MEMBER.find({
-            teamId: i
+            teamId: id
         })
 
-        for (m of members) {
+        for (j of memberIds) {
             let check = true
-            for (j of memberIds) {
-                if (j == m.userId) {
-                    check = true
-                } else {
-                    check = false
+            for (m of members) {
+                if (m.number == 1) {
+                    if (j == m.userId) {
+                        check = false
+                    }
+                } else if (m.number == 0) {
+                    if (j == m.userId) {
+                        check = false
+                    }
                 }
             }
-            if (!check) {
+            console.log(check);
+            if (check) {
                 await MEMBER.create({
                     teamId: id,
                     userId: j,
@@ -681,7 +795,7 @@ exports.addMember = async (req, res) => {
         }
         let listMembers = []
         let memberRes = await MEMBER.find({
-            teamId: i
+            teamId: id
         })
         for (m of memberRes) {
             if (m.number == 1) {
@@ -709,24 +823,45 @@ exports.addMember = async (req, res) => {
 exports.removeTeamInProject = async (req, res) => {
     try {
         let id = req.params.id
-        let works = await WORK.find({
+        let team = await TEAM.findById(id)
+        let leaderId = null
+        let listMembers = []
+        let members2 = await MEMBER.find({
             teamId: id
         })
-        for (w of works) {
-            await WORK.deleteOne({ _id: w.id });
-
-            let tasks = await TASK.find({
-                workId: w.id
-            })
-            for (t of tasks) {
-                await TASK.deleteOne({ _id: t.id });
-                await PARTITIONTABLE.deleteMany({ taskId: t.id });
+        if (members2.length > 0) {
+            for (m of members2) {
+                if (m.number == 0) {
+                    leaderId = m.userId
+                } else if (m.number == 1) {
+                    listMembers.push(m.userId)
+                }
             }
         }
-        await TEAM.deleteOne({ _id: id });
-        return res.status(200).json({
-            _id: id
+        let data = {
+            _id: team.id,
+            leaderId: leaderId,
+            teamName: team.teamName,
+            listMembers: listMembers,
+            createId: team.createId,
+            createAt: team.createdAt
+        }
+        let memberWork = await MEMBERWORK.find({
+            teamId: id
         })
+        for (m of memberWork) {
+            let tasks = await TASK.find({
+                workId: m.workId
+            })
+            for (t of tasks) {
+                await PARTITIONTABLE.deleteMany({ taskId: t.id });
+            }
+            await MEMBERWORK.deleteOne({ workId: m.workId });
+        }
+        await TEAM.deleteOne({ _id: id });
+        await MEMBER.deleteMany({ teamId: id });
+
+        return res.status(200).json(data)
     } catch (error) {
         return res.status(500).json({ msg: error })
     }
