@@ -774,6 +774,44 @@ exports.removeMember = async (req, res) => {
         return res.status(500).json({ msg: error })
     }
 }
+//done 
+exports.removeMemberIdProject = async (req, res) => {
+    try {
+        let id = req.params.id
+        let { memberId } = req.body
+        let teams = await TEAM.find({
+            projectId: id
+        })
+        if ( teams.length > 0) {
+            for ( t of teams) {
+                let members = await MEMBER.find({
+                    teamId: t.id
+                })
+                console.log(members);
+                if (members.length > 0) {
+                    for (m of members) {
+                        console.log(memberId == m.userId);
+                        if (memberId == m.userId) {
+                            let partitions = await PARTITIONTABLE.find({
+                                userId: memberId
+                            })
+                            console.log(partitions);
+                            if(partitions.length > 0) {
+                                for (p of partitions) {
+                                    await PARTITIONTABLE.deleteOne({ _id: p.id });
+                                }
+                            }
+                            await MEMBER.deleteOne({ _id: m.id });
+                        }
+                    }
+                }
+            }
+        }
+        return res.status(200).json(memberId)
+    } catch (error) {
+        return res.status(500).json({ msg: error })
+    }
+}
 //done
 exports.addMember = async (req, res) => {
     try {
