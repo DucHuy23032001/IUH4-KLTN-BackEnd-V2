@@ -45,7 +45,7 @@ process.on("unhandledRejection", (err) => {
     });
 });
 
-//addData()
+// addData()
 async function addData() {
     let hash = await BCRYPT.hash("123456", 10);
 
