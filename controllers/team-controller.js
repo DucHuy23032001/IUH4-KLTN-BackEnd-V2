@@ -332,7 +332,6 @@ exports.getTeamById = async (req, res) => {
             _id: team.id,
             leaderId: leaderId,
             teamName: team.teamName,
-            listMembers: listMembers,
             createId: team.createId,
             createAt: team.createdAt
         }
