@@ -22,29 +22,20 @@ exports.getNoteByIdTask = async (req, res) => {
             taskId: id
         })
 
-        let partitions = await PARTITIONTABLE.find({
-            taskId: id
-        })
-        let members = []
-        if (partitions.length > 0) {
-            for (p of partitions) {
-                let user = await USER.findById(p.userId)
+        if (notes.length > 0) {
+            for (n of notes) {
+                let user = await USER.findById(n.createId)
                 let info = {
                     _id: user.id,
                     name: user.fullName,
                     avatar: user.avatar
                 }
-                members.push(info)
-            }
-        }
-        if (notes.length > 0) {
-            for (n of notes) {
                 let data = {
                     _id: n.id,
                     text: n.text,
                     taskId: n.taskId,
                     workId: n.workId,
-                    members: members
+                    members: info
                 }
                 datas.push(data)
             }
