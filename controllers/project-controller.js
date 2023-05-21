@@ -54,11 +54,6 @@ exports.getProjectById = async (req, res) => {
         projectId: id
       })
       for (i of teams) {
-        if (i != null) {
-          let members = await MEMBER.find({
-            teamId: i.id
-          })
-        }
         idTeams.push(i.id)
       }
 

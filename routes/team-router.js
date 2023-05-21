@@ -16,7 +16,7 @@ ROUTER.post('/create',teamController.createTeam)
 ROUTER.patch('/:id',teamController.updateTeam)
 ROUTER.patch('/change-name/:id',teamController.changeName)
 ROUTER.patch('/add-member/:id',teamController.addMember)
-ROUTER.patch('/remove-member/:id',teamController.removeMember)
+ROUTER.patch('/remove-member/:id',teamController.removeMemberIdProject)
 
 ROUTER.delete('/:id',teamController.removeTeamInProject)
 
