@@ -6,6 +6,7 @@ const crypto = require('crypto')
 const awsService = require('../services/aws-service')
 const PROJECT = require('../models/project')
 const TEAM = require('../models/user')
+const PARTITIONTABLE = require('../models/partitionTable')
 
 // done
 exports.getAllUser = async (req, res) => {
@@ -96,9 +97,17 @@ exports.getUserByPhone = async (req, res) => {
 exports.getAllUserByTaskId = async (req, res) => {
     try {
         let id = req.params.id
+        let members = []
         let task = await TASK.findById(id)
+        let partitions = await PARTITIONTABLE.find({
+            taskId: id
+        })
+        console.log(partitions);
+        for (p of partitions) {
+            members.push(p.userId)
+        }
         let datas = []
-        for ( i of task.members ) {
+        for ( i of members ) {
             let user = await USER.findById(i)
             if (user) {
                 let data = {
