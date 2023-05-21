@@ -1381,31 +1381,30 @@
     ```json
     [
         {
-            "_id": "6448a6fb6ae435d66e655b58",
-            "text": "Note 1",
-            "taskId": "6447cdb779b011741ccca4ac",
-            "createId": "6444d8568e1db702b44a3f7f",
-            "createdAt": "2023-04-26T04:22:19.277Z",
-            "updatedAt": "2023-04-26T04:22:19.277Z",
-            "__v": 0
+            "_id": "64695a99831e1f5fa1e33507",
+            "text": "note 1",
+            "taskId": "64695a98831e1f5fa1e334f7",
+            "workId": null,
+            "members": [
+                {
+                    "_id": "64695a97831e1f5fa1e334cf",
+                    "name": "Nguyễn Đức Huy",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/Huy.jpg"
+                }
+            ]
         },
         {
-            "_id": "6448a6fd6ae435d66e655b5a",
-            "text": "Note 2",
-            "taskId": "6447cdb779b011741ccca4ac",
-            "createId": "6444d8568e1db702b44a3f7f",
-            "createdAt": "2023-04-26T04:22:21.997Z",
-            "updatedAt": "2023-04-26T04:22:21.997Z",
-            "__v": 0
-        },
-        {
-            "_id": "6448a7016ae435d66e655b5c",
-            "text": "Note 3",
-            "taskId": "6447cdb779b011741ccca4ac",
-            "createId": "6444d8568e1db702b44a3f7f",
-            "createdAt": "2023-04-26T04:22:25.560Z",
-            "updatedAt": "2023-04-26T04:22:25.560Z",
-            "__v": 0
+            "_id": "64695a99831e1f5fa1e33509",
+            "text": "note 2",
+            "taskId": "64695a98831e1f5fa1e334f7",
+            "workId": null,
+            "members": [
+                {
+                    "_id": "64695a97831e1f5fa1e334cf",
+                    "name": "Nguyễn Đức Huy",
+                    "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/Huy.jpg"
+                }
+            ]
         }
     ]
     ```
@@ -1415,34 +1414,15 @@
     ```json
     [
         {
-            "_id": "6448a6fb6ae435d66e655b58",
-            "text": "Note 1",
+            "_id": "64695a99831e1f5fa1e3350d",
+            "text": "note 4",
             "taskId": null,
-            "workId": "6447cdb779b011741ccca4ac",
-            "createId": "6444d8568e1db702b44a3f7f",
-            "createdAt": "2023-04-26T04:22:19.277Z",
-            "updatedAt": "2023-04-26T04:22:19.277Z",
-            "__v": 0
-        },
-        {
-            "_id": "6448a6fd6ae435d66e655b5a",
-            "text": "Note 2",
-            "taskId": null,
-            "workId": "6447cdb779b011741ccca4ac",
-            "createId": "6444d8568e1db702b44a3f7f",
-            "createdAt": "2023-04-26T04:22:21.997Z",
-            "updatedAt": "2023-04-26T04:22:21.997Z",
-            "__v": 0
-        },
-        {
-            "_id": "6448a7016ae435d66e655b5c",
-            "text": "Note 3",
-            "taskId": null,
-            "workId": "6447cdb779b011741ccca4ac",
-            "createId": "6444d8568e1db702b44a3f7f",
-            "createdAt": "2023-04-26T04:22:25.560Z",
-            "updatedAt": "2023-04-26T04:22:25.560Z",
-            "__v": 0
+            "workId": "64695a98831e1f5fa1e334ed",
+            "members": {
+                "_id": "64695a97831e1f5fa1e334cf",
+                "name": "Nguyễn Đức Huy",
+                "avatar": "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/Huy.jpg"
+            }
         }
     ]
     ```

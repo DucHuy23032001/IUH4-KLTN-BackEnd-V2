@@ -93,8 +93,22 @@ exports.getAllMemberByIdProject = async (req, res) => {
                     teamId: t._id
                 })
                 for (m of members) {
-                    let user = await USER.findById(m.userId)
-                    allMembers.push(user)
+                    if (allMembers.length > 0) {
+                        let check = true
+                        for (u of allMembers) {
+                            if (u.id == m.userId) {
+                                console.log(u.id == m.id);
+                                check = false
+                            }
+                        }
+                        if(check){
+                            let user = await USER.findById(m.userId)
+                            allMembers.push(user)
+                        }
+                    } else {
+                        let user = await USER.findById(m.userId)
+                        allMembers.push(user)
+                    }
                 }
             }
 
@@ -316,8 +330,8 @@ exports.getTeamById = async (req, res) => {
         }
         let data = {
             _id: team.id,
-            leaderId: [leaderId],
-            teamName: [team.teamName],
+            leaderId: leaderId,
+            teamName: team.teamName,
             listMembers: listMembers,
             createId: team.createId,
             createAt: team.createdAt
@@ -500,9 +514,9 @@ exports.createTeam = async (req, res) => {
 
         let data = {
             _id: team.id,
-            teamName: [team.teamName],
+            teamName: team.teamName,
             listMembers: listMembers,
-            leaderId: [leaderId],
+            leaderId: leaderId,
             createId: team.createId,
             createAt: team.createdAt,
             projectId: projectId
@@ -654,7 +668,7 @@ exports.updateTeam = async (req, res) => {
 
         let data = {
             _id: team.id,
-            teamName: [team.teamName],
+            teamName: team.teamName,
             createId: team.createId,
             listMembers: listMembersRes,
             leaderId: leaderIdRes,
@@ -695,8 +709,8 @@ exports.changeName = async (req, res) => {
 
         let data = {
             _id: team.id,
-            leaderId: [leaderId],
-            teamName: [team.teamName],
+            leaderId: leaderId,
+            teamName: team.teamName,
             listMembers: listMembers,
             createId: team.createId,
             createAt: team.createdAt
