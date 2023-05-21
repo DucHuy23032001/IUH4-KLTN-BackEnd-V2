@@ -309,21 +309,23 @@ exports.updateTask = async (req, res) => {
             })
         }
 
-        let memberWork = await MEMBERWORK.find({
-            workId: task.workId
+        let partitionDel = await PARTITIONTABLE.find({
+            taskId: id
         })
-
-        let memberOfTeams = []
-        if( memberWork.length > 0) {
-            for ( m of memberWork) {
-                let memberOfTeam = await MEMBER.find({
-                    teamId: m.teamId
-                })
-                for( mem of memberOfTeam) {
-                    memberOfTeams.push(mem)
+        for (p of partitionDel) {
+            let check = true
+            for (m of members) {
+                if (m == p.userId) {
+                    check = false
                 }
             }
+            if(check) {
+                await PARTITIONTABLE.deleteOne({
+                    _id: p.id
+                })
+            }
         }
+
         let partitions = await PARTITIONTABLE.find({
             taskId: id
         })
@@ -340,6 +342,22 @@ exports.updateTask = async (req, res) => {
                     userId: m,
                     taskId: id
                 })
+            }
+        }
+
+        let memberWork = await MEMBERWORK.find({
+            workId: task.workId
+        })
+
+        let memberOfTeams = []
+        if( memberWork.length > 0) {
+            for ( m of memberWork) {
+                let memberOfTeam = await MEMBER.find({
+                    teamId: m.teamId
+                })
+                for( mem of memberOfTeam) {
+                    memberOfTeams.push(mem)
+                }
             }
         }
 
