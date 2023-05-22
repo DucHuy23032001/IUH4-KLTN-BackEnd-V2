@@ -82,7 +82,7 @@ exports.getProjectByName = async (req, res) => {
     let name = req.params.name.toLowerCase()
     let datas = []
     let projects = await PROJECT.find()
-    if (projects.length > 0 ) {
+    if (projects.length > 0) {
       for (p of projects) {
         if (p.name.toLowerCase().includes(name)) {
           let idTeams = []
@@ -148,36 +148,72 @@ exports.getProjectByIdUser = async (req, res) => {
       }
       datas.push(data)
     }
-
-    if( members.length > 0) {
+    if (members.length > 0) {
       for (i of members) {
         let team = await TEAM.findById(i.teamId)
-        let p = await PROJECT.findById(team.projectId)
-        let teams = await TEAM.find({
-          projectId: team.projectId
-        })
-        let idTeams = []
-        if( teams.length > 0) {
-          let teams = await TEAM.find({
-            projectId: p.id
-          })
-          for (i of teams) {
-            idTeams.push(i.id)
+        if (datas.length > 0) {
+          let check = true
+          for (d of datas) {
+            if (d._id == team.projectId) {
+              check = false
+            }
           }
+          if (check) {
+            let p = await PROJECT.findById(team.projectId)
+            let teams = await TEAM.find({
+              projectId: team.projectId
+            })
+            let idTeams = []
+            if (teams.length > 0) {
+              let teams = await TEAM.find({
+                projectId: p.id
+              })
+              for (i of teams) {
+                idTeams.push(i.id)
+              }
+            }
+            let user2 = await USER.findById(p.mainProject)
+            let data = {
+              _id: p.id,
+              name: p.name,
+              startTime: p.startTime,
+              endTime: p.endTime,
+              status: p.status,
+              background: p.background,
+              teamIds: idTeams,
+              mainProject: p.mainProject,
+              mainName: user2.fullName
+            }
+            datas.push(data)
+          }
+        } else {
+          let p = await PROJECT.findById(team.projectId)
+          let teams = await TEAM.find({
+            projectId: team.projectId
+          })
+          let idTeams = []
+          if (teams.length > 0) {
+            let teams = await TEAM.find({
+              projectId: p.id
+            })
+            for (i of teams) {
+              idTeams.push(i.id)
+            }
+          }
+          let user2 = await USER.findById(p.mainProject)
+          let data = {
+            _id: p.id,
+            name: p.name,
+            startTime: p.startTime,
+            endTime: p.endTime,
+            status: p.status,
+            background: p.background,
+            teamIds: idTeams,
+            mainProject: p.mainProject,
+            mainName: user2.fullName
+          }
+          datas.push(data)
         }
-        let user2 = await USER.findById(p.mainProject)
-        let data = {
-          _id: p.id,
-          name: p.name,
-          startTime: p.startTime,
-          endTime: p.endTime,
-          status: p.status,
-          background: p.background,
-          teamIds: idTeams,
-          mainProject: p.mainProject,
-          mainName: user2.fullName
-        }
-        datas.push(data)
       }
     }
     return res.status(200).json(datas)
@@ -219,7 +255,7 @@ exports.updateProject = async (req, res) => {
       projectId: id
     })
     let idTeams = []
-    if( teams.length > 0) {
+    if (teams.length > 0) {
       let teams = await TEAM.find({
         projectId: p.id
       })
@@ -281,7 +317,7 @@ exports.createProject = async (req, res) => {
       projectId: project.id
     })
     console.log(teams);
-    if (teams.length > 0){
+    if (teams.length > 0) {
       for (i of teams) {
         idTeams.push(i.id)
       }
@@ -311,22 +347,22 @@ exports.removeProject = async (req, res) => {
     let id = req.params.id
     await PROJECT.deleteOne({ _id: id });
     let works = await WORK.find({ projectId: id })
-    
+
     let teams = await TEAM.find({
       projectId: id
     })
 
-    for ( t of teams) {
-      await MEMBER.deleteMany({ teamId : t.id });
+    for (t of teams) {
+      await MEMBER.deleteMany({ teamId: t.id });
     }
     await TEAM.deleteMany({ projectId: id });
 
     for (i of works) {
       await WORK.deleteOne({ _id: i.id });
       let task = await TASK.find({
-        workId : i.id
+        workId: i.id
       })
-      for ( t of task) {
+      for (t of task) {
         await NOTE.deleteMany({ taskId: t.id });
       }
       await TASK.deleteMany({ workId: i.id });
