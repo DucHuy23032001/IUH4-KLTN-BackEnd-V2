@@ -21,9 +21,10 @@ exports.getNoteByIdTask = async (req, res) => {
         let notes = await NOTE.find({
             taskId: id
         })
-
+        // console.log(notes);
         if (notes.length > 0) {
             for (n of notes) {
+                console.log(n.createId);
                 let user = await USER.findById(n.createId)
                 let info = {
                     _id: user.id,
