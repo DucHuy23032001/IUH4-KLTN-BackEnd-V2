@@ -164,12 +164,15 @@ exports.getTaskByName = async (req, res) => {
                 allTask.push(t)
             }
         }
+        // console.log(allTask);
         for (i of allTask) {
+            // console.log(i.name.toLowerCase().includes(name));
             if (i.name.toLowerCase().includes(name)) {
                 let members = []
                 let partitions = await PARTITIONTABLE.find({
                     taskId: i.id
                 })
+                // console.log("partitions", partitions);
                 for (p of partitions) {
                     let user = await USER.findById(p.userId)
                     let info = {
@@ -180,8 +183,9 @@ exports.getTaskByName = async (req, res) => {
                     members.push(info)
                 }
                 let work = await WORK.findById(i.workId)
+                // console.log(work);
                 let data = {
-                    _id: i._id,
+                    _id: i.id,
                     name: i.name,
                     description: i.description,
                     level: i.level,
@@ -192,8 +196,9 @@ exports.getTaskByName = async (req, res) => {
                     workId: work.id,
                     workName: work.name,
                     members: members,
-                    status: tasks.status,
+                    status: i.status,
                 }
+                // console.log(data);
                 datas.push(data)
             }
         }
