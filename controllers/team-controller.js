@@ -97,11 +97,10 @@ exports.getAllMemberByIdProject = async (req, res) => {
                         let check = true
                         for (u of allMembers) {
                             if (u.id == m.userId) {
-                                console.log(u.id == m.id);
                                 check = false
                             }
                         }
-                        if(check){
+                        if (check) {
                             let user = await USER.findById(m.userId)
                             allMembers.push(user)
                         }
@@ -111,7 +110,6 @@ exports.getAllMemberByIdProject = async (req, res) => {
                     }
                 }
             }
-
         }
         if (allMembers.length > 0) {
             for (u of allMembers) {
@@ -401,24 +399,40 @@ exports.getMemberByName = async (req, res) => {
         let name = req.params.name.toLowerCase()
 
         let datas = []
+        let allMembers = []
         let allTasks = []
-        let teamName = []
-        let _id
-        let position
-        let nameRes
-        let avatar
         let id = req.params.id
-        let tasks = []
 
         let works = await WORK.find({
             projectId: id
         })
-
         let teams = await TEAM.find({
             projectId: id
         })
-
-        console.log(teams);
+        if (teams.length > 0) {
+            for (t of teams) {
+                let members = await MEMBER.find({
+                    teamId: t._id
+                })
+                for (m of members) {
+                    if (allMembers.length > 0) {
+                        let check = true
+                        for (u of allMembers) {
+                            if (u.id == m.userId) {
+                                check = false
+                            }
+                        }
+                        if (check) {
+                            let user = await USER.findById(m.userId)
+                            allMembers.push(user)
+                        }
+                    } else {
+                        let user = await USER.findById(m.userId)
+                        allMembers.push(user)
+                    }
+                }
+            }
+        }
 
         if (works.length > 0) {
             for (i of works) {
@@ -433,55 +447,77 @@ exports.getMemberByName = async (req, res) => {
             }
         }
 
-        for (t of teams) {
-            let members = await MEMBER.find({
-                teamId: t.id
-            })
-            console.log(members);
-            for (m of members) {
-                let user = await USER.findById(m.userId)
-                console.log(user);
-                if (user.fullName.toLowerCase().includes(name)) {
-                    if (allTasks.length > 0) {
-                        for (t of allTasks) {
-                            let partitions = await PARTITIONTABLE.find({
-                                taskId: t.id
-                            })
-                            for (p of partitions) {
-                                if (p.userId == m.userId) {
-                                    tasks.push(t.name)
+        for (m of allMembers) {
+            let user = await USER.findById(m.id)
+            if (user.fullName.toLowerCase().includes(name)) {
+                if (allTasks.length > 0) {
+                    let tasks = []
+                    let teamName = []
+                    let position = null
+                    for (a of allTasks) {
+                        let partitions = await PARTITIONTABLE.find({
+                            taskId: a.id
+                        })
+                        for (p of partitions) {
+                            if (p.userId == m.id) {
+                                tasks.push(a.name)
+                            }
+                        }
+                    }
+                    for (t of teams) {
+                        let members = await MEMBER.find({
+                            teamId: t.id
+                        })
+                        for (mem of members) {
+                            if (mem.userId == m.id) {
+                                teamName.push(t.teamName)
+                                if (mem.number == 0) {
+                                    position = "Leader"
+                                } else if (mem.number == 1) {
+                                    position = "Member"
                                 }
                             }
                         }
                     }
-                    if (m.number == 0) {
-                        teamName.push(t.teamName)
-                        _id = user._id
-                        position = "Leader"
-                        nameRes = user.fullName
-                        avatar = user.avatar
-                        task = tasks
-                    } else if (m.number == 1) {
-                        teamName.push(t.teamName)
-                        _id = user._id
-                        position = "Member"
-                        nameRes = user.fullName
-                        avatar = user.avatar
-                        task = tasks
+                    let data = {
+                        _id: user.id,
+                        teamName: teamName,
+                        position: position,
+                        name: user.fullName,
+                        avatar: user.avatar,
+                        task: tasks
                     }
+                    datas.push(data)
+                } else {
+                    let teamName = []
+                    let position = null
+                    for (t of teams) {
+                        let members = await MEMBER.find({
+                            teamId: t.id
+                        })
+                        for (mem of members) {
+                            if (mem.userId == m.id) {
+                                teamName.push(t.teamName)
+                                if (mem.number == 0) {
+                                    position = "Leader"
+                                } else if (mem.number == 1) {
+                                    position = "Member"
+                                }
+                            }
+                        }
+                    }
+                    let data = {
+                        _id: user.id,
+                        teamName: teamName,
+                        position: position,
+                        name: user.fullName,
+                        avatar: user.avatar,
+                        task: []
+                    }
+                    datas.push(data)
                 }
             }
-
         }
-        let item = {
-            _id: _id,
-            teamName: [teamName],
-            position: position,
-            name: nameRes,
-            avatar: avatar,
-            task: tasks
-        }
-        datas.push(item)
         return res.status(200).json(datas);
     } catch (error) {
         return res.status(500).json({ msg: error });
@@ -781,8 +817,8 @@ exports.removeMemberIdProject = async (req, res) => {
         let teams = await TEAM.find({
             projectId: id
         })
-        if ( teams.length > 0) {
-            for ( t of teams) {
+        if (teams.length > 0) {
+            for (t of teams) {
                 let members = await MEMBER.find({
                     teamId: t.id
                 })
@@ -795,7 +831,7 @@ exports.removeMemberIdProject = async (req, res) => {
                                 userId: memberId
                             })
                             console.log(partitions);
-                            if(partitions.length > 0) {
+                            if (partitions.length > 0) {
                                 for (p of partitions) {
                                     await PARTITIONTABLE.deleteOne({ _id: p.id });
                                 }
