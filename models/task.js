@@ -20,11 +20,9 @@ const taskSchema = new SCHEMA(
         },
         startHour: {
             type: String,
-            require: [true, "Please fill start Hour of task!"]
         },
         endHour: {
             type: String,
-            require: [true, "Please fill end Hour of task!"]
         },
         workId: {
             type: SCHEMA.Types.ObjectId,

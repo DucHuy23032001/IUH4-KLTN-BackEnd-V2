@@ -51,7 +51,7 @@ async function addData() {
 
     // User Main
     let aMainProject = await account.create({
-        email: "main@gmail.com",
+        email: "nghia@gmail.com",
         password: hash,
     })
     let uMainProject = await user.create({
@@ -67,7 +67,7 @@ async function addData() {
 
     // Team Âm nhạc
     let aLeaderTeamAN = await account.create({
-        email: "aLeaderTeamAN@gmail.com",
+        email: "phuong@gmail.com",
         password: hash,
     })
     let uLeaderTeamAN = await user.create({
@@ -82,7 +82,7 @@ async function addData() {
     })
 
     let aAN1 = await account.create({
-        email: "aAN1@gmail.com",
+        email: "huy@gmail.com",
         password: hash,
     })
     let uAN1 = await user.create({
@@ -97,7 +97,7 @@ async function addData() {
     })
 
     let aAN2 = await account.create({
-        email: "aAN2@gmail.com",
+        email: "hung@gmail.com",
         password: hash,
     })
     let uAN2 = await user.create({
@@ -112,7 +112,7 @@ async function addData() {
     })
 
     let aAN3 = await account.create({
-        email: "aAN3@gmail.com",
+        email: "hoang@gmail.com",
         password: hash,
     })
     let uAN3 = await user.create({
@@ -127,7 +127,7 @@ async function addData() {
     })
 
     let aAN4 = await account.create({
-        email: "aAN4@gmail.com",
+        email: "nam@gmail.com",
         password: hash,
     })
     let uAN4 = await user.create({
@@ -139,6 +139,51 @@ async function addData() {
         status: true,
         avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/avatar-nam.png",
         accountId: aAN4.id
+    })
+
+    let aAN5 = await account.create({
+        email: "lanphuong@gmail.com",
+        password: hash,
+    })
+    let uAN5 = await user.create({
+        fullName: "Nguyễn Lan Phương",
+        birthday: "02/12/1998",
+        address: "Diễn Yên, Diễn Châu, Nghệ An",
+        phoneNumber: "0879278888",
+        gender: 1,
+        status: true,
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/phuong.jpg",
+        accountId: aAN5.id
+    })
+
+    let aAN6 = await account.create({
+        email: "thao@gmail.com",
+        password: hash,
+    })
+    let uAN6 = await user.create({
+        fullName: "Nguyễn Phương Thảo",
+        birthday: "04/25/1999",
+        address: "Diễn Phong, Diễn Châu, Nghệ An",
+        phoneNumber: "0348858989",
+        gender: 1,
+        status: true,
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/phuong2.jpg",
+        accountId: aAN6.id
+    })
+
+    let aAN7 = await account.create({
+        email: "chau@gmail.com",
+        password: hash,
+    })
+    let uAN7 = await user.create({
+        fullName: "Đàm Bảo Hàng Châu",
+        birthday: "10/12/1997",
+        address: "Chung cư Eco Green, Quận 7, Tp Hồ Chí Minh",
+        phoneNumber: "0342758342",
+        gender: 1,
+        status: true,
+        avatar: "https://iuh4kltn.s3.ap-southeast-1.amazonaws.com/tam.jpg",
+        accountId: aAN7.id
     })
 
     let start = MOMENT("06/05/2023", "MM-DD-YYYY")
